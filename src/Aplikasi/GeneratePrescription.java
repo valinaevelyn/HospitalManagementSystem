@@ -110,7 +110,7 @@ public class GeneratePrescription extends JFrame implements ActionListener{
 
         if(obj.equals(btn_submit)){
             String name = txt_name.getName();
-            JOptionPane.showMessageDialog(null, "Prescription has been generated for "+name);
+            JOptionPane.showMessageDialog(null, "Prescription has been generated for "+name + ".);
         }
     }
 
