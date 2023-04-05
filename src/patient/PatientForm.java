@@ -1,4 +1,4 @@
-package Aplikasi;
+package patient;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -31,7 +31,7 @@ import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
 
-public class MainForm extends JFrame implements ActionListener{
+public class PatientForm extends JFrame implements ActionListener{
 	private Font font_title = new Font(Font.SERIF, Font.BOLD, 24);
 	
 	private JPanel panel_north = new JPanel();
@@ -223,14 +223,14 @@ public class MainForm extends JFrame implements ActionListener{
 		setResizable(false);
 	}
 	
-	public MainForm() {
+	public PatientForm() {
 		initComponent();
 		load_patient_data();
 		load_table_patient();
 	}
 	
 	public static void main(String[] args) {
-		new MainForm();
+		new PatientForm();
 	}
 
 	@Override

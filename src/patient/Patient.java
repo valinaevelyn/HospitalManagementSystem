@@ -1,4 +1,4 @@
-package Aplikasi;
+package patient;
 
 public class Patient {
 	private String id;
