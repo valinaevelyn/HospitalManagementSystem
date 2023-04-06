@@ -1,0 +1,6 @@
+1#5#Available
+2#10#Non-Available
+3#2#Available
+4#3#Available
+5#1#Non-Available
+6#8#Available

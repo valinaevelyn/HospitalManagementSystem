@@ -13,7 +13,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
-public class Prescription extends JFrame implements ActionListener{
+public class PrescriptionForm extends JFrame implements ActionListener{
 
     private Font font_title = new Font(Font.SANS_SERIF, Font.BOLD, 24);
 
@@ -25,8 +25,18 @@ public class Prescription extends JFrame implements ActionListener{
     private JPanel panel_center = new JPanel();
     private JPanel panel_center_frame = new JPanel();
     private JPanel panel_center_frame1 = new JPanel();
+    private JPanel panel_center_frame3 = new JPanel();
+    private JPanel panel_center_frame4 = new JPanel();
+    private JPanel panel_center_frame5 = new JPanel();
+    private JPanel panel_center_frame6 = new JPanel();
+    private JPanel panel_center_frame7 = new JPanel();
     private JPanel panel_space_center1 = new JPanel();
     private JPanel panel_space_center2 = new JPanel();
+    private JPanel panel_space_center3 = new JPanel();
+    private JPanel panel_space_center4 = new JPanel();
+    private JPanel panel_space_center5 = new JPanel();
+    private JPanel panel_space_center6 = new JPanel();
+    private JPanel panel_space_center7 = new JPanel();
     private JTextField txt_id = new JTextField();
     private JTextField txt_name = new JTextField();
     private JTextField txt_diagnosis = new JTextField();
@@ -60,26 +70,46 @@ public class Prescription extends JFrame implements ActionListener{
         // Row 1
         panel_center.add(new JLabel("ID"));
         panel_center.add(txt_id);
+
+        panel_center_frame3.setLayout(new BorderLayout());
+        panel_center_frame3.add(panel_space_center3, "Center");
+        add(panel_center_frame3, BorderLayout.CENTER);
         add(panel_center);
 
         // Row 2
         panel_center.add(new JLabel("Name"));
         panel_center.add(txt_name);
+
+        panel_center_frame4.setLayout(new BorderLayout());
+        panel_center_frame4.add(panel_space_center4, "Center");
+        add(panel_center_frame4, BorderLayout.CENTER);
         add(panel_center);
 
         // Row 3
         panel_center.add(new JLabel("Diagnosis"));
         panel_center.add(txt_diagnosis);
+
+        panel_center_frame5.setLayout(new BorderLayout());
+        panel_center_frame5.add(panel_space_center5, "Center");
+        add(panel_center_frame5, BorderLayout.CENTER);
         add(panel_center);
 
         // Row 4
         panel_center.add(new JLabel("Medication"));
         panel_center.add(txt_medication);
+
+        panel_center_frame6.setLayout(new BorderLayout());
+        panel_center_frame6.add(panel_space_center6, "Center");
+        add(panel_center_frame6, BorderLayout.CENTER);
         add(panel_center);
 
         // Row 5
         panel_center.add(new JLabel("Price (in $)"));
         panel_center.add(txt_price);
+
+        panel_center_frame7.setLayout(new BorderLayout());
+        panel_center_frame7.add(panel_space_center7, "Center");
+        add(panel_center_frame7, BorderLayout.CENTER);
         add(panel_center);
 
         // Footer 
@@ -95,12 +125,12 @@ public class Prescription extends JFrame implements ActionListener{
         setVisible(true);
     }
 
-    public Prescription() {
+    public PrescriptionForm() {
         init_components();
     }
 
     public static void main(String[] args) {
-        new Prescription();
+        new PrescriptionForm();
     }
 
     @Override
@@ -111,8 +141,8 @@ public class Prescription extends JFrame implements ActionListener{
         Object obj = e.getSource();
 
         if(obj.equals(btn_submit)){
-            String name = txt_name.getName();
-            JOptionPane.showMessageDialog(null, "Prescription has been generated for "+name + ".");
+            String name = txt_name.getText();
+            JOptionPane.showMessageDialog(null, "Prescription has been generated for "+name +".");
         }
     }
 

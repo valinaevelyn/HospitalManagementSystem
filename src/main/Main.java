@@ -34,7 +34,6 @@ public class Main extends JFrame implements ActionListener{
 		menuFile.add(menuItemFileLogin);
 		
 		menuBar.add(menuOption);
-		
 		setJMenuBar(menuBar);
 		
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
