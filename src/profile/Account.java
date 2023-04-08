@@ -1,17 +1,21 @@
 package profile;
 
+import java.awt.AlphaComposite;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.FlowLayout;
 import java.awt.Font;
+import java.awt.Graphics2D;
 import java.awt.GridBagLayout;
 import java.awt.GridLayout;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.image.BufferedImage;
 
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
+import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -20,6 +24,8 @@ public class Account extends JFrame implements ActionListener{
 	private Font font_title = new Font(Font.SERIF, Font.BOLD, 24);
 	
 	private JPanel panel_north = new JPanel();
+	private JPanel panel_north_frame = new JPanel();
+	private JPanel panel_north_space = new JPanel();
 	private JLabel lbl_title = new JLabel("ACCOUNT PROFILE");
 	
 	private JPanel panel_left = new JPanel();
@@ -39,20 +45,46 @@ public class Account extends JFrame implements ActionListener{
 	private JLabel lbl_isi_role = new JLabel("    Patient");
 	
 	private JPanel panel_south = new JPanel();
+	private JPanel panel_south_frame = new JPanel();
+	private JPanel panel_south_btn = new JPanel();
+	private JPanel panel_south_space = new JPanel();
+	private JButton btn_back = new JButton("Back");
+	
+	private BufferedImage roundImage(Image image) {
+	    int diameter = Math.min(image.getWidth(null), image.getHeight(null));
+	    BufferedImage mask = new BufferedImage(image.getWidth(null), image.getHeight(null), BufferedImage.TYPE_INT_ARGB);
+	    Graphics2D g2d = mask.createGraphics();
+	    g2d.fillOval(0, 0, diameter, diameter);
+	    g2d.dispose();
+	    
+	    BufferedImage masked = new BufferedImage(diameter, diameter, BufferedImage.TYPE_INT_ARGB);
+	    g2d = masked.createGraphics();
+	    int x = (diameter - image.getWidth(null)) / 2;
+	    int y = (diameter - image.getHeight(null)) / 2;
+	    g2d.drawImage(image, x, y, null);
+	    g2d.setComposite(AlphaComposite.getInstance(AlphaComposite.DST_IN));
+	    g2d.drawImage(mask, 0, 0, null);
+	    g2d.dispose();
+	    
+	    return masked;
+	}
 	
 	public void initComponent() {
 		setLayout(new BorderLayout());
 		
+		panel_north_frame.setLayout(new BorderLayout());
 		panel_north.setLayout(new FlowLayout());
 		panel_north.add(lbl_title);
 		lbl_title.setFont(font_title);
-		add(panel_north, "North");
+		panel_north_frame.add(panel_north, "Center");
+		panel_north_frame.add(panel_north_space, "South");
+		add(panel_north_frame, "North");
 		
 		panel_center.setLayout(new GridLayout(1, 2));
 		ImageIcon profile = new ImageIcon(getClass().getResource("ten.jpg"));
 		Image image = profile.getImage();
-		Image newImage = image.getScaledInstance(200, 200, Image.SCALE_DEFAULT);
-		ImageIcon newProfile = new ImageIcon(newImage);
+		Image roundedImage = roundImage(image);
+		ImageIcon newProfile = new ImageIcon(roundedImage.getScaledInstance(200, 200, Image.SCALE_DEFAULT));
 		JLabel label_profile = new JLabel(newProfile, JLabel.CENTER);
 		panel_center_kiri.add(label_profile);
 		panel_center.add(panel_center_kiri);
@@ -81,11 +113,20 @@ public class Account extends JFrame implements ActionListener{
 		add(panel_center, "Center");
 		
 		
+		panel_south.setLayout(new BorderLayout());
+		
+		panel_south.add(panel_south_frame, "North");
+		
+		panel_south_btn.setLayout(new FlowLayout());
+		panel_south_btn.add(btn_back);
+		panel_south.add(panel_south_btn, "Center");
+		
+		panel_south.add(panel_south_space, "South"); 
 		
 		add(panel_south, "South");
 		
 		setVisible(true);
-		setSize(700, 300);
+		setSize(550, 350);
 		setResizable(false);
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		setLocationRelativeTo(null);
@@ -102,7 +143,6 @@ public class Account extends JFrame implements ActionListener{
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		// TODO Auto-generated method stub
-		
 	}
 
 }
