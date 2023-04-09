@@ -6,13 +6,23 @@ import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.util.ArrayList;
+import java.util.Scanner;
+
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
+import javax.swing.table.DefaultTableModel;
+
+import patient.Patient;
 
 public class AppointmentForm extends JFrame implements ActionListener{
     
@@ -21,8 +31,18 @@ public class AppointmentForm extends JFrame implements ActionListener{
     // Header
     private JPanel panel_north = new JPanel();
     private JLabel lbl_makeAppointment = new JLabel("MAKE APPOINTMENT");
-
+	private JPanel panel_space_north = new JPanel();
+	private JPanel panel_space_north2 = new JPanel();
+	private JPanel panel_north_table = new JPanel();
+	
     // Component
+    private JPanel panel_left = new JPanel();
+    private JPanel panel_right = new JPanel();
+    
+    private JTable table_appointment;
+    private JScrollPane scrollpane_table_appointment;
+    private DefaultTableModel dtm_table_appointment;
+    
     private JPanel panel_center = new JPanel();
     private JPanel panel_center_frame = new JPanel();
     private JPanel panel_center_frame1 = new JPanel();
@@ -43,23 +63,79 @@ public class AppointmentForm extends JFrame implements ActionListener{
     private JButton btn_save = new JButton("SAVE");
     private JButton btn_cancel = new JButton("CANCEL");
 
+    private ArrayList<Appointment> appointments = new ArrayList<Appointment>();
+    
+    public void load_appointment_data() {
+    	File file = new File("src/database/appointment.txt");
+		try {
+			Scanner scan = new Scanner(file);
+			String[] raw;
+			String id;
+			String name;
+			String complaint;
+			String date;
+			String time;
+			String doctorName;
+			
+			while(scan.hasNextLine()) {
+				raw = scan.nextLine().split("#");
+				id = raw[0];
+				name = raw[1];
+				complaint = raw[2];
+				date = raw[3];
+				time = raw[4];
+				doctorName = raw[5];
+				
+//				appointments.add
+			}
+			
+		} catch (FileNotFoundException e) {
+			JOptionPane.showMessageDialog(null, e.getMessage());
+		}
+    }
+    
+    public void load_table_appointment() {
+		String[] column = {"ID", "Name", "Complaints", "Date", "Time", "Doctor Name"};
+		dtm_table_appointment = new DefaultTableModel(column, 0);
+		
+		for(Appointment app: appointments) {
+			String id = app.getId();
+			String name = app.getPatient().getName();
+			String complaints = app.getComplaint();
+			String date = app.getDate();
+			String time = app.getTime();
+			String doctorName = app.getDoctor().getName();
+			
+			Object[] row = {id, name, complaints, date, time, doctorName};
+			dtm_table_appointment.addRow(row);
+		}
+		table_appointment.setModel(dtm_table_appointment); 
+    }
+    
     void init_components(){
         setLayout(new BorderLayout());
 
-        // Header
-        panel_south.setLayout(new BorderLayout());
-        lbl_makeAppointment.setFont(font_title);
-        panel_north.add(lbl_makeAppointment, "North");
-        add(panel_north, BorderLayout.NORTH);
-
-        panel_center_frame1.setLayout(new BorderLayout());
-        panel_center_frame1.add(panel_space_center2);
-        add(panel_center_frame1, BorderLayout.EAST);
+		//Header
+		panel_north.setLayout(new BorderLayout());
+		panel_north.add(lbl_makeAppointment, "North");
+		lbl_makeAppointment.setFont(font_title);
+		lbl_makeAppointment.setHorizontalAlignment(JLabel.CENTER);
+		panel_north.add(panel_space_north, "Center");
+		
+		panel_north_table.setLayout(new BorderLayout());
+		
+		
+		// Table
+		table_appointment = new JTable();
+		scrollpane_table_appointment = new JScrollPane(table_appointment);
+		panel_north_table.add(scrollpane_table_appointment, "North");
+		panel_north_table.add(panel_space_north2,"South");
+		panel_north.add(panel_north_table, "South");
+		
+		add(panel_north, "North");
+		add(panel_left, "West");
+		add(panel_right, "East");
         
-        panel_center_frame.setLayout(new BorderLayout());
-        panel_center_frame.add(panel_space_center1);
-        add(panel_center_frame, BorderLayout.WEST);
-
         // Content
         panel_center.setLayout(new GridLayout(6, 2));
 
@@ -111,7 +187,7 @@ public class AppointmentForm extends JFrame implements ActionListener{
 
         setTitle("Make Appointment");
         setDefaultCloseOperation(EXIT_ON_CLOSE);
-        setSize(500, 320);
+        setSize(1000, 690);
         setLocationRelativeTo(null);
         setVisible(true);
         setResizable(false);
@@ -119,6 +195,7 @@ public class AppointmentForm extends JFrame implements ActionListener{
 
     public AppointmentForm() {
         init_components();
+        load_table_appointment();
     }
     
     public static void main(String[] args) {
