@@ -1,7 +1,12 @@
 package hospitalFrame;
 
+
+
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowListener;
+
 import javax.swing.JDesktopPane;
 import javax.swing.JFrame;
 import javax.swing.JMenu;
@@ -9,7 +14,7 @@ import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JSeparator;
 
-public class HospitalFrame extends JFrame implements ActionListener{
+public class HospitalFrame extends JFrame implements ActionListener, WindowListener{
 
     private JMenuBar menuBar = new JMenuBar();
 
@@ -229,5 +234,46 @@ public class HospitalFrame extends JFrame implements ActionListener{
         if(e.getSource().equals(menuItemView3)){
             
         }
+    }
+
+    @Override
+    public void windowOpened(WindowEvent e) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'windowOpened'");
+    }
+
+    @Override
+    public void windowClosing(WindowEvent e) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'windowClosing'");
+    }
+
+    @Override
+    public void windowClosed(WindowEvent e) {
+        new HospitalFrame().setVisible(true);
+    }
+
+    @Override
+    public void windowIconified(WindowEvent e) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'windowIconified'");
+    }
+
+    @Override
+    public void windowDeiconified(WindowEvent e) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'windowDeiconified'");
+    }
+
+    @Override
+    public void windowActivated(WindowEvent e) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'windowActivated'");
+    }
+
+    @Override
+    public void windowDeactivated(WindowEvent e) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'windowDeactivated'");
     }
 }
