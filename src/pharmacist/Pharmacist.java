@@ -1,19 +1,15 @@
-package doctor;
-public class Doctor {
+package pharmacist;
+public class Pharmacist {
 	private String id;
 	private String name;
 	private int age;
 	private String address;
 	private String phoneNumber;
 	private String gender;
-	private String specialization;
+	private int experience;
 	
-	public Doctor() {
-		// TODO Auto-generated constructor stub
-	}
-
-	public Doctor(String id, String name, int age, String address, String phoneNumber, String gender,
-			String specialization) {
+	public Pharmacist(String id, String name, int age, String address, String phoneNumber, String gender,
+			int experience) {
 		super();
 		this.id = id;
 		this.name = name;
@@ -21,7 +17,7 @@ public class Doctor {
 		this.address = address;
 		this.phoneNumber = phoneNumber;
 		this.gender = gender;
-		this.specialization = specialization;
+		this.experience = experience;
 	}
 
 	public String getId() {
@@ -72,12 +68,13 @@ public class Doctor {
 		this.gender = gender;
 	}
 
-	public String getSpecialization() {
-		return specialization;
+	public int getExperience() {
+		return experience;
 	}
 
-	public void setSpecialization(String specialization) {
-		this.specialization = specialization;
+	public void setExperience(int experience) {
+		this.experience = experience;
 	}
-	 
+	
+	
 }

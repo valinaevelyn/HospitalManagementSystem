@@ -1,52 +1,55 @@
 package room;
 
 public class Room {
-	private int number;
-	private boolean status = false;
-	private int capacity;
+	private String number;
+	private String type;
+	private int duration;
+	private double charge;
 	
 	public Room() {
 		// TODO Auto-generated constructor stub
 	}
 
-	public Room(int number, boolean status, int capacity) {
+
+	public Room(String number, String type, int duration, double charge) {
 		super();
 		this.number = number;
-		this.status = status;
-		this.capacity = capacity;
-	}
-	
-	public String checkRoomStatus() {
-		if(status == false) {
-			return "Non-Available";
-		}
-		
-		return "Available";
+		this.type = type;
+		this.duration = duration;
+		this.charge = charge;
 	}
 
-	public int getNumber() {
+
+	public String getNumber() {
 		return number;
 	}
 
-	public void setNumber(int number) {
+	public void setNumber(String number) {
 		this.number = number;
 	}
 
-	public boolean isStatus() {
-		return status;
+	public String getType() {
+		return type;
 	}
 
-	public void setStatus(boolean status) {
-		this.status = status;
+	public void setType(String type) {
+		this.type = type;
 	}
 
-	public int getCapacity() {
-		return capacity;
+	public double getCharge() {
+		return charge;
 	}
 
-	public void setCapacity(int capacity) {
-		this.capacity = capacity;
+	public void setCharge(double charge) {
+		this.charge = charge;
 	}
-	
-	
+
+	public int getDuration() {
+		return duration;
+	}
+
+	public void setDuration(int duration) {
+		this.duration = duration;
+	}
+		
 }
