@@ -1,6 +1,6 @@
 package hospitalFrame;
 
-
+import appointment.AppointmentForm;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -51,7 +51,7 @@ public class HospitalFrame extends JFrame implements ActionListener, WindowListe
     private JMenuItem menuItemView3 = new JMenuItem("Room");
 
     private LoginForm loginForm;
-    private MakeAppointmentForm makeAppointmentForm;
+    private AppointmentForm makeAppointmentForm;
     private JDesktopPane jdPane = new JDesktopPane();
 
     public HospitalFrame(){
@@ -194,7 +194,7 @@ public class HospitalFrame extends JFrame implements ActionListener, WindowListe
 
         if(e.getSource().equals(menuAppointment1)){
             if (makeAppointmentForm == null) {
-                makeAppointmentForm = new MakeAppointmentForm(this); 
+                makeAppointmentForm = new AppointmentForm(); 
                 jdPane.add(makeAppointmentForm);
             }
         }
