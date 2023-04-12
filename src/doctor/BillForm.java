@@ -57,6 +57,7 @@ public class BillForm extends JFrame implements ActionListener{
 	private JLabel lbl_bill_date = new JLabel("   Bill Date");
 	private JLabel lbl_bill_vacc = new JLabel("   Virtual Account");
 	private JLabel lbl_bill_prove = new JLabel("   Bill Prove");
+	//AAAAAAAAAAAAAAAAAAAALLLLLLLLLLLOOOOOOOOOOOOO
 	
 	private JTextField txt_id = new JTextField();
 	private JTextField txt_name = new JTextField();
