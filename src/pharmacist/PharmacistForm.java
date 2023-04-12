@@ -64,7 +64,7 @@ public class PharmacistForm extends JFrame implements ActionListener{
 	private JLabel address = new JLabel("Address");
 	private JLabel phoneNumber = new JLabel("   Phone Number");
 	private JLabel gender = new JLabel("   Gender");
-	private JLabel experience = new JLabel("   Specialization");
+	private JLabel experience = new JLabel("   Experience (years)");
 		
 	//panel
 	private JPanel panel_southFrame = new JPanel();
@@ -115,7 +115,7 @@ public class PharmacistForm extends JFrame implements ActionListener{
 	}
 	
 	public void load_table_pharmacist() {
-		String[] column = {"ID", "Name", "Age", "Address", "Phone Number", "Gender", "Experience : year(s)"};
+		String[] column = {"ID", "Name", "Age", "Address", "Phone Number", "Gender", "Experience (years))"};
 		dtm_table_pharmacist = new DefaultTableModel(column, 0);
 		
 		for(Pharmacist pharmacist : pharmacists) {
@@ -138,11 +138,11 @@ public class PharmacistForm extends JFrame implements ActionListener{
 		//Header
 		panel_north.setLayout(new BorderLayout());
 		panel_north.add(header_title, "North");
-		panel_north.setBackground(Color.RED);
+//		panel_north.setBackground(Color.RED);
 		header_title.setFont(font_title);
 		header_title.setHorizontalAlignment(JLabel.CENTER);
 		panel_north.add(panel_space_north, "Center");
-		panel_space_north.setBackground(Color.BLUE);
+//		panel_space_north.setBackground(Color.BLUE);
 		
 		panel_north_table.setLayout(new BorderLayout());
 		
@@ -150,7 +150,7 @@ public class PharmacistForm extends JFrame implements ActionListener{
 		// Table
 		table_pharmacist = new JTable();
 		scrollpane_table_pharmacist = new JScrollPane(table_pharmacist);
-		scrollpane_table_pharmacist.setBackground(Color.GREEN);
+//		scrollpane_table_pharmacist.setBackground(Color.GREEN);
 		panel_north_table.add(scrollpane_table_pharmacist, "North");
 		panel_north_table.add(panel_space_north2,"South");
 		panel_north.add(panel_north_table, "South");
@@ -235,6 +235,7 @@ public class PharmacistForm extends JFrame implements ActionListener{
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		if(e.getSource().equals(btn_submit)) {
+			boolean flag = false;
 			String id = txt_id.getText();
 			String name = txt_name.getText();
 			int age = Integer.parseInt(txt_age.getText());
@@ -250,10 +251,55 @@ public class PharmacistForm extends JFrame implements ActionListener{
 			
 			int experience = Integer.parseInt(txt_experience.getText());
 			
+			//VALIDATION
+			if(id.equals("")) {
+				JOptionPane.showMessageDialog(null, "ID must be filled!");
+				flag = false;
+			}else {
+				flag = true;
+			}
+			if(name.equals("")) {
+				JOptionPane.showMessageDialog(null, "Name must be filled!");
+				flag = false;
+			}else {
+				flag = true;
+			}
+			if(age < 20) {
+				JOptionPane.showMessageDialog(null, "Age must be more than 20 years old!");
+				flag = false;
+			}else {
+				flag = true;
+			}
+			if(experience < 1) {
+				JOptionPane.showMessageDialog(null, "Must be more than 1 year experience");
+				flag = false;
+			}else {
+				flag = true;
+			}
+			
+			//STORE DATA DI TABEL
 			Object[] row = {id, name, age, address, phoneNumber, gender, experience};
-			dtm_table_pharmacist.addRow(row);
-			pharmacists.add(new Pharmacist(id, name, age, address, phoneNumber, gender, experience));
-			table_pharmacist.invalidate();
+			if(flag == true) {
+				dtm_table_pharmacist.addRow(row);
+				pharmacists.add(new Pharmacist(id, name, age, address, phoneNumber, gender, experience));
+				table_pharmacist.invalidate();
+			}
+			
+			txt_id.setText("");
+			txt_name.setText("");
+			txt_age.setText("");
+			txt_address.setText("");
+			txt_phone.setText("");
+			
+		}else if(e.getSource().equals(btn_delete)) {
+			int selectedRow = table_pharmacist.getSelectedRow();
+			if(selectedRow != -1) {
+				dtm_table_pharmacist.removeRow(selectedRow);
+				pharmacists.remove(selectedRow);
+				table_pharmacist.invalidate();
+			}
+		}else if(e.getSource().equals(btn_clear)) {
+			dtm_table_pharmacist.setRowCount(0);
 		}
 		
 	}

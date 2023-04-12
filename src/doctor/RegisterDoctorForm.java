@@ -274,7 +274,6 @@ public class RegisterDoctorForm extends JFrame implements ActionListener{
 	public void actionPerformed(ActionEvent e) {
 		if(e.getSource().equals(btn_submit)) {
 			String id = txt_id.getText();
-			char d = id.charAt(0);
 			
 			String name = txt_name.getText();
 			int age = Integer.parseInt(txt_age.getText());
