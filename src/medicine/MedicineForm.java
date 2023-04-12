@@ -194,7 +194,7 @@ public class MedicineForm extends JFrame implements ActionListener{
 		add(panel_southFrame, "South");
 		
 		setTitle("Medicine!");
-		setDefaultCloseOperation(EXIT_ON_CLOSE);
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setSize(1000,650);
 		setVisible(true);
 		setLocationRelativeTo(null);

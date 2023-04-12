@@ -128,7 +128,7 @@ public class Account extends JFrame implements ActionListener{
 		setVisible(true);
 		setSize(550, 350);
 		setResizable(false);
-		setDefaultCloseOperation(EXIT_ON_CLOSE);
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setLocationRelativeTo(null);
 	}
 	

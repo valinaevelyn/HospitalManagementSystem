@@ -191,8 +191,8 @@ public class RoomForm extends JFrame implements ActionListener{
 		add(panel_southFrame, "South");
 		
 		
-		setDefaultCloseOperation(EXIT_ON_CLOSE);
-		setSize(51000, 650);
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		setSize(1000, 650);
 		setVisible(true);
 		setLocationRelativeTo(null);
 		setResizable(false);

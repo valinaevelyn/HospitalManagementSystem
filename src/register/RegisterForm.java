@@ -92,7 +92,7 @@ public class RegisterForm extends JFrame implements ActionListener{
 		
 		add(panel_south, "South");
 		
-		setDefaultCloseOperation(EXIT_ON_CLOSE);
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setSize(400, 250);
 		setVisible(true);
 		setLocationRelativeTo(null);

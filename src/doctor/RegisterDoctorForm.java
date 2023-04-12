@@ -252,7 +252,7 @@ public class RegisterDoctorForm extends JFrame implements ActionListener{
 		panel_southFrame.add(panel_south, "South");
 		add(panel_southFrame, "South");
 		
-		setDefaultCloseOperation(EXIT_ON_CLOSE);
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setSize(1000,650);
 		setVisible(true);
 		setLocationRelativeTo(null);

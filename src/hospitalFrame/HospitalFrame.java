@@ -4,9 +4,14 @@ import appointment.AppointmentForm;
 import register.RegisterForm;
 import room.RoomForm;
 import bill.BillForm;
+import patient.PatientForm;
+import doctor.RegisterDoctorForm;
+import medicine.MedicineForm;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
 
@@ -17,7 +22,7 @@ import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JSeparator;
 
-public class HospitalFrame extends JFrame implements ActionListener, WindowListener{
+public class HospitalFrame extends JFrame implements ActionListener, WindowListener, MouseListener{
 
     private JMenuBar menuBar = new JMenuBar();
 
@@ -58,6 +63,9 @@ public class HospitalFrame extends JFrame implements ActionListener, WindowListe
     private RegisterForm registerForm;
     private RoomForm roomForm;
     private BillForm billForm;
+    private PatientForm patientForm;
+    private RegisterDoctorForm registerDoctorForm;
+    private MedicineForm medicineForm;
     private JDesktopPane jdPane = new JDesktopPane();
 
     public HospitalFrame(){
@@ -79,7 +87,7 @@ public class HospitalFrame extends JFrame implements ActionListener, WindowListe
         menuBill.setVisible(false);
         add(jdPane);
 
-        menuBill.addActionListener(this);
+        menuBill.addMouseListener(this);
 
         // Pharmacist Page
         menuBar.add(menuMedicine1);
@@ -87,6 +95,8 @@ public class HospitalFrame extends JFrame implements ActionListener, WindowListe
         menuBar.add(menuMedicine2);
         menuMedicine2.setVisible(false);
         add(jdPane);
+
+        menuMedicine1.addMouseListener(this);
 
         // Patient Page
         menuBar.add(menuAppointmentPatient);
@@ -127,8 +137,9 @@ public class HospitalFrame extends JFrame implements ActionListener, WindowListe
         menuPayment.setVisible(false);
         add(jdPane);
 
+        menuItemRegister1.addActionListener(this);
+        menuItemRegister2.addActionListener(this);
         menuItemRegister3.addActionListener(this);
-
         
         setJMenuBar(menuBar);
         setTitle("Hospital Management System");
@@ -191,11 +202,11 @@ public class HospitalFrame extends JFrame implements ActionListener, WindowListe
             
         }
 
-        if(e.getSource().equals(menuBill)){
-            billForm = new BillForm(); 
-            jdPane.add(billForm);
-            dispose();
-        }
+        // if(e.getSource().equals(menuBill)){
+        //     billForm = new BillForm(); 
+        //     jdPane.add(billForm);
+        //     dispose();
+        // }
 
         if(e.getSource().equals(menuMedicine1)){
             
@@ -224,11 +235,15 @@ public class HospitalFrame extends JFrame implements ActionListener, WindowListe
         }
 
         if(e.getSource().equals(menuItemRegister1)){
-            
+            patientForm = new PatientForm();
+            jdPane.add(patientForm);
+            dispose();
         }
 
         if(e.getSource().equals(menuItemRegister2)){
-            
+            registerDoctorForm = new RegisterDoctorForm();
+            jdPane.add(registerDoctorForm);
+            dispose();
         }
 
         if(e.getSource().equals(menuItemRegister3)){
@@ -290,5 +305,40 @@ public class HospitalFrame extends JFrame implements ActionListener, WindowListe
     public void windowDeactivated(WindowEvent e) {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'windowDeactivated'");
+    }
+
+    @Override
+    public void mouseClicked(MouseEvent e) {
+        
+    }
+
+    @Override
+    public void mousePressed(MouseEvent e) {
+        if(e.getSource().equals(menuBill)){
+            billForm = new BillForm(); 
+            jdPane.add(billForm);
+            dispose();
+        }
+        
+        if(e.getSource().equals(menuMedicine1)){
+            medicineForm = new MedicineForm(); 
+            jdPane.add(medicineForm);
+            dispose();
+        }
+    }
+
+    @Override
+    public void mouseReleased(MouseEvent e) {
+       
+    }
+
+    @Override
+    public void mouseEntered(MouseEvent e) {
+        
+    }
+
+    @Override
+    public void mouseExited(MouseEvent e) {
+
     }
 }

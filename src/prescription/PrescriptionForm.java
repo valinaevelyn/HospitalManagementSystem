@@ -119,7 +119,7 @@ public class PrescriptionForm extends JFrame implements ActionListener{
         add(panel_south, "South");
 
         setTitle("Generate Prescription");
-        setDefaultCloseOperation(EXIT_ON_CLOSE);
+        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setSize(500, 300);
         setLocationRelativeTo(null);
         setVisible(true);

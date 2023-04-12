@@ -186,7 +186,7 @@ public class AppointmentForm extends JFrame implements ActionListener{
         add(panel_south_frame, "South");
 
         setTitle("Make Appointment");
-        setDefaultCloseOperation(EXIT_ON_CLOSE);
+        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setSize(1000, 690);
         setLocationRelativeTo(null);
         setVisible(true);
