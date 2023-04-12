@@ -94,18 +94,18 @@ public class BillForm extends JFrame implements ActionListener{
 		//header
 		panel_north.setLayout(new BorderLayout());
 		panel_north.add(header_title, "North");
-		panel_north.setBackground(Color.RED);
+		// panel_north.setBackground(Color.RED);
 		header_title.setFont(font_title);
 		header_title.setHorizontalAlignment(JLabel.CENTER);
 		panel_north.add(panel_space_north, "Center");
-		panel_space_north.setBackground(Color.BLUE);
+		// panel_space_north.setBackground(Color.BLUE);
 		
 		panel_north_table.setLayout(new BorderLayout());
 		
 		// Table
 		table_bill = new JTable();
 		scrollpane_table_bill = new JScrollPane(table_bill);
-		scrollpane_table_bill.setBackground(Color.GREEN);
+		// scrollpane_table_bill.setBackground(Color.GREEN);
 		panel_north_table.add(scrollpane_table_bill, "North");
 		panel_north_table.add(panel_space_north2,"South");
 		panel_north.add(panel_north_table, "South");
@@ -180,15 +180,44 @@ public class BillForm extends JFrame implements ActionListener{
 		Object obj = e.getSource();
 		
 		if(obj.equals(btn_submit)) {
+			boolean flag = false;
 			String id = txt_id.getText();
 			String date_start = txt_date_start.getText();
 			String date_end = txt_date_end.getText();
 			String proof = txt_proof.getText();
 
-			if(id.length()<10) {
-				JOptionPane.showMessageDialog(null, "ID must have 10 numbers length!");
+			//VALIDATION
+			if(id.equals("")) {
+				JOptionPane.showMessageDialog(null, "ID must be filled!");
+				flag = false;
+			}else{
+				JOptionPane.showMessageDialog(null, "Bill has generated!!");
+				flag = true;
 			}
-			JOptionPane.showMessageDialog(null, "Bill has generated!!");
+
+			//STORE DATA DI TABLE
+			Object[] row = {id, date_start, date_end, proof};
+
+			if(flag == true){
+				dtm_table_bill.addRow(row);
+				bills.add(new Bill(id, date_start, date_end, date_end, proof));
+				table_bill.invalidate();
+			}
+
+			txt_id.setText("");
+			txt_date_start.setText("");
+			txt_date_end.setText("");
+			txt_proof.setText("");
+
+		}else if(obj.equals(btn_delete)){
+			int selectedRow = table_bill.getSelectedRow();
+			if(selectedRow != -1){
+				dtm_table_bill.removeRow(selectedRow);
+				bills.remove(selectedRow);
+				table_bill.invalidate();
+			}
+		}else if(obj.equals(btn_clear)){
+			dtm_table_bill.setRowCount(0);
 		}
 	}
 

@@ -120,24 +120,24 @@ public class RoomForm extends JFrame implements ActionListener{
 		panel_north.setLayout(new BorderLayout());
 		panel_north.add(header_title, "North");
 		
-		panel_north.setBackground(Color.RED);
+		// panel_north.setBackground(Color.RED);
 		
 		header_title.setFont(font_title);
 		header_title.setHorizontalAlignment(JLabel.CENTER);
 		panel_north.add(panel_space_north, "Center");
-		panel_space_north.setBackground(Color.BLUE);
+		// panel_space_north.setBackground(Color.BLUE);
 		
 		panel_north_table.setLayout(new BorderLayout());
-		panel_north_table.setBackground(Color.CYAN);
+		// panel_north_table.setBackground(Color.CYAN);
 		
 		// Table
 		table_room = new JTable();
 		scrollpane_table_room = new JScrollPane(table_room);
-		scrollpane_table_room.setBackground(Color.GREEN);
+		// scrollpane_table_room.setBackground(Color.GREEN);
 		panel_north_table.add(scrollpane_table_room, "North");
 		panel_north_table.add(panel_space_north2,"South");
 		panel_north.add(panel_north_table, "South");
-		panel_north_table.setBackground(Color.CYAN);
+		// panel_north_table.setBackground(Color.CYAN);
 			
 		add(panel_north, "North");
 		add(panel_left, "West");
@@ -213,16 +213,40 @@ public class RoomForm extends JFrame implements ActionListener{
 		Object obj = e.getSource();
 		
 		if(obj.equals(btn_submit)) {
+			boolean flag = false;
 			String number = txt_number.getText();
 			String type = combo_type.getSelectedItem().toString();
-			String charge = txt_charge.getText();
+			Integer duration = Integer.parseInt(txt_duration.getText());
+			Double charge = Double.parseDouble(txt_charge.getText());
 			
+			//VALIDATION
 			if(number.length()<3) {
 				JOptionPane.showMessageDialog(null, "Room Number must between 001 until 999");
+				flag = false;
+			}else{
+				JOptionPane.showMessageDialog(null, "Room Registration Success!");
+				flag = true;
 			}
-			JOptionPane.showMessageDialog(null, "Room Registration Success!");
+
+			//STORE DATA DI TABEL
+			Object[] row = {number, type, duration, charge};
+
+			if(flag == true){
+				dtm_table_room.addRow(row);
+				rooms.add(new Room(number, type, duration, charge));
+				table_room.invalidate();
+			}
+
+		}else if(obj.equals(btn_delete)){
+			int selectedRow = table_room.getSelectedRow();
+			if(selectedRow != -1){
+				dtm_table_room.removeRow(selectedRow);
+				rooms.remove(selectedRow);
+				table_room.invalidate();
+			}
+		}else if(obj.equals(btn_clear)){
+			dtm_table_room.setRowCount(0);
 		}
-		
 	}
 
 }
