@@ -1,6 +1,8 @@
 package hospitalFrame;
 
 import appointment.AppointmentForm;
+import register.RegisterForm;
+import room.RoomForm;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -52,6 +54,8 @@ public class HospitalFrame extends JFrame implements ActionListener, WindowListe
 
     private LoginForm loginForm;
     private AppointmentForm makeAppointmentForm;
+    private RegisterForm registerForm;
+    private RoomForm roomForm;
     private JDesktopPane jdPane = new JDesktopPane();
 
     public HospitalFrame(){
@@ -64,6 +68,7 @@ public class HospitalFrame extends JFrame implements ActionListener, WindowListe
 
         menuBar.add(menuOption);
         menuItemFileLogin.addActionListener(this);
+        menuItemFileForm2.addActionListener(this);
 
         // Doctor Page
         menuBar.add(menuAppointment);
@@ -118,6 +123,8 @@ public class HospitalFrame extends JFrame implements ActionListener, WindowListe
         menuPayment.setVisible(false);
         add(jdPane);
 
+        menuItemRegister3.addActionListener(this);
+
         
         setJMenuBar(menuBar);
         setTitle("Hospital Management System");
@@ -169,7 +176,11 @@ public class HospitalFrame extends JFrame implements ActionListener, WindowListe
         }
 
         if(e.getSource().equals(menuItemFileForm2)){
-            
+            if (registerForm == null) {
+                registerForm = new RegisterForm(); 
+                jdPane.add(registerForm);
+                dispose();
+            }
         }
 
         if(e.getSource().equals(menuOption)){
@@ -196,6 +207,7 @@ public class HospitalFrame extends JFrame implements ActionListener, WindowListe
             if (makeAppointmentForm == null) {
                 makeAppointmentForm = new AppointmentForm(); 
                 jdPane.add(makeAppointmentForm);
+                dispose();
             }
         }
 
@@ -220,7 +232,11 @@ public class HospitalFrame extends JFrame implements ActionListener, WindowListe
         }
 
         if(e.getSource().equals(menuItemRegister3)){
-            
+            if (roomForm == null) {
+                roomForm = new RoomForm();
+                jdPane.add(roomForm);
+                dispose();
+            }
         }
 
         if(e.getSource().equals(menuItemView1)){
@@ -250,7 +266,8 @@ public class HospitalFrame extends JFrame implements ActionListener, WindowListe
 
     @Override
     public void windowClosed(WindowEvent e) {
-        new HospitalFrame().setVisible(true);
+        // new HospitalFrame().setVisible(true);
+        new HospitalFrame().show();
     }
 
     @Override
