@@ -3,6 +3,7 @@ package hospitalFrame;
 import appointment.AppointmentForm;
 import register.RegisterForm;
 import room.RoomForm;
+import bill.BillForm;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -56,6 +57,7 @@ public class HospitalFrame extends JFrame implements ActionListener, WindowListe
     private AppointmentForm makeAppointmentForm;
     private RegisterForm registerForm;
     private RoomForm roomForm;
+    private BillForm billForm;
     private JDesktopPane jdPane = new JDesktopPane();
 
     public HospitalFrame(){
@@ -76,6 +78,8 @@ public class HospitalFrame extends JFrame implements ActionListener, WindowListe
         menuBar.add(menuBill);
         menuBill.setVisible(false);
         add(jdPane);
+
+        menuBill.addActionListener(this);
 
         // Pharmacist Page
         menuBar.add(menuMedicine1);
@@ -168,19 +172,15 @@ public class HospitalFrame extends JFrame implements ActionListener, WindowListe
     @Override
     public void actionPerformed(ActionEvent e) {
         if(e.getSource().equals(menuItemFileLogin)){
-            if (loginForm == null ) {
-                loginForm = new LoginForm(this); 
-                jdPane.add(loginForm);
-                dispose();
-            }
+            loginForm = new LoginForm(this); 
+            jdPane.add(loginForm);
+            dispose();
         }
 
         if(e.getSource().equals(menuItemFileForm2)){
-            if (registerForm == null) {
-                registerForm = new RegisterForm(); 
-                jdPane.add(registerForm);
-                dispose();
-            }
+            registerForm = new RegisterForm(); 
+            jdPane.add(registerForm);
+            dispose();
         }
 
         if(e.getSource().equals(menuOption)){
@@ -192,7 +192,9 @@ public class HospitalFrame extends JFrame implements ActionListener, WindowListe
         }
 
         if(e.getSource().equals(menuBill)){
-            
+            billForm = new BillForm(); 
+            jdPane.add(billForm);
+            dispose();
         }
 
         if(e.getSource().equals(menuMedicine1)){
@@ -204,11 +206,9 @@ public class HospitalFrame extends JFrame implements ActionListener, WindowListe
         }
 
         if(e.getSource().equals(menuAppointment1)){
-            if (makeAppointmentForm == null) {
-                makeAppointmentForm = new AppointmentForm(); 
-                jdPane.add(makeAppointmentForm);
-                dispose();
-            }
+            makeAppointmentForm = new AppointmentForm(); 
+            jdPane.add(makeAppointmentForm);
+            dispose();
         }
 
         if(e.getSource().equals(menuAppointment2)){
@@ -232,11 +232,9 @@ public class HospitalFrame extends JFrame implements ActionListener, WindowListe
         }
 
         if(e.getSource().equals(menuItemRegister3)){
-            if (roomForm == null) {
-                roomForm = new RoomForm();
-                jdPane.add(roomForm);
-                dispose();
-            }
+            roomForm = new RoomForm();
+            jdPane.add(roomForm);
+            dispose();
         }
 
         if(e.getSource().equals(menuItemView1)){

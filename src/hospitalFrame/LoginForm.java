@@ -6,6 +6,9 @@ import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowListener;
+
 import javax.swing.JButton;
 import javax.swing.JDesktopPane;
 import javax.swing.JFrame;
@@ -16,7 +19,7 @@ import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 
-public class LoginForm extends JFrame implements ActionListener{
+public class LoginForm extends JFrame implements ActionListener, WindowListener{
     private Font font_title = new Font(Font.SANS_SERIF, Font.BOLD, 25);
     private HospitalFrame hospitalFrame;
     private LoginForm loginForm;
@@ -151,5 +154,47 @@ public class LoginForm extends JFrame implements ActionListener{
         if(obj.equals(btn_submit)){
             JOptionPane.showMessageDialog(null, "Logged in as " +username+".");
         }
+    }
+
+    @Override
+    public void windowOpened(WindowEvent e) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'windowOpened'");
+    }
+
+    @Override
+    public void windowClosing(WindowEvent e) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'windowClosing'");
+    }
+
+    @Override
+    public void windowClosed(WindowEvent e) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'windowClosed'");
+    }
+
+    @Override
+    public void windowIconified(WindowEvent e) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'windowIconified'");
+    }
+
+    @Override
+    public void windowDeiconified(WindowEvent e) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'windowDeiconified'");
+    }
+
+    @Override
+    public void windowActivated(WindowEvent e) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'windowActivated'");
+    }
+
+    @Override
+    public void windowDeactivated(WindowEvent e) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'windowDeactivated'");
     }
 }
