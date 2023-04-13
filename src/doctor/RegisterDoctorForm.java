@@ -6,6 +6,7 @@ import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
@@ -113,6 +114,10 @@ public class RegisterDoctorForm extends JFrame implements ActionListener{
 		} catch (FileNotFoundException e) {
 			JOptionPane.showMessageDialog(null, e.getMessage());
 		}
+	}
+	
+	public void write_doctor_data(String list){
+		
 	}
 	
 	public void load_table_doctor() {

@@ -230,6 +230,10 @@ public class MedicineForm extends JFrame implements ActionListener{
 					
 		}
 		
+		else if(obj.equals(btn_clear)) {
+			dtm_table_medicine.setRowCount(0);
+		}
+		
 		else if(obj.equals(btn_delete)) {
 			int selectedRow = table_medicine.getSelectedRow();
 			if(selectedRow != -1) {
