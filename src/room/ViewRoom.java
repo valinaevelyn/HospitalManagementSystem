@@ -23,7 +23,7 @@ import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 
-public class RoomForm extends JFrame implements ActionListener{
+public class ViewRoom extends JFrame implements ActionListener{
 	//declare tabel 
 	private JTable table_room;
 	private JScrollPane scrollpane_table_room;
@@ -33,7 +33,7 @@ public class RoomForm extends JFrame implements ActionListener{
 	
 	//header
 	private JPanel panel_north = new JPanel();
-	private JLabel header_title = new JLabel("ROOM REGISTRATION");
+	private JLabel header_title = new JLabel("VIEW ROOM DATA");
 	private JPanel panel_space_north = new JPanel();
 	private JPanel panel_space_north2 = new JPanel();
 	private JPanel panel_north_table = new JPanel();
@@ -190,7 +190,7 @@ public class RoomForm extends JFrame implements ActionListener{
 		panel_southFrame.add(panel_south, "South");
 		add(panel_southFrame, "South");
 		
-		setTitle("Register Room");
+		setTitle("View Room Data");
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setSize(1000, 650);
 		setVisible(true);
@@ -198,14 +198,14 @@ public class RoomForm extends JFrame implements ActionListener{
 		setResizable(false);
 	}
 	
-	public RoomForm() {
+	public ViewRoom() {
 		init_component();
 		load_room_data();
 		load_table_room();
 	}
 
 	public static void main(String[] args) {
-		new RoomForm();
+		new ViewRoom();
 	}
 
 	@Override

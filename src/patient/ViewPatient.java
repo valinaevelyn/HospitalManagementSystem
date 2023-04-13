@@ -31,11 +31,11 @@ import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
 
-public class PatientForm extends JFrame implements ActionListener{
+public class ViewPatient extends JFrame implements ActionListener{
 	private Font font_title = new Font(Font.SERIF, Font.BOLD, 24);
 	
 	private JPanel panel_north = new JPanel();
-	private JLabel lbl_register = new JLabel("REGISTER PATIENT");
+	private JLabel lbl_register = new JLabel("VIEW PATIENT DATA");
 	private JPanel panel_space_north = new JPanel();
 	private JPanel panel_space_north2 = new JPanel();
 	private JPanel panel_north_table = new JPanel();
@@ -215,7 +215,7 @@ public class PatientForm extends JFrame implements ActionListener{
 		panel_southFrame.add(panel_south, "South");
 		add(panel_southFrame, "South");
 		
-		setTitle("Registration Patient!");
+		setTitle("View Patient Data");
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setSize(1000,650);
 		setVisible(true);
@@ -223,14 +223,14 @@ public class PatientForm extends JFrame implements ActionListener{
 		setResizable(false);
 	}
 	
-	public PatientForm() {
+	public ViewPatient() {
 		initComponent();
 		load_patient_data();
 		load_table_patient();
 	}
 	
 	public static void main(String[] args) {
-		new PatientForm();
+		new ViewPatient();
 	}
 
 	@Override

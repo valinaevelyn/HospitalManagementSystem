@@ -27,7 +27,7 @@ import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 
-public class RegisterDoctorForm extends JFrame implements ActionListener{
+public class ViewDoctor extends JFrame implements ActionListener{
 	//declare tabel
 	private JTable table_doctor;
 	private JScrollPane scrollpane_table_doctor;
@@ -37,7 +37,7 @@ public class RegisterDoctorForm extends JFrame implements ActionListener{
 	
 	//panel
 	private JPanel panel_north = new JPanel();
-	private JLabel header_title = new JLabel("REGISTER DOCTOR");
+	private JLabel header_title = new JLabel("VIEW DOCTOR DATA");
 	private JPanel panel_space_north = new JPanel();
 	private JPanel panel_space_north2 = new JPanel();
 	private JPanel panel_north_table = new JPanel();
@@ -252,7 +252,7 @@ public class RegisterDoctorForm extends JFrame implements ActionListener{
 		panel_southFrame.add(panel_south, "South");
 		add(panel_southFrame, "South");
 		
-		setTitle("Doctor Registration Form");
+        setTitle("View Doctor Data");
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setSize(1000,650);
 		setVisible(true);
@@ -260,14 +260,14 @@ public class RegisterDoctorForm extends JFrame implements ActionListener{
 		setResizable(false);
 	}
 	
-	public RegisterDoctorForm() {
+	public ViewDoctor() {
 		init_component();
 		load_doctor_data();
 		load_table_doctor();
 	}
 	
 	public static void main(String[] args) {
-		new RegisterDoctorForm();
+		new ViewDoctor();
 	}
 
 	@Override
