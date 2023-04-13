@@ -220,7 +220,7 @@ public class RoomForm extends JFrame implements ActionListener{
 			Double charge = Double.parseDouble(txt_charge.getText());
 			
 			//VALIDATION
-			if(number.length()<3) {
+			if(number.length()!=3) {
 				JOptionPane.showMessageDialog(null, "Room Number must between 001 until 999");
 				flag = false;
 			}else{
