@@ -108,7 +108,7 @@ public class ViewMedicine extends JFrame implements ActionListener{
 		add(panel_left, "West");
 		add(panel_right, "East");
 		
-		setTitle("Medicine Stocklist");
+		setTitle("Medicine Stock List");
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setSize(1000,500);
 		setVisible(true);

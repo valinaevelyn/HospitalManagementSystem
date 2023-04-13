@@ -30,10 +30,6 @@ public class Guide extends JFrame implements ActionListener{
 	private JPanel panel_left = new JPanel();
 	private JPanel panel_right = new JPanel();
 	
-	private JTable table_medicine;
-	private JScrollPane scrollpane_table_medicine;
-	private DefaultTableModel dtm_table_medicine;
-	
 	public void initComponent() {
 		
 		setLayout(new BorderLayout());
@@ -51,16 +47,16 @@ public class Guide extends JFrame implements ActionListener{
 		table_medicine = new JTable();
 		scrollpane_table_medicine = new JScrollPane(table_medicine);
 		panel_north_table.add(scrollpane_table_medicine, "North");
-		panel_north_table.add(panel_space_north2,"South");
-		panel_north.add(panel_north_table, "South");
+		// panel_north_table.add(panel_space_north2,"South");
+		// panel_north.add(panel_north_table, "South");
 		
 		add(panel_north, "North");
 		add(panel_left, "West");
 		add(panel_right, "East");
 		
-		setTitle("Medicine Stocklist");
+		setTitle("Guide");
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		setSize(1000,500);
+		setSize(1000,800);
 		setVisible(true);
 		setLocationRelativeTo(null);
 		setResizable(false);

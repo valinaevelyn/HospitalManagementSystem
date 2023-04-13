@@ -27,7 +27,7 @@ import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 
-public class ViewDoctor extends JFrame implements ActionListener{
+public class ViewDoctor extends JFrame{
 	//declare tabel
 	private JTable table_doctor;
 	private JScrollPane scrollpane_table_doctor;
@@ -45,9 +45,9 @@ public class ViewDoctor extends JFrame implements ActionListener{
 	private JPanel panel_left = new JPanel();
 	private JPanel panel_right = new JPanel();
 	
-	private JPanel panel_center = new JPanel();
-	private JPanel panel_center_kiri = new JPanel();
-	private JPanel panel_center_kanan = new JPanel();
+	// private JPanel panel_center = new JPanel();
+	// private JPanel panel_center_kiri = new JPanel();
+	// private JPanel panel_center_kanan = new JPanel();
 	
 	//content 
 	private JTextField txt_id = new JTextField();
@@ -68,15 +68,15 @@ public class ViewDoctor extends JFrame implements ActionListener{
 	private JLabel specialization = new JLabel("   Specialization");
 	
 	//panel
-	private JPanel panel_southFrame = new JPanel();
-	private JPanel panel_south = new JPanel();
-	private JPanel panel_space_south1 = new JPanel();
-	private JPanel panel_space_south2 = new JPanel();
-	private JPanel panel_space_south3 = new JPanel();
-	private JPanel panel_space_south4 = new JPanel();
-	private JButton btn_submit = new JButton("Submit");
-	private JButton btn_clear = new JButton("Clear");
-	private JButton btn_delete = new JButton("Delete");
+	// private JPanel panel_southFrame = new JPanel();
+	// private JPanel panel_south = new JPanel();
+	// private JPanel panel_space_south1 = new JPanel();
+	// private JPanel panel_space_south2 = new JPanel();
+	// private JPanel panel_space_south3 = new JPanel();
+	// private JPanel panel_space_south4 = new JPanel();
+	// private JButton btn_submit = new JButton("Submit");
+	// private JButton btn_clear = new JButton("Clear");
+	// private JButton btn_delete = new JButton("Delete");
 	
 	private ArrayList<Doctor> doctors = new ArrayList<Doctor>();
 	
@@ -115,17 +115,17 @@ public class ViewDoctor extends JFrame implements ActionListener{
 		}
 	}
 	
-	public void write_doctor_data(){
-		try {
-			FileWriter fileWrite = new FileWriter("src/database/datadoctor.txt");
-			String[] raw;
-			String id;
-			String name;
-			int age;
-			String address;
-			String phoneNumber;
-			String gender;
-			String specialization;
+	// public void write_doctor_data(){
+	// 	try {
+	// 		FileWriter fileWrite = new FileWriter("src/database/datadoctor.txt");
+	// 		String[] raw;
+	// 		String id;
+	// 		String name;
+	// 		int age;
+	// 		String address;
+	// 		String phoneNumber;
+	// 		String gender;
+	// 		String specialization;
 			
 //			raw = .split("#");
 //			id = raw[0];
@@ -138,14 +138,14 @@ public class ViewDoctor extends JFrame implements ActionListener{
 			
 //			fileWrite.write(id);
 			
-			fileWrite.write("Files in Java might be tricky, but it is fun enough!");
-		    fileWrite.close();
-		    System.out.println("Successfully wrote to the file.");
-		} catch (IOException e) {
-			System.out.println("An error occurred.");
-			e.printStackTrace();
-		}
-	}
+	// 		fileWrite.write("Files in Java might be tricky, but it is fun enough!");
+	// 	    fileWrite.close();
+	// 	    System.out.println("Successfully wrote to the file.");
+	// 	} catch (IOException e) {
+	// 		System.out.println("An error occurred.");
+	// 		e.printStackTrace();
+	// 	}
+	// }
 	
 	public void load_table_doctor() {
 		String[] column = {"ID", "Name", "Age", "Address", "Phone Number", "Gender", "Specialization"};
@@ -194,67 +194,67 @@ public class ViewDoctor extends JFrame implements ActionListener{
 		
 		
 		//Content
-		panel_center.setLayout(new GridLayout(1,2));
+// 		panel_center.setLayout(new GridLayout(1,2));
 		
-		panel_center_kiri.setLayout(new GridLayout(4,4));
-//		panel_center_kiri.setBackground(Color.BLUE);
-		panel_center_kiri.add(id);
-		panel_center_kiri.add(txt_id);
+// 		panel_center_kiri.setLayout(new GridLayout(4,4));
+// //		panel_center_kiri.setBackground(Color.BLUE);
+// 		panel_center_kiri.add(id);
+// 		panel_center_kiri.add(txt_id);
 
-		panel_center_kiri.add(name);
-		panel_center_kiri.add(txt_name);
+// 		panel_center_kiri.add(name);
+// 		panel_center_kiri.add(txt_name);
 		
-		panel_center_kiri.add(age);
-		panel_center_kiri.add(txt_age);
+// 		panel_center_kiri.add(age);
+// 		panel_center_kiri.add(txt_age);
 		
-		panel_center_kiri.add(address);
-		panel_center_kiri.add(txt_address);
+// 		panel_center_kiri.add(address);
+// 		panel_center_kiri.add(txt_address);
 		
-		panel_center.add(panel_center_kiri);
+// 		panel_center.add(panel_center_kiri);
 		
-		panel_center_kanan.setLayout(new GridLayout(3, 3));
-		panel_center_kanan.add(phoneNumber);
-		panel_center_kanan.add(txt_phone);
+// 		panel_center_kanan.setLayout(new GridLayout(3, 3));
+// 		panel_center_kanan.add(phoneNumber);
+// 		panel_center_kanan.add(txt_phone);
 		
-		panel_center_kanan.add(gender);
-		JPanel panel_gender = new JPanel();
-		panel_gender.setLayout(new GridLayout(2,1));
-		ButtonGroup bg_gender = new ButtonGroup();
-		bg_gender.add(radio_male);
-		bg_gender.add(radio_female);
-		panel_gender.add(radio_male);
-		panel_gender.add(radio_female);
-		panel_center_kanan.add(panel_gender);
+// 		panel_center_kanan.add(gender);
+// 		JPanel panel_gender = new JPanel();
+// 		panel_gender.setLayout(new GridLayout(2,1));
+// 		ButtonGroup bg_gender = new ButtonGroup();
+// 		bg_gender.add(radio_male);
+// 		bg_gender.add(radio_female);
+// 		panel_gender.add(radio_male);
+// 		panel_gender.add(radio_female);
+// 		panel_center_kanan.add(panel_gender);
 		
-		panel_center_kanan.add(specialization);
-		combo_specialization.addItem("General");
-		combo_specialization.addItem("Surgeon");
-		combo_specialization.addItem("Dentist");
-		combo_specialization.addItem("Thorax");
-		panel_center_kanan.add(combo_specialization);
+// 		panel_center_kanan.add(specialization);
+// 		combo_specialization.addItem("General");
+// 		combo_specialization.addItem("Surgeon");
+// 		combo_specialization.addItem("Dentist");
+// 		combo_specialization.addItem("Thorax");
+// 		panel_center_kanan.add(combo_specialization);
 		
-		panel_center.add(panel_center_kanan);
+// 		panel_center.add(panel_center_kanan);
 		
-		add(panel_center, "Center");
+// 		add(panel_center, "Center");
 		
-		//Footer
-		panel_southFrame.setLayout(new BorderLayout());
-		panel_southFrame.add(panel_space_south1, "North");
-		panel_southFrame.add(panel_space_south2, "Center");
+// 		//Footer
+// 		panel_southFrame.setLayout(new BorderLayout());
+// 		panel_southFrame.add(panel_space_south1, "North");
+// 		panel_southFrame.add(panel_space_south2, "Center");
 		
-		panel_south.setLayout(new FlowLayout());
-		panel_south.add(btn_submit);
-		btn_submit.addActionListener(this);
-		panel_south.add(btn_clear);
-		btn_clear.addActionListener(this);
-		panel_south.add(btn_delete);
-		btn_delete.addActionListener(this);
-		panel_southFrame.add(panel_south, "South");
-		add(panel_southFrame, "South");
+// 		panel_south.setLayout(new FlowLayout());
+// 		panel_south.add(btn_submit);
+// 		btn_submit.addActionListener(this);
+// 		panel_south.add(btn_clear);
+// 		btn_clear.addActionListener(this);
+// 		panel_south.add(btn_delete);
+// 		btn_delete.addActionListener(this);
+		// panel_southFrame.add(panel_south, "South");
+		// add(panel_southFrame, "South");
 		
         setTitle("View Doctor Data");
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		setSize(1000,650);
+		setSize(1000,500);
 		setVisible(true);
 		setLocationRelativeTo(null);
 		setResizable(false);
@@ -270,74 +270,74 @@ public class ViewDoctor extends JFrame implements ActionListener{
 		new ViewDoctor();
 	}
 
-	@Override
-	public void actionPerformed(ActionEvent e) {
-		if(e.getSource().equals(btn_submit)) {
-			String id = txt_id.getText();
+	// @Override
+	// public void actionPerformed(ActionEvent e) {
+	// 	if(e.getSource().equals(btn_submit)) {
+	// 		String id = txt_id.getText();
 			
-			String name = txt_name.getText();
-			int age = Integer.parseInt(txt_age.getText());
-			String address = txt_address.getText();
-			String phoneNumber = txt_phone.getText();
-			String gender = "";
+	// 		String name = txt_name.getText();
+	// 		int age = Integer.parseInt(txt_age.getText());
+	// 		String address = txt_address.getText();
+	// 		String phoneNumber = txt_phone.getText();
+	// 		String gender = "";
 			
-			boolean flag = false;
+	// 		boolean flag = false;
 			
-			if(radio_male.isSelected()) {
-				gender = "Male";
-			}else if(radio_female.isSelected()) {
-				gender = "Female";
-			}
+	// 		if(radio_male.isSelected()) {
+	// 			gender = "Male";
+	// 		}else if(radio_female.isSelected()) {
+	// 			gender = "Female";
+	// 		}
 			
-			String specialization = combo_specialization.getSelectedItem().toString();
+	// 		String specialization = combo_specialization.getSelectedItem().toString();
 			
-			//VALIDATION
-			if(id.equals("")) {
-				JOptionPane.showMessageDialog(null, "ID must be filled!");
-				flag = false;
-			}else {
-				flag = true;
-			}
-			if(name.equals("")) {
-				JOptionPane.showMessageDialog(null, "Name must be filled!");
-				flag = false;
-			}else {
-				flag = true;
-			}
-			if(age < 20) {
-				JOptionPane.showMessageDialog(null, "Age must be more than 20 years old!");
-				flag = false;
-			}else {
-				flag = true;
-			}
+	// 		//VALIDATION
+	// 		if(id.equals("")) {
+	// 			JOptionPane.showMessageDialog(null, "ID must be filled!");
+	// 			flag = false;
+	// 		}else {
+	// 			flag = true;
+	// 		}
+	// 		if(name.equals("")) {
+	// 			JOptionPane.showMessageDialog(null, "Name must be filled!");
+	// 			flag = false;
+	// 		}else {
+	// 			flag = true;
+	// 		}
+	// 		if(age < 20) {
+	// 			JOptionPane.showMessageDialog(null, "Age must be more than 20 years old!");
+	// 			flag = false;
+	// 		}else {
+	// 			flag = true;
+	// 		}
 			
-			//STORE DATA DI TABEL
-			Object[] row = {id, name, age, address, phoneNumber, gender, specialization};
+	// 		//STORE DATA DI TABEL
+	// 		Object[] row = {id, name, age, address, phoneNumber, gender, specialization};
 			
-			if(flag == true) {
-				dtm_table_doctor.addRow(row);
-				doctors.add(new Doctor(id, name, age, address, phoneNumber, gender, specialization));
-				table_doctor.invalidate();	
-			}
+	// 		if(flag == true) {
+	// 			dtm_table_doctor.addRow(row);
+	// 			doctors.add(new Doctor(id, name, age, address, phoneNumber, gender, specialization));
+	// 			table_doctor.invalidate();	
+	// 		}
 			
 			
-			txt_id.setText("");
-			txt_name.setText("");
-			txt_age.setText("");
-			txt_address.setText("");
-			txt_phone.setText("");
+	// 		txt_id.setText("");
+	// 		txt_name.setText("");
+	// 		txt_age.setText("");
+	// 		txt_address.setText("");
+	// 		txt_phone.setText("");
 	
-		}else if(e.getSource().equals(btn_delete)) {
-			int selectedRow = table_doctor.getSelectedRow();
-			if(selectedRow != -1) {
-				dtm_table_doctor.removeRow(selectedRow);
-				doctors.remove(selectedRow);
-				table_doctor.invalidate();
-			}
-		}else if(e.getSource().equals(btn_clear)) {
-			dtm_table_doctor.setRowCount(0);
-		}
+	// 	}else if(e.getSource().equals(btn_delete)) {
+	// 		int selectedRow = table_doctor.getSelectedRow();
+	// 		if(selectedRow != -1) {
+	// 			dtm_table_doctor.removeRow(selectedRow);
+	// 			doctors.remove(selectedRow);
+	// 			table_doctor.invalidate();
+	// 		}
+	// 	}else if(e.getSource().equals(btn_clear)) {
+	// 		dtm_table_doctor.setRowCount(0);
+	// 	}
 		
-	}
+	// }
 
 }

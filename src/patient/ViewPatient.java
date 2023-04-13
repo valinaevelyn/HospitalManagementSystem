@@ -47,18 +47,6 @@ public class ViewPatient extends JFrame implements ActionListener{
 	private JScrollPane scrollpane_table_patient;
 	private DefaultTableModel dtm_table_patient;
 	
-	private JPanel panel_center = new JPanel();
-	private JPanel panel_center_kiri = new JPanel();
-	private JPanel panel_center_kanan = new JPanel();
-	
-	private JLabel lbl_id = new JLabel("ID");
-	private JLabel lbl_name = new JLabel("Name");
-	private JLabel lbl_age = new JLabel("Age");
-	private JLabel lbl_address = new JLabel("Address");
-	private JLabel lbl_phonenum = new JLabel("   Phone Number");
-	private JLabel lbl_gender = new JLabel("   Gender");
-	private JLabel lbl_blood = new JLabel("   Blood Type");
-	
 	private JTextField txt_id = new JTextField();
 	private JTextField txt_name = new JTextField();
 	private JTextField txt_age = new JTextField();
@@ -67,16 +55,6 @@ public class ViewPatient extends JFrame implements ActionListener{
 	private JRadioButton radio_male = new JRadioButton("Male");
 	private JRadioButton radio_female = new JRadioButton("Female");
 	private JComboBox<String> combo_blood = new JComboBox<>();
-	
-	private JPanel panel_southFrame = new JPanel();
-	private JPanel panel_south = new JPanel();
-	private JPanel panel_space_south1 = new JPanel();
-	private JPanel panel_space_south2 = new JPanel();
-	private JPanel panel_space_south3 = new JPanel();
-	private JPanel panel_space_south4 = new JPanel();
-	private JButton btn_submit = new JButton("Submit");
-	private JButton btn_clear = new JButton("Clear");
-	private JButton btn_delete = new JButton("Delete");
 	
 	private ArrayList<Patient> patients = new ArrayList<Patient>();
 	
@@ -158,66 +136,10 @@ public class ViewPatient extends JFrame implements ActionListener{
 		
 		
 		//Content
-		panel_center.setLayout(new GridLayout(1,2));
-		
-		panel_center_kiri.setLayout(new GridLayout(4,4));
-		panel_center_kiri.add(lbl_id);
-		panel_center_kiri.add(txt_id);
-
-		panel_center_kiri.add(lbl_name);
-		panel_center_kiri.add(txt_name);
-		
-		panel_center_kiri.add(lbl_age);
-		panel_center_kiri.add(txt_age);
-		
-		panel_center_kiri.add(lbl_address);
-		panel_center_kiri.add(txt_address);
-		
-		panel_center.add(panel_center_kiri);
-		
-		panel_center_kanan.setLayout(new GridLayout(3, 3));
-		panel_center_kanan.add(lbl_phonenum);
-		panel_center_kanan.add(txt_phonenum);
-		
-		panel_center_kanan.add(lbl_gender);
-		JPanel panel_gender = new JPanel();
-		panel_gender.setLayout(new GridLayout(2,1));
-		ButtonGroup bg_gender = new ButtonGroup();
-		bg_gender.add(radio_male);
-		bg_gender.add(radio_female);
-		panel_gender.add(radio_male);
-		panel_gender.add(radio_female);
-		panel_center_kanan.add(panel_gender);
-		
-		panel_center_kanan.add(lbl_blood);
-		combo_blood.addItem("A");
-		combo_blood.addItem("B");
-		combo_blood.addItem("AB");
-		combo_blood.addItem("O");
-		panel_center_kanan.add(combo_blood);
-		
-		panel_center.add(panel_center_kanan);
-		
-		add(panel_center, "Center");
-		
-		//Footer
-		panel_southFrame.setLayout(new BorderLayout());
-		panel_southFrame.add(panel_space_south1, "North");
-		panel_southFrame.add(panel_space_south2, "Center");
-		
-		panel_south.setLayout(new FlowLayout());
-		panel_south.add(btn_submit);
-		btn_submit.addActionListener(this);
-		panel_south.add(btn_clear);
-		btn_clear.addActionListener(this);
-		panel_south.add(btn_delete);
-		btn_delete.addActionListener(this);
-		panel_southFrame.add(panel_south, "South");
-		add(panel_southFrame, "South");
 		
 		setTitle("View Patient Data");
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		setSize(1000,650);
+		setSize(1000,500);
 		setVisible(true);
 		setLocationRelativeTo(null);
 		setResizable(false);
@@ -237,40 +159,7 @@ public class ViewPatient extends JFrame implements ActionListener{
 	public void actionPerformed(ActionEvent e) {
 		Object obj = e.getSource();
 		
-		if(obj.equals(btn_submit)) {
-			String id = txt_id.getText();
-			String name = txt_name.getText();
-			int age = Integer.parseInt(txt_age.getText());
-			String address = txt_address.getText();
-			String phoneNumber = txt_phonenum.getText();
-			String gender = "";
-			
-			if(radio_male.isSelected()) {
-				gender = "Male";
-			}else if(radio_female.isSelected()) {
-				gender = "Female";
-			}
-			
-			String blood = combo_blood.getSelectedItem().toString();
-			
-			Object[] row = {id, name, age, address, phoneNumber, gender, blood};
-			dtm_table_patient.addRow(row);
-			patients.add(new Patient(id, name, age, address, phoneNumber, gender, blood));
-			table_patient.invalidate();
-		}
 		
-		else if(obj.equals(btn_clear)) {
-			
-		}
-		
-		else if (obj.equals(btn_delete)) {
-			int selectedRow = table_patient.getSelectedRow();
-			if(selectedRow != -1) {
-				dtm_table_patient.removeRow(selectedRow);
-				patients.remove(selectedRow);
-				table_patient.invalidate();
-			}
-		}
 	}
 
 }
