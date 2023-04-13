@@ -260,7 +260,7 @@ public class PatientForm extends JFrame implements ActionListener{
 		}
 		
 		else if(obj.equals(btn_clear)) {
-			
+			dtm_table_patient.setRowCount(0);
 		}
 		
 		else if (obj.equals(btn_delete)) {

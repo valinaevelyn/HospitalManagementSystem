@@ -6,6 +6,7 @@ import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
@@ -79,7 +80,7 @@ public class RegisterDoctorForm extends JFrame implements ActionListener{
 	private JButton btn_delete = new JButton("Delete");
 	
 	private ArrayList<Doctor> doctors = new ArrayList<Doctor>();
-	
+
 	public void load_doctor_data(){
 		File file = new File("src/database/datadoctor.txt");
 		try {
@@ -115,36 +116,8 @@ public class RegisterDoctorForm extends JFrame implements ActionListener{
 		}
 	}
 	
-	public void write_doctor_data(){
-		try {
-			FileWriter fileWrite = new FileWriter("src/database/datadoctor.txt");
-			String[] raw;
-			String id;
-			String name;
-			int age;
-			String address;
-			String phoneNumber;
-			String gender;
-			String specialization;
-			
-//			raw = .split("#");
-//			id = raw[0];
-//			name = raw[1];
-//			age = Integer.parseInt(raw[2]);
-//			address = raw[3];
-//			phoneNumber = raw[4];
-//			gender = raw[5];
-//			specialization = raw[6];
-			
-//			fileWrite.write(id);
-			
-			fileWrite.write("Files in Java might be tricky, but it is fun enough!");
-		    fileWrite.close();
-		    System.out.println("Successfully wrote to the file.");
-		} catch (IOException e) {
-			System.out.println("An error occurred.");
-			e.printStackTrace();
-		}
+	public void write_doctor_data(String list){
+		
 	}
 	
 	public void load_table_doctor() {
