@@ -8,6 +8,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -113,6 +114,18 @@ public class PharmacistForm extends JFrame implements ActionListener{
 			JOptionPane.showMessageDialog(null, e.getMessage());
 		}
 	}
+
+	public void saveFile(ArrayList<Pharmacist> pharmacists){
+        try{
+            PrintWriter writer = new PrintWriter("src/database/datapharmacist.txt");
+            for(int i = 0; i < pharmacists.size(); i++){
+                writer.println(i);
+            }
+            writer.close();
+        }catch (FileNotFoundException e){
+            System.out.println("File not found!");
+        }
+    }
 	
 	public void load_table_pharmacist() {
 		String[] column = {"ID", "Name", "Age", "Address", "Phone Number", "Gender", "Experience (years))"};
@@ -226,6 +239,7 @@ public class PharmacistForm extends JFrame implements ActionListener{
 		init_component();
 		load_pharmacist_data();
 		load_table_pharmacist();
+		saveFile(pharmacists);
 	}
 
 	public static void main(String[] args) {
