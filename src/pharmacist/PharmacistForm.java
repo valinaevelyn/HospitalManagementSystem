@@ -8,6 +8,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -115,14 +117,29 @@ public class PharmacistForm extends JFrame implements ActionListener{
 		}
 	}
 
+	public void tampungData(){
+		try {
+			Scanner read = new Scanner(new File("src/database/datapharmacist.txt"));
+			do{
+				String line = read.nextLine();
+				String[] tokens = line.split("#");
+				// pharmacists.add(new Pharmacist(tokens[0], tokens[1]));
+			}while(read.hasNext());
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+
 	public void saveFile(ArrayList<Pharmacist> pharmacists){
+		File file = new File("src/database/datapharmacist.txt");
         try{
-            PrintWriter writer = new PrintWriter("src/database/datapharmacist.txt");
+            FileWriter writer = new FileWriter(file);
             for(int i = 0; i < pharmacists.size(); i++){
-                writer.println(i);
+				writer.write(i);
             }
             writer.close();
-        }catch (FileNotFoundException e){
+        }catch (IOException e){
             System.out.println("File not found!");
         }
     }
