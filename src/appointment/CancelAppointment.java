@@ -26,7 +26,7 @@ import javax.swing.table.DefaultTableModel;
 import doctor.Doctor;
 import patient.Patient;
 
-public class AppointmentForm extends JFrame implements ActionListener{
+public class CancelAppointment extends JFrame implements ActionListener{
     
     private Font font_title = new Font(Font.SANS_SERIF, Font.BOLD, 24);
 
@@ -46,10 +46,7 @@ public class AppointmentForm extends JFrame implements ActionListener{
     private DefaultTableModel dtm_table_appointment;
     
     private JPanel panel_center = new JPanel();
-    private JPanel panel_center_frame = new JPanel();
-    private JPanel panel_center_frame1 = new JPanel();
-    private JPanel panel_space_center1 = new JPanel();
-    private JPanel panel_space_center2 = new JPanel();
+
     private JTextField txt_id = new JTextField();
     private JTextField txt_name = new JTextField();
     private JTextArea txt_complaint = new JTextArea();
@@ -62,7 +59,7 @@ public class AppointmentForm extends JFrame implements ActionListener{
     private JPanel panel_south_frame = new JPanel();
     private JPanel panel_space_south1 = new JPanel();
     private JPanel panel_space_south2 = new JPanel();
-    private JButton btn_save = new JButton("SAVE");
+    private JButton btn_save = new JButton("SAVE CHANGES");
     private JButton btn_cancel = new JButton("CANCEL");
 
     private ArrayList<Appointment> appointments = new ArrayList<Appointment>();
@@ -156,39 +153,6 @@ public class AppointmentForm extends JFrame implements ActionListener{
 		add(panel_left, "West");
 		add(panel_right, "East");
         
-        // Content
-        panel_center.setLayout(new GridLayout(6, 2));
-
-        // Row 1 
-        panel_center.add(new JLabel("ID"));
-        panel_center.add(txt_id);
-        add(panel_center);
-
-        // Row 2
-        panel_center.add(new JLabel("Name"));
-        panel_center.add(txt_name);
-        add(panel_center);
-
-        // Row 3
-        panel_center.add(new JLabel("Complaint"));
-        panel_center.add(txt_complaint);
-        add(panel_center);
-
-        // Row 4
-        panel_center.add(new JLabel("Date"));
-        panel_center.add(txt_date);
-        add(panel_center);
-
-        // Row 5
-        panel_center.add(new JLabel("Time"));
-        panel_center.add(txt_time);
-        add(panel_center);
-
-        // Row 6 
-        panel_center.add(new JLabel("Doctor Name"));
-        panel_center.add(txt_doctorName);
-        add(panel_center);
-
         // Footer
         panel_south_frame.setLayout(new BorderLayout());
         panel_south_frame.add(panel_space_south1, "North");
@@ -207,20 +171,20 @@ public class AppointmentForm extends JFrame implements ActionListener{
 
         setTitle("Make Appointment");
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        setSize(1000, 690);
+        setSize(1000, 543);
         setLocationRelativeTo(null);
         setVisible(true);
         setResizable(false);
     }
 
-    public AppointmentForm() {
+    public CancelAppointment() {
         init_components();
         load_table_appointment();
         load_appointment_data();
     }
     
     public static void main(String[] args) {
-        new AppointmentForm();
+        new CancelAppointment();
     }
 
     @Override
@@ -229,7 +193,8 @@ public class AppointmentForm extends JFrame implements ActionListener{
         // throw new UnsupportedOperationException("Unimplemented method 'actionPerformed'");
 
         Object obj = e.getSource();
-        if(obj.equals(btn_save)) JOptionPane.showMessageDialog(null, "Appointment Created Successfully!");
+        if(obj.equals(btn_save)) JOptionPane.showMessageDialog(null, "Changes Saved Successfully!");
+        if(obj.equals(btn_cancel)) JOptionPane.showMessageDialog(null, "Appointment Cancelled Successfully!");
         
     }
 
