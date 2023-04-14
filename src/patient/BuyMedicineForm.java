@@ -11,6 +11,7 @@ import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
@@ -21,6 +22,8 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
 
 import medicine.Medicine;
@@ -29,7 +32,7 @@ public class BuyMedicineForm extends JFrame implements ActionListener{
 	private Font font_title = new Font(Font.SERIF, Font.BOLD, 24);
 	
 	private JPanel panel_north = new JPanel();
-	private JLabel lbl_register = new JLabel("MEDICINE");
+	private JLabel lbl_register = new JLabel("BUY MEDICINE");
 	private JPanel panel_space_north = new JPanel();
 	private JPanel panel_space_north2 = new JPanel();
 	private JPanel panel_north_table = new JPanel();
@@ -45,19 +48,11 @@ public class BuyMedicineForm extends JFrame implements ActionListener{
 	private JPanel panel_center_kiri = new JPanel();
 	private JPanel panel_center_kanan = new JPanel();
 	
-	private JLabel lbl_id = new JLabel("ID");
 	private JLabel lbl_name = new JLabel("Name");
-	private JLabel lbl_function = new JLabel("Function");
-	private JLabel lbl_price = new JLabel("   Price");
-	private JLabel lbl_stock = new JLabel("   Stock");
-	private JLabel lbl_type = new JLabel("   Type");
-	
-	private JTextField txt_id = new JTextField();
+	private JLabel lbl_qty = new JLabel("Quantity");
+
 	private JTextField txt_name = new JTextField();
-	private JTextArea txt_function = new JTextArea();
-	private JTextField txt_price = new JTextField();
-	private JTextField txt_stock = new JTextField();
-	private JComboBox<String> combo_type = new JComboBox<>();
+	private JTextField txt_quantity = new JTextField();
 	
 	private JPanel panel_southFrame = new JPanel();
 	private JPanel panel_south = new JPanel();
@@ -65,9 +60,8 @@ public class BuyMedicineForm extends JFrame implements ActionListener{
 	private JPanel panel_space_south2 = new JPanel();
 	private JPanel panel_space_south3 = new JPanel();
 	private JPanel panel_space_south4 = new JPanel();
-	private JButton btn_submit = new JButton("Submit");
-	private JButton btn_clear = new JButton("Clear");
-	private JButton btn_delete = new JButton("Delete");
+	private JButton btn_continue = new JButton("Continue Payment");
+	private JButton btn_cancel = new JButton("Cancel");
 	
 	private ArrayList<Medicine> medicines = new ArrayList<>();
 	
@@ -100,6 +94,25 @@ public class BuyMedicineForm extends JFrame implements ActionListener{
 		}		
 	}
 	
+	public void load_table_medicine() {
+		String[] column = {"ID", "Name", "Function", "Price", "Stock", "Type"};
+		dtm_table_medicine = new DefaultTableModel(column, 0);
+		
+		for(Medicine medicine: medicines) {
+			String id = medicine.getId();
+			String name = medicine.getName();
+			String function = medicine.getFunction();
+			double price = medicine.getPrice();
+			int stock = medicine.getStock();
+			String type = medicine.getType();
+			
+			Object[] row = {id, name, function, price, stock, type};
+			dtm_table_medicine.addRow(row);
+		}
+		
+		table_medicine.setModel(dtm_table_medicine);;
+	}
+	
 	public void init_components() {
 		
 		setLayout(new BorderLayout());
@@ -125,38 +138,13 @@ public class BuyMedicineForm extends JFrame implements ActionListener{
 		add(panel_left, "West");
 		add(panel_right, "East");
 		
-		
 		//Content
-		panel_center.setLayout(new GridLayout(1,2));
-		
-		panel_center_kiri.setLayout(new GridLayout(3,3));
-		panel_center_kiri.add(lbl_id);
-		panel_center_kiri.add(txt_id);
-
-		panel_center_kiri.add(lbl_name);
-		panel_center_kiri.add(txt_name);
-		
-		panel_center_kiri.add(lbl_function);
-		panel_center_kiri.add(txt_function);
-		
-		panel_center.add(panel_center_kiri);
-		
-		panel_center_kanan.setLayout(new GridLayout(3, 3));
-		panel_center_kanan.add(lbl_price);
-		panel_center_kanan.add(txt_price);
-		
-		panel_center_kanan.add(lbl_stock);
-		panel_center_kanan.add(txt_stock);
-		
-		panel_center_kanan.add(lbl_type);
-		combo_type.addItem("Capsul");
-		combo_type.addItem("Syrup");
-		combo_type.addItem("Bubuk");
-		combo_type.addItem("Cream");
-		panel_center_kanan.add(combo_type);
-		
-		panel_center.add(panel_center_kanan);
-		
+		panel_center.setLayout(new GridLayout(2,2));
+		panel_center.add(lbl_name);
+		panel_center.add(txt_name);
+		panel_center.add(lbl_qty);
+		panel_center.add(txt_quantity);
+		panel_center.setBorder(BorderFactory.createEmptyBorder(20, 5, 5, 0));
 		add(panel_center, "Center");
 		
 		//Footer
@@ -165,12 +153,10 @@ public class BuyMedicineForm extends JFrame implements ActionListener{
 		panel_southFrame.add(panel_space_south2, "Center");
 		
 		panel_south.setLayout(new FlowLayout());
-		panel_south.add(btn_submit);
-		btn_submit.addActionListener(this);
-		panel_south.add(btn_clear);
-		btn_clear.addActionListener(this);
-		panel_south.add(btn_delete);
-		btn_delete.addActionListener(this);
+		panel_south.add(btn_continue);
+		btn_continue.addActionListener(this);
+		panel_south.add(btn_cancel);
+		btn_cancel.addActionListener(this);
 		panel_southFrame.add(panel_south, "South");
 		add(panel_southFrame, "South");
 		
@@ -185,6 +171,17 @@ public class BuyMedicineForm extends JFrame implements ActionListener{
 	public BuyMedicineForm() {
 		init_components();
 		load_medicine_data();
+		load_table_medicine();
+		
+		table_medicine.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
+			
+			@Override
+			public void valueChanged(ListSelectionEvent e) {
+				int row = table_medicine.getSelectedRow();
+				String name = table_medicine.getValueAt(row, 1).toString();
+				txt_name.setText(name);
+			}
+		});
 	}
 
 	public static void main(String[] args) {
@@ -193,8 +190,15 @@ public class BuyMedicineForm extends JFrame implements ActionListener{
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		// TODO Auto-generated method stub
+		Object obj = e.getSource();
+		if(obj.equals(btn_continue)) {
+			
+		}
 		
+		else if(obj.equals(btn_cancel)) {
+			txt_name.setText("");
+			txt_quantity.setText("");
+		}
 	}
 
 }
