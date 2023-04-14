@@ -8,6 +8,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -22,6 +23,7 @@ import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 
+import doctor.Doctor;
 import patient.Patient;
 
 public class AppointmentForm extends JFrame implements ActionListener{
@@ -64,6 +66,8 @@ public class AppointmentForm extends JFrame implements ActionListener{
     private JButton btn_cancel = new JButton("CANCEL");
 
     private ArrayList<Appointment> appointments = new ArrayList<Appointment>();
+    private Doctor doctorr = new Doctor();
+    private Patient patientt = new Patient();
     
     public void load_appointment_data() {
     	File file = new File("src/database/appointment.txt");
@@ -86,12 +90,28 @@ public class AppointmentForm extends JFrame implements ActionListener{
 				time = raw[4];
 				doctorName = raw[5];
 				
-//				appointments.add
+				// appointments.add(new Appointment(id, patientt.getName(), complaint, date, time, doctorr.getName()));
 			}
+
+            for(Appointment appointment : appointments){
+                System.out.println(appointment.getPatient()));
+            }
 			
 		} catch (FileNotFoundException e) {
 			JOptionPane.showMessageDialog(null, e.getMessage());
 		}
+    }
+
+    public void saveFile(ArrayList<Appointment> appointments){
+        try{
+            PrintWriter writer = new PrintWriter("src/database/appointment.txt");
+            for(int i = 0; i < appointments.size(); i++){
+                writer.println(i);
+            }
+            writer.close();
+        }catch (FileNotFoundException e){
+            System.out.println("File not found!");
+        }
     }
     
     public void load_table_appointment() {
@@ -196,6 +216,7 @@ public class AppointmentForm extends JFrame implements ActionListener{
     public AppointmentForm() {
         init_components();
         load_table_appointment();
+        load_appointment_data();
     }
     
     public static void main(String[] args) {
