@@ -43,13 +43,6 @@ public class Guide extends JFrame implements ActionListener{
 		
 		panel_north_table.setLayout(new BorderLayout());
 		
-		// Table
-		table_medicine = new JTable();
-		scrollpane_table_medicine = new JScrollPane(table_medicine);
-		panel_north_table.add(scrollpane_table_medicine, "North");
-		// panel_north_table.add(panel_space_north2,"South");
-		// panel_north.add(panel_north_table, "South");
-		
 		add(panel_north, "North");
 		add(panel_left, "West");
 		add(panel_right, "East");
