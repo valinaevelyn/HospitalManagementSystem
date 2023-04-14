@@ -51,7 +51,7 @@ public class BillForm extends JFrame implements ActionListener{
 	private JLabel id = new JLabel("ID : ");
 	private JLabel date_start = new JLabel("Date Start : ");
 	private JLabel date_end = new JLabel("Date End : ");
-	private JLabel virtualAcc = new JLabel("     VA : 1234567890");
+	private JLabel virtualAcc = new JLabel("     Rek. 1234567890 (BCA a/n RS. AAA)");
 	private JLabel proof = new JLabel("     Proof : ");
 	private JLabel space = new JLabel();
 	
@@ -171,9 +171,9 @@ public class BillForm extends JFrame implements ActionListener{
 		load_table_bill();
 	}
 
-	// public static void main(String[] args) {
-	// 	new BillForm();
-	// }
+	public static void main(String[] args) {
+		new BillForm();
+	}
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
