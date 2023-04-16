@@ -66,6 +66,10 @@ public class HospitalFrame extends JFrame implements ActionListener, WindowListe
     private JMenuItem menuItemView1 = new JMenuItem("Patient");
     private JMenuItem menuItemView2 = new JMenuItem("Doctor");
     private JMenuItem menuItemView3 = new JMenuItem("Room");
+    
+    // Log Out and Profile
+    private JMenu menuLogOut = new JMenu("Log Out");
+    private JMenu menuProfile = new JMenu("Profile");
 
     private LoginForm loginForm;
     private AppointmentForm makeAppointmentForm;
@@ -97,12 +101,14 @@ public class HospitalFrame extends JFrame implements ActionListener, WindowListe
         menuItemFileLogin.addActionListener(this);
         menuItemFileForm2.addActionListener(this);
         menuOption.addMouseListener(this);
+        
 
         // Doctor Page
         menuBar.add(menuAppointment);
         menuAppointment.setVisible(false);
         menuBar.add(menuBill);
         menuBill.setVisible(false);
+        
         add(jdPane);
 
         menuBill.addMouseListener(this);
@@ -166,6 +172,12 @@ public class HospitalFrame extends JFrame implements ActionListener, WindowListe
         menuItemView2.addActionListener(this);
         menuItemView3.addActionListener(this);
         
+        // Log Out Profile
+        menuBar.add(menuLogOut);
+        menuLogOut.setVisible(false);
+        menuBar.add(menuProfile);
+        menuProfile.setVisible(false);
+        
         setJMenuBar(menuBar);
         setTitle("Hospital Management System");
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
@@ -183,21 +195,29 @@ public class HospitalFrame extends JFrame implements ActionListener, WindowListe
         menuRegister.setVisible(true);
         menuData.setVisible(true);
         menuPayment.setVisible(true);
+        menuLogOut.setVisible(true);
+        menuProfile.setVisible(true);
     }
 
     public void doPharmacist(){
         menuMedicine2.setVisible(true);
         menuMedicine1.setVisible(true);
+        menuLogOut.setVisible(true);
+        menuProfile.setVisible(true);
     }
 
     public void doPatient(){
         menuAppointmentPatient.setVisible(true);
         menuMedicine.setVisible(true);
+        menuLogOut.setVisible(true);
+        menuProfile.setVisible(true);
     }
 
     public void doDoctor(){
         menuAppointment.setVisible(true);
         menuBill.setVisible(true);
+        menuLogOut.setVisible(true);
+        menuProfile.setVisible(true);
     }
 
     public void doLandingPage(){

@@ -93,9 +93,9 @@ public class AppointmentForm extends JFrame implements ActionListener{
 				// appointments.add(new Appointment(id, patientt.getName(), complaint, date, time, doctorr.getName()));
 			}
 
-            for(Appointment appointment : appointments){
-                System.out.println(appointment.getPatient());
-            }
+//            for(Appointment appointment : appointments){
+//                System.out.println(appointment.getPatient());
+//            }
 			
 		} catch (FileNotFoundException e) {
 			JOptionPane.showMessageDialog(null, e.getMessage());
@@ -225,9 +225,6 @@ public class AppointmentForm extends JFrame implements ActionListener{
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        // TODO Auto-generated method stub
-        // throw new UnsupportedOperationException("Unimplemented method 'actionPerformed'");
-
         Object obj = e.getSource();
         if(obj.equals(btn_save)) JOptionPane.showMessageDialog(null, "Appointment Created Successfully!");
         
