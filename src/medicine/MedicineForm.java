@@ -216,17 +216,51 @@ public class MedicineForm extends JFrame implements ActionListener{
 		Object obj = e.getSource();
 		
 		if(obj.equals(btn_submit)) {
+			boolean flag = false;
 			String id = txt_id.getText();
 			String name = txt_name.getText();
 			String function = txt_function.getText();
 			double price = Double.parseDouble(txt_price.getText());
 			int stock = Integer.parseInt(txt_stock.getText());
 			String type = combo_type.getSelectedItem().toString();
+
+			//VALIDATION
+			String id_validation = "M+[0-9]+[0-9]+[0-9]+";
+			if(id.matches(id_validation)){
+				flag = true;
+			}else{
+				flag = false;
+				JOptionPane.showMessageDialog(null, "ID must start with 'M'");
+			}
+
+			if(name.length()<10){
+				flag = false;
+				JOptionPane.showMessageDialog(null, "Name must be more than 10 characters");
+			}else{
+				flag = true;
+			}
+
+			if(price < 500){
+				flag = false;
+				JOptionPane.showMessageDialog(null, "Price must be more than 500.00!");
+			}else{
+				flag = true;
+			}
+
+			if(stock < 0){
+				flag = false;
+				JOptionPane.showMessageDialog(null, "Stock must be more than 0");
+			}else{
+				flag = true;
+			}
 			
+			//STORE DATA DI DALAM TABEL
 			Object[] row = {id, name, function, price, stock, type};
-			dtm_table_medicine.addRow(row);
-			medicines.add(new Medicine(id, name, function, price, stock, type));
-			table_medicine.invalidate();
+			if(flag==true){
+				dtm_table_medicine.addRow(row);
+				medicines.add(new Medicine(id, name, function, price, stock, type));
+				table_medicine.invalidate();
+			}
 					
 		}
 		

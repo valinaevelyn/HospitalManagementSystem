@@ -131,18 +131,22 @@ public class PharmacistForm extends JFrame implements ActionListener{
 		}
 	}
 
-	public void saveFile(ArrayList<Pharmacist> pharmacists){
-		File file = new File("src/database/datapharmacist.txt");
-        try{
-            FileWriter writer = new FileWriter(file);
-            for(int i = 0; i < pharmacists.size(); i++){
-				writer.write(i);
-            }
-            writer.close();
-        }catch (IOException e){
-            System.out.println("File not found!");
-        }
-    }
+	// public void saveFile(ArrayList<Pharmacist> pharmacists){
+	// 	File file = new File("src/database/datapharmacist.txt");
+    //     try{
+    //         FileWriter writer = new FileWriter(file);
+	// 		int age_write = Integer.parseInt(txt_age.getText());
+	// 		int experience_write = Integer.parseInt(txt_experience.getText());
+	// 		writer.write(txt_id.getText()+"#"+txt_name.getText()+"#"+age_write+"#"+txt_address.getText()+"#"+txt_phone.getText()+"#"+gender.getText()+"#"+experience_write);
+    //         writer.close();
+	// 		// for(int i = 0; i < pharmacists.size(); i++){
+	// 		// 	writer.write(i);
+    //         // }
+    //         // writer.close();
+    //     }catch (IOException e){
+    //         System.out.println("File not found!");
+    //     }
+    // }
 	
 	public void load_table_pharmacist() {
 		String[] column = {"ID", "Name", "Age", "Address", "Phone Number", "Gender", "Experience (years))"};
@@ -256,7 +260,6 @@ public class PharmacistForm extends JFrame implements ActionListener{
 		init_component();
 		load_pharmacist_data();
 		load_table_pharmacist();
-		saveFile(pharmacists);
 	}
 
 	public static void main(String[] args) {
@@ -281,6 +284,7 @@ public class PharmacistForm extends JFrame implements ActionListener{
 			}
 			
 			int experience = Integer.parseInt(txt_experience.getText());
+
 			
 			//VALIDATION
 			if(id.equals("")) {
@@ -315,13 +319,29 @@ public class PharmacistForm extends JFrame implements ActionListener{
 				pharmacists.add(new Pharmacist(id, name, age, address, phoneNumber, gender, experience));
 				table_pharmacist.invalidate();
 			}
+
+			File file = new File("src/database/datapharmacist.txt");
+       		try{
+				FileWriter writer = new FileWriter(file);
+				int age_write = Integer.parseInt(txt_age.getText());
+				int experience_write = Integer.parseInt(txt_experience.getText());
+				writer.write(id+"#"+name+"#"+age+"#"+address+"#"+phoneNumber+"#"+gender+"#"+experience);
+				writer.close();
+				// for(int i = 0; i < pharmacists.size(); i++){
+				// 	writer.write(i);
+				// }
+				// writer.close();
+        	}catch (IOException a){
+            	System.out.println("File not found!");
+       		 }
 			
 			txt_id.setText("");
 			txt_name.setText("");
 			txt_age.setText("");
 			txt_address.setText("");
 			txt_phone.setText("");
-			
+
+
 		}else if(e.getSource().equals(btn_delete)) {
 			int selectedRow = table_pharmacist.getSelectedRow();
 			if(selectedRow != -1) {
