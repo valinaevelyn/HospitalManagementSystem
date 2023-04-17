@@ -12,6 +12,7 @@ import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
@@ -115,6 +116,33 @@ public class RegisterForm extends JFrame implements ActionListener{
 		String username = txt_username.getText();
 		String password = txt_password.getText();
 		String confirm_password = txt_confirm_password.getText();
+
+		boolean validate;
+		//untuk .com
+		String email_pattern = "[a-zA-Z0-9._]+@[a-z]+\\.+[a-z]+";
+		//untuk .co.id
+		String email_pattern2 = "[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+\\.+[a-z]+"; 
+
+		if(email.matches(email_pattern)){
+			validate = true;
+		}else if(email.matches(email_pattern2)){
+			validate = true;
+		}else{
+			validate = false;
+			JOptionPane.showMessageDialog(null, "Email wrong!");
+		}
+
+		if(username.length()<8){
+			JOptionPane.showMessageDialog(null, "Username must be more than 8 characters");
+		}
+
+		if(password.length()<8){
+			JOptionPane.showMessageDialog(null, "Password must be more than 8 characters");
+		}
+
+		if(confirm_password.equals(password)){
+			JOptionPane.showMessageDialog(null, "Register succcess!");
+		}
 		
 	}
 
