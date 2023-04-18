@@ -2,7 +2,7 @@ package profile;
 
 public class User {
 	private String username;
-	private String email;
+	private String role;
 	private String password;
 	private String name;
 	
@@ -10,10 +10,10 @@ public class User {
 		// TODO Auto-generated constructor stub
 	}
 
-	public User(String username, String email, String password, String name) {
+	public User(String username, String role, String password, String name) {
 		super();
 		this.username = username;
-		this.email = email;
+		this.role = role;
 		this.password = password;
 		this.name = name;
 	}
@@ -27,11 +27,11 @@ public class User {
 	}
 
 	public String getEmail() {
-		return email;
+		return role;
 	}
 
 	public void setEmail(String email) {
-		this.email = email;
+		this.role = email;
 	}
 
 	public String getPassword() {
