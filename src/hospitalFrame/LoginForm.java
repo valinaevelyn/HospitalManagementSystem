@@ -117,8 +117,10 @@ public class LoginForm extends JFrame implements ActionListener, WindowListener{
         String username = txt_username.getText();
         if(e.getSource().equals(btn_submit)){
             dispose();
-
+ 
             String[] split = username.split("_", 2);
+            print(split[0]);
+            print(split[1]);
 
             while(true){
                 if(split[0].equals("patient")){
@@ -141,8 +143,7 @@ public class LoginForm extends JFrame implements ActionListener, WindowListener{
                     hospitalFrame.doLandingPage();
                     setTitle("Pharmacist");
                     break;
-                }
-                else{
+                } else{
                     JOptionPane.showMessageDialog(null, "Wrong input!");
                     loginForm = new LoginForm(hospitalFrame);
                     jdPane.add(loginForm);
