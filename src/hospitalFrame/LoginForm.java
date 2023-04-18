@@ -119,8 +119,6 @@ public class LoginForm extends JFrame implements ActionListener, WindowListener{
             dispose();
  
             String[] split = username.split("_", 2);
-            print(split[0]);
-            print(split[1]);
 
             while(true){
                 if(split[0].equals("patient")){
