@@ -139,6 +139,7 @@ public class LoginForm extends JFrame implements ActionListener, WindowListener{
 
     public LoginForm(HospitalFrame hospitalFrame){
         this.hospitalFrame = hospitalFrame;
+        load_user_data();
         init_components();
         setTitle("Login");
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -161,7 +162,8 @@ public class LoginForm extends JFrame implements ActionListener, WindowListener{
     public void actionPerformed(ActionEvent e) {
         // Logic Login
         String username = txt_username.getText();
-        String password = txt_password.getPassword().toString();
+        // String password = txt_password.getPassword().toString();
+        String password = new String(txt_password.getPassword());
         if(e.getSource().equals(btn_submit)){
             dispose();
 
@@ -193,6 +195,8 @@ public class LoginForm extends JFrame implements ActionListener, WindowListener{
                     } 
                 } else{
                     JOptionPane.showMessageDialog(null, "Wrong input!");
+                    // JOptionPane.showMessageDialog(null,  "pw should be " + users.get(index).getPassword());
+                    // JOptionPane.showMessageDialog(null, "ur uname = " + username + " ur pass = " + password);
                     loginForm = new LoginForm(hospitalFrame);
                     jdPane.add(loginForm);
                 }
