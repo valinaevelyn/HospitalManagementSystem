@@ -6,6 +6,7 @@ import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
@@ -291,11 +292,12 @@ public class PharmacistForm extends JFrame implements ActionListener{
 
 			
 			//VALIDATION
-			if(id.equals("")) {
+			String id_validation = "P+[0-9]+[0-9]+[0-9]+[0-9]+[0-9]+[0-9]+";
+			if(id.matches(id_validation)) {
+				flag = true;
+			}else {
 				JOptionPane.showMessageDialog(null, "ID must be filled!");
 				flag = false;
-			}else {
-				flag = true;
 			}
 			if(name.equals("")) {
 				JOptionPane.showMessageDialog(null, "Name must be filled!");
