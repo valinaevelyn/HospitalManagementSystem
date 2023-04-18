@@ -1,0 +1,12 @@
+patient01_#Patient#patient01#Patient 1
+patient02_#Patient#patient02#Patient 2
+patient03_#Patient#patient03#Patient 3
+doctor01_#Doctor#doctor01#Doctor 1
+doctor02_#Doctor#doctor02#Doctor 2
+doctor03_#Doctor#doctor03#Doctor 3
+receptionist01_#Receptionist#receptionist01#Receptionist 1
+receptionist02_#Receptionist#receptionist02#Receptionist 2
+receptionist03_#Receptionist#receptionist03#Receptionist 3
+pharmacist01_#Pharmacist#pharmacist01#Pharmacist 1
+pharmacist02_#Pharmacist#pharmacist02#Pharmacist 2
+pharmacist03_#Pharmacist#pharmacist03#Pharmacist 3
