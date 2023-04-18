@@ -328,6 +328,7 @@ public class PharmacistForm extends JFrame implements ActionListener{
        		try{
 				FileWriter writer = new FileWriter(file);
 				writer.write(id+"#"+name+"#"+age+"#"+address+"#"+phoneNumber+"#"+gender+"#"+experience);
+				pharmacists.add(new Pharmacist(id, name, age, address, phoneNumber, gender, experience));
 				writer.close();
         	}catch (IOException a){
 				System.out.println("File not found!");
