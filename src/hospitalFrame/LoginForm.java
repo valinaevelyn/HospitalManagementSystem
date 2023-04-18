@@ -16,7 +16,6 @@ import java.util.Scanner;
 import javax.swing.JButton;
 import javax.swing.JDesktopPane;
 import javax.swing.JFrame;
-import javax.swing.JInternalFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -24,7 +23,6 @@ import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 
 import profile.User;
-// import profile.User;
 
 public class LoginForm extends JFrame implements ActionListener, WindowListener{
     private Font font_title = new Font(Font.SANS_SERIF, Font.BOLD, 25);
@@ -58,6 +56,11 @@ public class LoginForm extends JFrame implements ActionListener, WindowListener{
     private JButton btn_submit = new JButton("Login");
 
     private ArrayList<User> users = new ArrayList<User>();
+    private int index;
+
+    public int getIndex() {
+        return index;
+    }
 
     void load_user_data(){
         File file = new File("src/database/user.txt");
@@ -79,9 +82,6 @@ public class LoginForm extends JFrame implements ActionListener, WindowListener{
                 users.add(new User(username, role, password, name));
             }
 
-            // for(User u: users){
-            //     System.out.println(u.get);
-            // }
         } catch (FileNotFoundException e) {
 			JOptionPane.showMessageDialog(null, e.getMessage());
 		}
@@ -162,16 +162,17 @@ public class LoginForm extends JFrame implements ActionListener, WindowListener{
     public void actionPerformed(ActionEvent e) {
         // Logic Login
         String username = txt_username.getText();
-        // String password = txt_password.getPassword().toString();
         String password = new String(txt_password.getPassword());
+
         if(e.getSource().equals(btn_submit)){
             dispose();
 
-            int index = findUser(username);
+            index = findUser(username);
             String[] split = username.split("_", 2);
 
             while(true){
                 if(index != -1 && users.get(index).getPassword().equals(password)){
+
                     if(split[0].equals("patient")){
                         hospitalFrame.doPatient();
                         hospitalFrame.doLandingPage();

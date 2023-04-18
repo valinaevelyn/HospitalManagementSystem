@@ -16,6 +16,7 @@ import doctor.ViewDoctor;
 import patient.BuyMedicineForm;
 import appointment.ViewAppointment;
 import appointment.CancelAppointment;
+import profile.Account;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -29,6 +30,7 @@ import javax.swing.JFrame;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
 import javax.swing.JSeparator;
 
 public class HospitalFrame extends JFrame implements ActionListener, WindowListener, MouseListener{
@@ -87,6 +89,7 @@ public class HospitalFrame extends JFrame implements ActionListener, WindowListe
     private BuyMedicineForm buyMedicineForm;
     private ViewAppointment viewAppointment;
     private CancelAppointment cancelAppointment;
+    private Account account;
     private JDesktopPane jdPane = new JDesktopPane();
 
     public HospitalFrame(){
@@ -101,8 +104,9 @@ public class HospitalFrame extends JFrame implements ActionListener, WindowListe
         menuItemFileLogin.addActionListener(this);
         menuItemFileForm2.addActionListener(this);
         menuOption.addMouseListener(this);
+        menuProfile.addMouseListener(this);
+        menuLogOut.addMouseListener(this);
         
-
         // Doctor Page
         menuBar.add(menuAppointment);
         menuAppointment.setVisible(false);
@@ -379,6 +383,21 @@ public class HospitalFrame extends JFrame implements ActionListener, WindowListe
             buyMedicineForm = new BuyMedicineForm(); 
             jdPane.add(buyMedicineForm);
             dispose();
+        }
+        
+        if(e.getSource().equals(menuProfile)){
+            account = new Account(); 
+            jdPane.add(account);
+            dispose();
+        }
+        
+        if(e.getSource().equals(menuLogOut)){
+            int response = JOptionPane.showConfirmDialog(null, "Are you sure you want to log out?", "Select an option", JOptionPane.YES_NO_OPTION);
+            if(response == JOptionPane.YES_OPTION){
+                JOptionPane.showMessageDialog(null, "Logged out.");
+                dispose();
+                new HospitalFrame();
+            }
         }
     }
 

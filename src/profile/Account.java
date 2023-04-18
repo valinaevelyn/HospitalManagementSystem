@@ -12,16 +12,52 @@ import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.util.ArrayList;
+import java.util.Scanner;
 
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import hospitalFrame.LoginForm;
+import hospitalFrame.HospitalFrame;
+import profile.User;
 
 public class Account extends JFrame implements ActionListener{
 	private Font font_title = new Font(Font.SERIF, Font.BOLD, 24);
+
+	private ArrayList<User> users = new ArrayList<User>();
+	private HospitalFrame hospitalFrame;
+
+	void load_user_data(){
+        File file = new File("src/database/user.txt");
+        try{
+            Scanner scan = new Scanner(file);
+            String[] raw;
+            String username;
+            String role;
+            String password;
+            String name;
+
+            while(scan.hasNextLine()){
+                raw = scan.nextLine().split("#");
+                username = raw[0];
+                role = raw[1];
+                password = raw[2];
+                name = raw[3];
+
+                users.add(new User(username, role, password, name));
+            }
+
+        } catch (FileNotFoundException e) {
+			JOptionPane.showMessageDialog(null, e.getMessage());
+		}
+    }
 	
 	private JPanel panel_north = new JPanel();
 	private JPanel panel_north_frame = new JPanel();
@@ -34,15 +70,19 @@ public class Account extends JFrame implements ActionListener{
 	private JPanel panel_center = new JPanel();
 	private JPanel panel_center_kiri = new JPanel();
 	private JPanel panel_center_kanan = new JPanel();
+
+	LoginForm loginForm = new LoginForm(null);
+    int index = loginForm.getIndex();
 	
 	private JLabel lbl_name = new JLabel("    Name");
-	private JLabel lbl_isi_name = new JLabel();
 	private JLabel lbl_username = new JLabel("    Username");
-	private JLabel lbl_isi_username = new JLabel();
 	private JLabel lbl_email = new JLabel("    Email");
-	private JLabel lbl_isi_email = new JLabel();
 	private JLabel lbl_role = new JLabel("    Role");
-	private JLabel lbl_isi_role = new JLabel("    Patient");
+	
+	private JLabel lbl_isi_name = new JLabel();
+	private JLabel lbl_isi_username = new JLabel();
+	private JLabel lbl_isi_email = new JLabel();
+	private JLabel lbl_isi_role = new JLabel();
 	
 	private JPanel panel_south = new JPanel();
 	private JPanel panel_south_frame = new JPanel();
@@ -120,19 +160,22 @@ public class Account extends JFrame implements ActionListener{
 		panel_south_btn.setLayout(new FlowLayout());
 		panel_south_btn.add(btn_back);
 		panel_south.add(panel_south_btn, "Center");
+		btn_back.addActionListener(this);
 		
 		panel_south.add(panel_south_space, "South"); 
 		
 		add(panel_south, "South");
 		
 		setVisible(true);
+		setTitle("View Profile");
 		setSize(550, 350);
 		setResizable(false);
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setLocationRelativeTo(null);
 	}
-	
+
 	public Account() {
+		loginForm.setVisible(false);
 		initComponent();
 	}
 
@@ -142,7 +185,9 @@ public class Account extends JFrame implements ActionListener{
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		// TODO Auto-generated method stub
+		if(e.getSource().equals(btn_back)){
+            dispose();
+        }
 	}
 
 }
