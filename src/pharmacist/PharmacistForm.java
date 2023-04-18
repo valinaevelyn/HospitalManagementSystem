@@ -11,6 +11,7 @@ import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.io.Writer;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -82,6 +83,8 @@ public class PharmacistForm extends JFrame implements ActionListener{
 	
 	private ArrayList<Pharmacist> pharmacists = new ArrayList<Pharmacist>();
 		
+	private int size = 0;
+
 	public void load_pharmacist_data(){
 		File file = new File("src/database/datapharmacist.txt");
 		try {
@@ -106,6 +109,7 @@ public class PharmacistForm extends JFrame implements ActionListener{
 				experience = Integer.parseInt(raw[6]);
 				
 				pharmacists.add(new Pharmacist(id, name, age, address, phoneNumber, gender, experience));
+				size++;
 			}
 			
 			for(Pharmacist pharmacist : pharmacists) {
@@ -323,24 +327,20 @@ public class PharmacistForm extends JFrame implements ActionListener{
 			File file = new File("src/database/datapharmacist.txt");
        		try{
 				FileWriter writer = new FileWriter(file);
-				int age_write = Integer.parseInt(txt_age.getText());
-				int experience_write = Integer.parseInt(txt_experience.getText());
 				writer.write(id+"#"+name+"#"+age+"#"+address+"#"+phoneNumber+"#"+gender+"#"+experience);
 				writer.close();
-				// for(int i = 0; i < pharmacists.size(); i++){
-				// 	writer.write(i);
-				// }
-				// writer.close();
         	}catch (IOException a){
-            	System.out.println("File not found!");
-       		 }
-			
+				System.out.println("File not found!");
+			}
+
 			txt_id.setText("");
 			txt_name.setText("");
 			txt_age.setText("");
 			txt_address.setText("");
 			txt_phone.setText("");
-
+			radio_female.setText("");
+			radio_female.setText("");
+			txt_experience.setText("");
 
 		}else if(e.getSource().equals(btn_delete)) {
 			int selectedRow = table_pharmacist.getSelectedRow();
