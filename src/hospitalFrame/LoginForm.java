@@ -8,6 +8,10 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.util.ArrayList;
+import java.util.Scanner;
 
 import javax.swing.JButton;
 import javax.swing.JDesktopPane;
@@ -18,6 +22,9 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
+
+import profile.User;
+// import profile.User;
 
 public class LoginForm extends JFrame implements ActionListener, WindowListener{
     private Font font_title = new Font(Font.SANS_SERIF, Font.BOLD, 25);
@@ -49,6 +56,36 @@ public class LoginForm extends JFrame implements ActionListener, WindowListener{
     private JPanel panel_space_south1 = new JPanel();
     private JPanel panel_space_south2 = new JPanel();
     private JButton btn_submit = new JButton("Login");
+
+    private ArrayList<User> users = new ArrayList<User>();
+
+    void load_user_data(){
+        File file = new File("src/database/user.txt");
+        try{
+            Scanner scan = new Scanner(file);
+            String[] raw;
+            String username;
+            String role;
+            String password;
+            String name;
+
+            while(scan.hasNextLine()){
+                raw = scan.nextLine().split("#");
+                username = raw[0];
+                role = raw[1];
+                password = raw[2];
+                name = raw[3];
+
+                users.add(new User(username, role, password, name));
+            }
+
+            // for(User u: users){
+            //     System.out.println(u.get);
+            // }
+        } catch (FileNotFoundException e) {
+			JOptionPane.showMessageDialog(null, e.getMessage());
+		}
+    }
 
     void init_components(){
         setLayout(new BorderLayout());
@@ -111,36 +148,49 @@ public class LoginForm extends JFrame implements ActionListener, WindowListener{
         setResizable(false);
     }
 
+    public int findUser(String username){
+        int i = 0;
+        for(User u: users){
+            if(u.getUsername().equals(username)) return i;
+            else i++;
+        }
+        return -1;
+    }
+
     @Override
     public void actionPerformed(ActionEvent e) {
         // Logic Login
         String username = txt_username.getText();
+        String password = txt_password.getPassword().toString();
         if(e.getSource().equals(btn_submit)){
             dispose();
- 
+
+            int index = findUser(username);
             String[] split = username.split("_", 2);
 
             while(true){
-                if(split[0].equals("patient")){
-                    hospitalFrame.doPatient();
-                    hospitalFrame.doLandingPage();
-                    setTitle("Patient");
-                    break;
-                } else if(split[0].equals("receptionist")){
-                    hospitalFrame.doReceptionist();
-                    hospitalFrame.doLandingPage();
-                    setTitle("Receptionist");
-                    break;
-                } else if(split[0].equals("doctor")){
-                    hospitalFrame.doDoctor();
-                    hospitalFrame.doLandingPage();
-                    setTitle("Doctor");
-                    break;
-                } else if(split[0].equals("pharmacist")){
-                    hospitalFrame.doPharmacist();
-                    hospitalFrame.doLandingPage();
-                    setTitle("Pharmacist");
-                    break;
+                if(index != -1 && users.get(index).getPassword().equals(password)){
+                    if(split[0].equals("patient")){
+                        hospitalFrame.doPatient();
+                        hospitalFrame.doLandingPage();
+                        setTitle("Patient");
+                        break;
+                    } else if(split[0].equals("receptionist")){
+                        hospitalFrame.doReceptionist();
+                        hospitalFrame.doLandingPage();
+                        setTitle("Receptionist");
+                        break;
+                    } else if(split[0].equals("doctor")){
+                        hospitalFrame.doDoctor();
+                        hospitalFrame.doLandingPage();
+                        setTitle("Doctor");
+                        break;
+                    } else if(split[0].equals("pharmacist")){
+                        hospitalFrame.doPharmacist();
+                        hospitalFrame.doLandingPage();
+                        setTitle("Pharmacist");
+                        break;
+                    } 
                 } else{
                     JOptionPane.showMessageDialog(null, "Wrong input!");
                     loginForm = new LoginForm(hospitalFrame);
