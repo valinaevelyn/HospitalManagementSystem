@@ -394,9 +394,9 @@ public class HospitalFrame extends JFrame implements ActionListener, WindowListe
         if(e.getSource().equals(menuLogOut)){
             int response = JOptionPane.showConfirmDialog(null, "Are you sure you want to log out?", "Select an option", JOptionPane.YES_NO_OPTION);
             if(response == JOptionPane.YES_OPTION){
-                JOptionPane.showMessageDialog(null, "Logged out.");
                 dispose();
                 new HospitalFrame();
+                JOptionPane.showMessageDialog(null, "Logged out.");
             }
         }
     }

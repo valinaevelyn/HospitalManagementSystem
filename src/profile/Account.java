@@ -33,6 +33,7 @@ public class Account extends JFrame implements ActionListener{
 
 	private ArrayList<User> users = new ArrayList<User>();
 	private HospitalFrame hospitalFrame;
+	// private LoginForm loginForm;
 
 	void load_user_data(){
         File file = new File("src/database/user.txt");
@@ -71,18 +72,15 @@ public class Account extends JFrame implements ActionListener{
 	private JPanel panel_center_kiri = new JPanel();
 	private JPanel panel_center_kanan = new JPanel();
 
-	LoginForm loginForm = new LoginForm(null);
-    int index = loginForm.getIndex();
-	
 	private JLabel lbl_name = new JLabel("    Name");
 	private JLabel lbl_username = new JLabel("    Username");
 	private JLabel lbl_email = new JLabel("    Email");
 	private JLabel lbl_role = new JLabel("    Role");
 	
-	private JLabel lbl_isi_name = new JLabel();
-	private JLabel lbl_isi_username = new JLabel();
-	private JLabel lbl_isi_email = new JLabel();
-	private JLabel lbl_isi_role = new JLabel();
+	private JLabel lbl_isi_name;
+	private JLabel lbl_isi_username;
+	private JLabel lbl_isi_email;
+	private JLabel lbl_isi_role;
 	
 	private JPanel panel_south = new JPanel();
 	private JPanel panel_south_frame = new JPanel();
@@ -172,10 +170,23 @@ public class Account extends JFrame implements ActionListener{
 		setResizable(false);
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setLocationRelativeTo(null);
+		setAlwaysOnTop(true);
 	}
 
+	public void load_profile(){
+		LoginForm loginForm = new LoginForm(null);
+		loginForm.dispose();
+
+    	int index = loginForm.getIndex();
+        lbl_isi_username = new JLabel(users.get(index).getUsername());
+        lbl_isi_email = new JLabel(users.get(index).getEmail());
+        lbl_isi_name = new JLabel(users.get(index).getName());
+        lbl_isi_role = new JLabel(users.get(index).getRole());
+    }
+
 	public Account() {
-		loginForm.setVisible(false);
+		load_user_data();
+		load_profile();
 		initComponent();
 	}
 
