@@ -22,8 +22,6 @@ import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 
-import medicine.Medicine;
-
 public class PaymentForm extends JFrame implements ActionListener{
 	private Font font_title = new Font(Font.SERIF, Font.BOLD, 24);
 	
@@ -66,26 +64,18 @@ public class PaymentForm extends JFrame implements ActionListener{
 			Scanner scan = new Scanner(file);
 			String[] raw;
 			String name;
-			String keterangan;
 			int total;
+			String keterangan;
 			String statusPayment;
 			
 			while(scan.hasNextLine()) {
 				raw = scan.nextLine().split("#");
 				name = raw[0];
-				keterangan = raw[1];
-				total = Integer.parseInt(raw[2]);
+				total = Integer.parseInt(raw[1]);
+				keterangan = raw[2];
 				statusPayment = raw[3];
 				
-				boolean status = false;
-				
-				if(statusPayment.equals("Belum Dibayar")) {
-					status = false;
-				}else if(statusPayment.equals("Sudah Lunas")) {
-					status = true;
-				}
-				
-//				payments.add(new Payment(name, keterangan, total, status));
+				payments.add(new Payment(name, total, keterangan, statusPayment));
 			}
 			
 		} catch (FileNotFoundException e) {
@@ -94,16 +84,16 @@ public class PaymentForm extends JFrame implements ActionListener{
 	}
 	
 	public void load_table_payment() {
-		String[] column = {"Name", "Keterangan", "Total", "Status Payment"};
+		String[] column = {"Name", "Total", "Service", "Payment Status"};
 		dtm_table_payment = new DefaultTableModel(column, 0);
 		
 		for(Payment payment: payments) {
-			String name = payment.getPatient().getName();
-			String keterangan = payment.getKeterangan();
+			String name = payment.getPatientName();
 			int total = payment.getTotal();
-			String statusPayment = payment.checkStatusPayment();
+			String keterangan = payment.getKeterangan();
+			String statusPayment = payment.getStatus();
 			
-			Object[] row = {name, keterangan, total, statusPayment};
+			Object[] row = {name, total, keterangan, statusPayment};
 			dtm_table_payment.addRow(row);
 		}
 		
@@ -165,7 +155,7 @@ public class PaymentForm extends JFrame implements ActionListener{
 	
 	public PaymentForm() {
 		init_components();
-//		load_payment_data();
+		load_payment_data();
 		load_table_payment();
 	}
 	

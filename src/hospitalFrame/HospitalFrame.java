@@ -17,6 +17,7 @@ import patient.BuyMedicineForm;
 import appointment.ViewAppointment;
 import appointment.CancelAppointment;
 import profile.Account;
+import Payment.PaymentForm;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -90,6 +91,7 @@ public class HospitalFrame extends JFrame implements ActionListener, WindowListe
     private ViewAppointment viewAppointment;
     private CancelAppointment cancelAppointment;
     private Account account;
+    private PaymentForm paymentForm;
     private JDesktopPane jdPane = new JDesktopPane();
 
     public HospitalFrame(){
@@ -175,6 +177,7 @@ public class HospitalFrame extends JFrame implements ActionListener, WindowListe
         menuItemView1.addActionListener(this);
         menuItemView2.addActionListener(this);
         menuItemView3.addActionListener(this);
+        menuPayment.addMouseListener(this);
         
         // Log Out Profile
         menuBar.add(menuLogOut);
@@ -388,6 +391,12 @@ public class HospitalFrame extends JFrame implements ActionListener, WindowListe
         if(e.getSource().equals(menuProfile)){
             account = new Account(); 
             jdPane.add(account);
+            dispose();
+        }
+        
+        if(e.getSource().equals(menuPayment)){
+            paymentForm = new PaymentForm(); 
+            jdPane.add(paymentForm);
             dispose();
         }
         

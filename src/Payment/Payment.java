@@ -1,35 +1,32 @@
 package Payment;
 
-import patient.Patient;
-
 public class Payment {
-	private Patient patient;
+	private String patientName;
 	private int total;
 	private String keterangan;
-	private boolean statusPayment = false;
-	
+	private String status;
+
 	public Payment() {
-		// TODO Auto-generated constructor stub
+		
 	}
 
-	public Payment(Patient patient, int total, String keterangan, boolean statusPayment) {
-		super();
-		this.patient = patient;
+	public Payment(String patientName, int total, String keterangan, String status) {
+		this.patientName = patientName;
 		this.total = total;
 		this.keterangan = keterangan;
-		this.statusPayment = statusPayment;
+		this.status = status;
 	}
 
-	public Patient getPatient() {
-		return patient;
+	public String getPatientName() {
+		return this.patientName;
 	}
 
-	public void setPatient(Patient patient) {
-		this.patient = patient;
+	public void setPatientName(String patientName) {
+		this.patientName = patientName;
 	}
 
 	public int getTotal() {
-		return total;
+		return this.total;
 	}
 
 	public void setTotal(int total) {
@@ -37,26 +34,19 @@ public class Payment {
 	}
 
 	public String getKeterangan() {
-		return keterangan;
+		return this.keterangan;
 	}
 
 	public void setKeterangan(String keterangan) {
 		this.keterangan = keterangan;
 	}
 
-	public boolean isStatusPayment() {
-		return statusPayment;
-	}
-	
-	public String checkStatusPayment() {
-		if(statusPayment == false) {
-			return "Belum Dibayar";
-		}else {
-			return "Sudah Lunas";
-		}
+	public String getStatus() {
+		return this.status;
 	}
 
-	public void setStatusPayment(boolean statusPayment) {
-		this.statusPayment = statusPayment;
+	public void setStatus(String status) {
+		this.status = status;
 	}
+
 }

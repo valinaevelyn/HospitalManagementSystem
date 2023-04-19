@@ -1,13 +1,7 @@
 package patient;
 
 import java.awt.BorderLayout;
-import java.awt.Color;
-import java.awt.Dimension;
-import java.awt.FlowLayout;
 import java.awt.Font;
-import java.awt.GridBagLayout;
-import java.awt.GridLayout;
-import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
@@ -15,20 +9,12 @@ import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-import javax.swing.ButtonGroup;
-import javax.swing.JButton;
-import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import javax.swing.JRadioButton;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
-import javax.swing.JTextArea;
-import javax.swing.JTextField;
-import javax.swing.event.ListSelectionEvent;
-import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
 
 public class ViewPatient extends JFrame implements ActionListener{
@@ -46,15 +32,6 @@ public class ViewPatient extends JFrame implements ActionListener{
 	private JTable table_patient;
 	private JScrollPane scrollpane_table_patient;
 	private DefaultTableModel dtm_table_patient;
-	
-	private JTextField txt_id = new JTextField();
-	private JTextField txt_name = new JTextField();
-	private JTextField txt_age = new JTextField();
-	private JTextArea txt_address = new JTextArea();
-	private JTextField txt_phonenum = new JTextField();
-	private JRadioButton radio_male = new JRadioButton("Male");
-	private JRadioButton radio_female = new JRadioButton("Female");
-	private JComboBox<String> combo_blood = new JComboBox<>();
 	
 	private ArrayList<Patient> patients = new ArrayList<Patient>();
 	
@@ -133,9 +110,6 @@ public class ViewPatient extends JFrame implements ActionListener{
 		add(panel_north, "North");
 		add(panel_left, "West");
 		add(panel_right, "East");
-		
-		
-		//Content
 		
 		setTitle("View Patient Data");
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
