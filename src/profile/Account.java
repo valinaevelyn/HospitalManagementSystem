@@ -33,7 +33,8 @@ public class Account extends JFrame implements ActionListener{
 
 	private ArrayList<User> users = new ArrayList<User>();
 	private HospitalFrame hospitalFrame;
-	// private LoginForm loginForm;
+	private LoginForm loginForm;
+	int index;
 
 	void load_user_data(){
         File file = new File("src/database/user.txt");
@@ -172,27 +173,34 @@ public class Account extends JFrame implements ActionListener{
 		setLocationRelativeTo(null);
 		setAlwaysOnTop(true);
 	}
+	
+	public int getIndex() {
+		return this.index;
+	}
 
-	public void load_profile(){
-		LoginForm loginForm = new LoginForm(null);
-		loginForm.dispose();
-
-    	int index = loginForm.getIndex();
-        lbl_isi_username = new JLabel(users.get(index).getUsername());
+	public Account(LoginForm loginForm){
+		this.loginForm = loginForm;
+		index = loginForm.getIndex();
+	}
+	
+	public void load_profile(int index){
+		// index = loginForm.getIndex();
+		lbl_isi_username = new JLabel(users.get(index).getUsername());
         lbl_isi_email = new JLabel(users.get(index).getEmail());
         lbl_isi_name = new JLabel(users.get(index).getName());
         lbl_isi_role = new JLabel(users.get(index).getRole());
     }
 
+	// Constructor
 	public Account() {
 		load_user_data();
-		load_profile();
+		load_profile(index);
 		initComponent();
 	}
 
-	public static void main(String[] args) {
-		new Account();
-	}
+	// public static void main(String[] args) {
+	// 	new Account();
+	// }
 
 	@Override
 	public void actionPerformed(ActionEvent e) {

@@ -5,44 +5,46 @@ import patient.Patient;
 
 public class Appointment {
 	private String id;
-	private Patient patient;
+	private String patientName;
 	private String complaint;
 	private String date;
 	private String time;
-	private Doctor doctor;
+	private String doctorName;
+	// private Patient patient;
+	// private Doctor doctor;
 	
 	public Appointment() {
 		// TODO Auto-generated constructor stub
 	}
 
-	public Appointment(String id, Patient patient, String complaint, String date, String time, Doctor doctor) {
-		super();
+
+	public Appointment(String id, String patientName, String complaint, String date, String time, String doctorName) {
 		this.id = id;
-		this.patient = patient;
+		this.patientName = patientName;
 		this.complaint = complaint;
 		this.date = date;
 		this.time = time;
-		this.doctor = doctor;
+		this.doctorName = doctorName;
 	}
 
 	public String getId() {
-		return id;
+		return this.id;
 	}
 
 	public void setId(String id) {
 		this.id = id;
 	}
 
-	public Patient getPatient() {
-		return patient;
+	public String getPatientName() {
+		return this.patientName;
 	}
 
-	public void setPatient(Patient patient) {
-		this.patient = patient;
+	public void setPatientName(String patientName) {
+		this.patientName = patientName;
 	}
 
 	public String getComplaint() {
-		return complaint;
+		return this.complaint;
 	}
 
 	public void setComplaint(String complaint) {
@@ -50,7 +52,7 @@ public class Appointment {
 	}
 
 	public String getDate() {
-		return date;
+		return this.date;
 	}
 
 	public void setDate(String date) {
@@ -58,19 +60,20 @@ public class Appointment {
 	}
 
 	public String getTime() {
-		return time;
+		return this.time;
 	}
 
 	public void setTime(String time) {
 		this.time = time;
 	}
 
-	public Doctor getDoctor() {
-		return doctor;
+	public String getDoctorName() {
+		return this.doctorName;
 	}
 
-	public void setDoctor(Doctor doctor) {
-		this.doctor = doctor;
+	public void setDoctorName(String doctorName) {
+		this.doctorName = doctorName;
 	}
+	
 	
 }

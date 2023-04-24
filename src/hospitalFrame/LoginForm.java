@@ -23,11 +23,13 @@ import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 
 import profile.User;
+import profile.Account;
 
 public class LoginForm extends JFrame implements ActionListener, WindowListener{
     private Font font_title = new Font(Font.SANS_SERIF, Font.BOLD, 25);
     private HospitalFrame hospitalFrame;
     private LoginForm loginForm;
+    private Account account;
     private JDesktopPane jdPane = new JDesktopPane();
 
     // Header
@@ -58,8 +60,9 @@ public class LoginForm extends JFrame implements ActionListener, WindowListener{
     private ArrayList<User> users = new ArrayList<User>();
     private int index;
 
-    public int getIndex() {
-        return index;
+    public void setAccount(Account account) {
+        int index = getIndex();
+        account.load_profile(index);
     }
 
     void load_user_data(){
@@ -137,6 +140,7 @@ public class LoginForm extends JFrame implements ActionListener, WindowListener{
         add(panel_south_frame, "South");
     }
 
+    // Constructor
     public LoginForm(HospitalFrame hospitalFrame){
         this.hospitalFrame = hospitalFrame;
         load_user_data();
@@ -196,8 +200,6 @@ public class LoginForm extends JFrame implements ActionListener, WindowListener{
                     } 
                 } else{
                     JOptionPane.showMessageDialog(null, "Wrong input!");
-                    // JOptionPane.showMessageDialog(null,  "pw should be " + users.get(index).getPassword());
-                    // JOptionPane.showMessageDialog(null, "ur uname = " + username + " ur pass = " + password);
                     loginForm = new LoginForm(hospitalFrame);
                     jdPane.add(loginForm);
                 }
@@ -209,6 +211,15 @@ public class LoginForm extends JFrame implements ActionListener, WindowListener{
             JOptionPane.showMessageDialog(null, "Logged in as " +username+".");
         }
     }
+
+    public void setIndex(int index) {
+        this.index = index;
+    }
+
+    public int getIndex() {
+        return index;
+    }
+
 
     @Override
     public void windowOpened(WindowEvent e) {
