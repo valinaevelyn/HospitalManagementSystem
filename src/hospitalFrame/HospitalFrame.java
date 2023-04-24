@@ -118,6 +118,7 @@ public class HospitalFrame extends JFrame implements ActionListener, WindowListe
         add(jdPane);
 
         menuBill.addMouseListener(this);
+        menuAppointment.addMouseListener(this);
 
         // Pharmacist Page
         menuBar.add(menuMedicine1);
@@ -393,11 +394,18 @@ public class HospitalFrame extends JFrame implements ActionListener, WindowListe
             new Account(loginForm);
             jdPane.add(account);
             dispose();
+            // loginForm.setAccountVisibility();
         }
         
         if(e.getSource().equals(menuPayment)){
             paymentForm = new PaymentForm(); 
             jdPane.add(paymentForm);
+            dispose();
+        }
+        
+        if(e.getSource().equals(menuAppointment)){
+            viewAppointment = new ViewAppointment(); 
+            jdPane.add(viewAppointment);
             dispose();
         }
         

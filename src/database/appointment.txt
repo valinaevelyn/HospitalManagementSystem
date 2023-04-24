@@ -1,3 +1,6 @@
-AP231#Kim Mingyu#Nyeri Kepala, Demam#12 Januari 2023#09:00#Doctor 1
-AP456#Lee Chan#Sakit Perut, Mual#13 Januari 2023#18:45#Doctor 2
-AP893#Wen Junhui#Meriang#18 Februari 2023#15:10#Doctor 3
+AP231#Patient 1#Nyeri Kepala, Demam#12 Januari 2023#09:00#Doctor 1
+AP456#Patient 2#Sakit Perut, Mual#13 Januari 2023#18:45#Doctor 2
+AP893#Patient 3#Meriang#18 Februari 2023#15:10#Doctor 3
+AP123#Patient 1#sakit Perut, Mual#24 April 2023#09:00#Doctor 2
+AP654#Patient 2#Meriang#25 April 2023#18:45#Doctor 3
+AP789#Patient 3#Nyeri Kepala, Demam#26 April 2023#15:10#Doctor 1

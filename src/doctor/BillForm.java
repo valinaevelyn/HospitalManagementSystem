@@ -114,7 +114,7 @@ public class BillForm extends JFrame implements ActionListener{
 		
 		for(Appointment app: appointments) {
 			String id = app.getId();
-			String name = app.getPatient().getName();
+			String name = app.getPatientName();
 			String complaints = app.getComplaint();
 			String date = app.getDate();
 			String time = app.getTime();
