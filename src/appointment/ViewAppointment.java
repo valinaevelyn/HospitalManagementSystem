@@ -68,12 +68,12 @@ public class ViewAppointment extends JFrame implements ActionListener{
 				time = raw[4];
 				doctorName = raw[5];
 				
-				// appointments.add(new Appointment(id, patientt.getName(), complaint, date, time, doctorr.getName()));
+				appointments.add(new Appointment(id, name, complaint, date, time, doctorName));
 			}
 
-            for(Appointment appointment : appointments){
-                System.out.println(appointment.getPatient());
-            }
+//            for(Appointment appointment : appointments){
+//                System.out.println(appointment.getPatient());
+//            }
 			
 		} catch (FileNotFoundException e) {
 			JOptionPane.showMessageDialog(null, e.getMessage());
@@ -98,11 +98,11 @@ public class ViewAppointment extends JFrame implements ActionListener{
 		
 		for(Appointment app: appointments) {
 			String id = app.getId();
-			String name = app.getPatient().getName();
+			String name = app.getPatientName();
 			String complaints = app.getComplaint();
 			String date = app.getDate();
 			String time = app.getTime();
-			String doctorName = app.getDoctor().getName();
+			String doctorName = app.getDoctorName();
 			
 			Object[] row = {id, name, complaints, date, time, doctorName};
 			dtm_table_appointment.addRow(row);
@@ -145,8 +145,8 @@ public class ViewAppointment extends JFrame implements ActionListener{
 
     public ViewAppointment() {
         init_components();
-        load_table_appointment();
         load_appointment_data();
+        load_table_appointment();
     }
     
     public static void main(String[] args) {
