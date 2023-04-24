@@ -36,6 +36,14 @@ public class Account extends JFrame implements ActionListener{
 	private LoginForm loginForm;
 	int index;
 
+	public void setIndex(int index) {
+        this.index = index;
+    }
+
+    public int getIndex() {
+        return index;
+    }
+
 	void load_user_data(){
         File file = new File("src/database/user.txt");
         try{
@@ -172,10 +180,6 @@ public class Account extends JFrame implements ActionListener{
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setLocationRelativeTo(null);
 		setAlwaysOnTop(true);
-	}
-	
-	public int getIndex() {
-		return this.index;
 	}
 
 	public Account(LoginForm loginForm){

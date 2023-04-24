@@ -60,11 +60,6 @@ public class LoginForm extends JFrame implements ActionListener, WindowListener{
     private ArrayList<User> users = new ArrayList<User>();
     private int index;
 
-    public void setAccount(Account account) {
-        int index = getIndex();
-        account.load_profile(index);
-    }
-
     void load_user_data(){
         File file = new File("src/database/user.txt");
         try{
@@ -206,11 +201,17 @@ public class LoginForm extends JFrame implements ActionListener, WindowListener{
             }
         }
 
+        account.setIndex(index);
+
         Object obj = e.getSource();
         if(obj.equals(btn_submit)){
             JOptionPane.showMessageDialog(null, "Logged in as " +username+".");
         }
     }
+
+    // public void setAccountVisibility(){
+    //     account.setVisible(true);
+    // }
 
     public void setIndex(int index) {
         this.index = index;
