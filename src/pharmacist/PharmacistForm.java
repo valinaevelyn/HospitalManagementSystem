@@ -274,6 +274,7 @@ public class PharmacistForm extends JFrame implements ActionListener{
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		if(e.getSource().equals(btn_submit)) {
+			int check = 1;
 			boolean flag = false;
 			String id = txt_id.getText();
 			String name = txt_name.getText();
@@ -294,33 +295,41 @@ public class PharmacistForm extends JFrame implements ActionListener{
 			//VALIDATION
 			String id_validation = "P+[0-9]+[0-9]+[0-9]+[0-9]+[0-9]+[0-9]+";
 			if(id.matches(id_validation)) {
+				check *=1;
 				flag = true;
 			}else {
-				JOptionPane.showMessageDialog(null, "ID must be filled!");
+				JOptionPane.showMessageDialog(null, "ID must be true!");
 				flag = false;
+				check *=0;
 			}
 			if(name.equals("")) {
 				JOptionPane.showMessageDialog(null, "Name must be filled!");
 				flag = false;
+				check *=0;
 			}else {
+				check *=1;
 				flag = true;
 			}
 			if(age < 20) {
 				JOptionPane.showMessageDialog(null, "Age must be more than 20 years old!");
 				flag = false;
+				check *=0;
 			}else {
 				flag = true;
+				check *=1;
 			}
 			if(experience < 1) {
 				JOptionPane.showMessageDialog(null, "Must be more than 1 year experience");
 				flag = false;
+				check *=0;
 			}else {
 				flag = true;
+				check *=1;
 			}
 			
 			//STORE DATA DI TABEL
 			Object[] row = {id, name, age, address, phoneNumber, gender, experience};
-			if(flag == true) {
+			if(check == 1) {
 				dtm_table_pharmacist.addRow(row);
 				pharmacists.add(new Pharmacist(id, name, age, address, phoneNumber, gender, experience));
 				table_pharmacist.invalidate();
