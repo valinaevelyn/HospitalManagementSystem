@@ -391,10 +391,8 @@ public class HospitalFrame extends JFrame implements ActionListener, WindowListe
         
         if(e.getSource().equals(menuProfile)){
             account = new Account();
-            new Account(loginForm);
             jdPane.add(account);
             dispose();
-            // loginForm.setAccountVisibility();
         }
         
         if(e.getSource().equals(menuPayment)){

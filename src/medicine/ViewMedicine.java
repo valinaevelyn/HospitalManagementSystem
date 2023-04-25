@@ -16,8 +16,6 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
-import patient.Patient;
-
 public class ViewMedicine extends JFrame implements ActionListener{
 	private Font font_title = new Font(Font.SERIF, Font.BOLD, 24);
 	

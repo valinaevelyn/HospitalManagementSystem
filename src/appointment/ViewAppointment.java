@@ -24,11 +24,14 @@ import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 
 import doctor.Doctor;
+import hospitalFrame.LoginForm;
 import patient.Patient;
+import profile.User;
 
 public class ViewAppointment extends JFrame implements ActionListener{
     
     private Font font_title = new Font(Font.SANS_SERIF, Font.BOLD, 24);
+	private LoginForm loginForm;
 
     // Header
     private JPanel panel_north = new JPanel();
@@ -45,10 +48,45 @@ public class ViewAppointment extends JFrame implements ActionListener{
     private JScrollPane scrollpane_table_appointment;
     private DefaultTableModel dtm_table_appointment;
 
-    private ArrayList<Appointment> appointments = new ArrayList<Appointment>();
+	private static int index;
+
+	public static int getIndex() {
+		return index;
+	}
+
+	public static void setIndex(int index) {
+		ViewAppointment.index = index;
+	}
+
+    private static ArrayList<Appointment> appointments = new ArrayList<Appointment>();
+	private static ArrayList<User> users = new ArrayList<User>();
     
-    public void load_appointment_data() {
+    public static void load_appointment_data(int index) {
     	File file = new File("src/database/appointment.txt");
+		// File fileUser = new File("src/database/user.txt");
+
+		// try{
+        //     Scanner scan = new Scanner(fileUser);
+        //     String[] raw;
+        //     String username;
+        //     String role;
+        //     String password;
+        //     String name;
+
+        //     while(scan.hasNextLine()){
+        //         raw = scan.nextLine().split("#");
+        //         username = raw[0];
+        //         role = raw[1];
+        //         password = raw[2];
+        //         name = raw[3];
+
+        //         users.add(new User(username, role, password, name));
+        //     }
+
+        // } catch (FileNotFoundException e) {
+		// 	JOptionPane.showMessageDialog(null, e.getMessage());
+		// }
+
 		try {
 			Scanner scan = new Scanner(file);
 			String[] raw;
@@ -62,13 +100,16 @@ public class ViewAppointment extends JFrame implements ActionListener{
 			while(scan.hasNextLine()) {
 				raw = scan.nextLine().split("#");
 				id = raw[0];
+				// name = users.get(index).getName();
 				name = raw[1];
 				complaint = raw[2];
 				date = raw[3];
 				time = raw[4];
 				doctorName = raw[5];
-				
-				appointments.add(new Appointment(id, name, complaint, date, time, doctorName));
+
+				// if(name.equals(users.get(index).getName())){
+					appointments.add(new Appointment(id, name, complaint, date, time, doctorName));
+				// }
 			}
 
 //            for(Appointment appointment : appointments){
@@ -143,10 +184,10 @@ public class ViewAppointment extends JFrame implements ActionListener{
         setResizable(false);
     }
 
-    public ViewAppointment() {
+	public ViewAppointment() {
         init_components();
-        load_appointment_data();
         load_table_appointment();
+        load_appointment_data(index);
     }
     
     public static void main(String[] args) {

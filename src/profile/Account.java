@@ -181,21 +181,14 @@ public class Account extends JFrame implements ActionListener{
 		setLocationRelativeTo(null);
 		setAlwaysOnTop(true);
 	}
-
-	public Account(LoginForm loginForm){
-		this.loginForm = loginForm;
-		index = loginForm.getIndex();
-	}
 	
 	public void load_profile(int index){
-		// index = loginForm.getIndex();
 		lbl_isi_username = new JLabel(users.get(index).getUsername());
         lbl_isi_email = new JLabel(users.get(index).getEmail());
         lbl_isi_name = new JLabel(users.get(index).getName());
         lbl_isi_role = new JLabel(users.get(index).getRole());
     }
 
-	// Constructor
 	public Account() {
 		load_user_data();
 		load_profile(index);
