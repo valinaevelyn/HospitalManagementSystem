@@ -99,6 +99,7 @@ public class PharmacistForm extends JFrame implements ActionListener{
 			String phoneNumber;
 			String gender;
 			int experience;
+			
 			//while not end of file
 			while(scan.hasNextLine()) {
 				raw = scan.nextLine().split("#");
@@ -109,7 +110,7 @@ public class PharmacistForm extends JFrame implements ActionListener{
 				phoneNumber = raw[4];
 				gender = raw[5];
 				experience = Integer.parseInt(raw[6]);
-				
+				// space = raw[7];
 				pharmacists.add(new Pharmacist(id, name, age, address, phoneNumber, gender, experience));
 				size++;
 			}
@@ -122,37 +123,6 @@ public class PharmacistForm extends JFrame implements ActionListener{
 			JOptionPane.showMessageDialog(null, e.getMessage());
 		}
 	}
-
-	public void tampungData(){
-		try {
-			Scanner read = new Scanner(new File("src/database/datapharmacist.txt"));
-			do{
-				String line = read.nextLine();
-				String[] tokens = line.split("#");
-				// pharmacists.add(new Pharmacist(tokens[0], tokens[1]));
-			}while(read.hasNext());
-		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	}
-
-	// public void saveFile(ArrayList<Pharmacist> pharmacists){
-	// 	File file = new File("src/database/datapharmacist.txt");
-    //     try{
-    //         FileWriter writer = new FileWriter(file);
-	// 		int age_write = Integer.parseInt(txt_age.getText());
-	// 		int experience_write = Integer.parseInt(txt_experience.getText());
-	// 		writer.write(txt_id.getText()+"#"+txt_name.getText()+"#"+age_write+"#"+txt_address.getText()+"#"+txt_phone.getText()+"#"+gender.getText()+"#"+experience_write);
-    //         writer.close();
-	// 		// for(int i = 0; i < pharmacists.size(); i++){
-	// 		// 	writer.write(i);
-    //         // }
-    //         // writer.close();
-    //     }catch (IOException e){
-    //         System.out.println("File not found!");
-    //     }
-    // }
 	
 	public void load_table_pharmacist() {
 		String[] column = {"ID", "Name", "Age", "Address", "Phone Number", "Gender", "Experience (years))"};
@@ -297,34 +267,24 @@ public class PharmacistForm extends JFrame implements ActionListener{
 			String id_validation = "P+[0-9]+[0-9]+[0-9]+[0-9]+[0-9]+[0-9]+";
 			if(id.matches(id_validation)) {
 				check *=1;
-				flag = true;
 			}else {
 				JOptionPane.showMessageDialog(null, "ID must be true!");
-				flag = false;
-				check *=0;
 			}
 			if(name.equals("")) {
 				JOptionPane.showMessageDialog(null, "Name must be filled!");
-				flag = false;
-				check *=0;
 			}else {
 				check *=1;
-				flag = true;
 			}
 			if(age < 20) {
 				JOptionPane.showMessageDialog(null, "Age must be more than 20 years old!");
-				flag = false;
 				check *=0;
 			}else {
-				flag = true;
 				check *=1;
 			}
 			if(experience < 1) {
 				JOptionPane.showMessageDialog(null, "Must be more than 1 year experience");
-				flag = false;
 				check *=0;
 			}else {
-				flag = true;
 				check *=1;
 			}
 			
@@ -338,8 +298,8 @@ public class PharmacistForm extends JFrame implements ActionListener{
 
 			File file = new File("src/database/datapharmacist.txt");
        		try{
-				FileWriter writer = new FileWriter(file);
-				writer.write(id+"#"+name+"#"+age+"#"+address+"#"+phoneNumber+"#"+gender+"#"+experience);
+				FileWriter writer = new FileWriter(file, true);
+				writer.write(id+"#"+name+"#"+age+"#"+address+"#"+phoneNumber+"#"+gender+"#"+experience+"\n");
 				pharmacists.add(new Pharmacist(id, name, age, address, phoneNumber, gender, experience));
 				writer.close();
         	}catch (IOException a){
