@@ -36,6 +36,14 @@ public class Account extends JFrame implements ActionListener{
 	private LoginForm loginForm;
 	private static int index;
 
+	public static int getIndex() {
+		return index;
+	}
+
+	public static void setIndex(int index) {
+		Account.index = index;
+	}
+
 	void load_user_data(){
         File file = new File("src/database/user.txt");
         try{
