@@ -201,8 +201,6 @@ public class LoginForm extends JFrame implements ActionListener, WindowListener{
             }
         }
 
-        account.setIndex(index);
-
         Object obj = e.getSource();
         if(obj.equals(btn_submit)){
             JOptionPane.showMessageDialog(null, "Logged in as " +username+".");

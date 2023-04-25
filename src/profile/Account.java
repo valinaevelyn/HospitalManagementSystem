@@ -34,15 +34,7 @@ public class Account extends JFrame implements ActionListener{
 	private ArrayList<User> users = new ArrayList<User>();
 	private HospitalFrame hospitalFrame;
 	private LoginForm loginForm;
-	int index;
-
-	public void setIndex(int index) {
-        this.index = index;
-    }
-
-    public int getIndex() {
-        return index;
-    }
+	private static int index;
 
 	void load_user_data(){
         File file = new File("src/database/user.txt");
