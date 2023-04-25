@@ -299,6 +299,7 @@ public class RegisterDoctorForm extends JFrame implements ActionListener{
 			txt_age.setText("");
 			txt_address.setText("");
 			txt_phone.setText("");
+			// combo_specialization.se
 	
 		}else if(e.getSource().equals(btn_delete)) {
 			int selectedRow = table_doctor.getSelectedRow();
