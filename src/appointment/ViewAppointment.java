@@ -1,38 +1,30 @@
 package appointment;
 
 import java.awt.BorderLayout;
-import java.awt.FlowLayout;
 import java.awt.Font;
-import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowListener;
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
-import javax.swing.JTextArea;
-import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 
-import doctor.Doctor;
 import hospitalFrame.LoginForm;
-import patient.Patient;
 import profile.User;
 
-public class ViewAppointment extends JFrame implements ActionListener{
+public class ViewAppointment extends JFrame implements ActionListener, WindowListener{
     
     private Font font_title = new Font(Font.SANS_SERIF, Font.BOLD, 24);
-	private LoginForm loginForm;
-	private User user;
 
     // Header
     private JPanel panel_north = new JPanel();
@@ -101,13 +93,14 @@ public class ViewAppointment extends JFrame implements ActionListener{
 				raw = scan.nextLine().split("#");
 				id = raw[0];
 				name = raw[1];
-				// name = users.get(index).getName();
 				complaint = raw[2];
 				date = raw[3];
 				time = raw[4];
 				doctorName = raw[5];
 
-				if(name.equals(users.get(index).getName())) appointments.add(new Appointment(id, name, complaint, date, time, doctorName));
+				if(name.equals(users.get(index).getName())){
+					appointments.add(new Appointment(id, name, complaint, date, time, doctorName));
+				} 
 			}
 
 //            for(Appointment appointment : appointments){
@@ -118,18 +111,6 @@ public class ViewAppointment extends JFrame implements ActionListener{
 			JOptionPane.showMessageDialog(null, e.getMessage());
 		}
     }
-
-    // public void saveFile(ArrayList<Appointment> appointments){
-    //     try{
-    //         PrintWriter writer = new PrintWriter("src/database/appointment.txt");
-    //         for(int i = 0; i < appointments.size(); i++){
-    //             writer.println(i);
-    //         }
-    //         writer.close();
-    //     }catch (FileNotFoundException e){
-    //         System.out.println("File not found!");
-    //     }
-    // }
     
     public void load_table_appointment() {
 		String[] column = {"ID", "Name", "Complaints", "Date", "Time", "Doctor Name"};
@@ -161,7 +142,6 @@ public class ViewAppointment extends JFrame implements ActionListener{
 		
 		panel_north_table.setLayout(new BorderLayout());
 		
-		
 		// Table
 		table_appointment = new JTable();
 		scrollpane_table_appointment = new JScrollPane(table_appointment);
@@ -186,6 +166,7 @@ public class ViewAppointment extends JFrame implements ActionListener{
         init_components();
         load_appointment_data(index);
         load_table_appointment();
+		appointments.clear();
     }
     
     public static void main(String[] args) {
@@ -201,4 +182,46 @@ public class ViewAppointment extends JFrame implements ActionListener{
          
     }
 
+	@Override
+	public void windowClosing(WindowEvent e) {
+		// TODO Auto-generated method stub
+		throw new UnsupportedOperationException("Unimplemented method 'windowClosing'");
+		
+	}
+
+	@Override
+	public void windowOpened(WindowEvent e) {
+		// TODO Auto-generated method stub
+		throw new UnsupportedOperationException("Unimplemented method 'windowOpened'");
+	}
+
+	@Override
+	public void windowClosed(WindowEvent e) {
+		// TODO Auto-generated method stub
+		throw new UnsupportedOperationException("Unimplemented method 'windowClosed'");
+	}
+
+	@Override
+	public void windowIconified(WindowEvent e) {
+		// TODO Auto-generated method stub
+		throw new UnsupportedOperationException("Unimplemented method 'windowIconified'");
+	}
+
+	@Override
+	public void windowDeiconified(WindowEvent e) {
+		// TODO Auto-generated method stub
+		throw new UnsupportedOperationException("Unimplemented method 'windowDeiconified'");
+	}
+
+	@Override
+	public void windowActivated(WindowEvent e) {
+		// TODO Auto-generated method stub
+		throw new UnsupportedOperationException("Unimplemented method 'windowActivated'");
+	}
+
+	@Override
+	public void windowDeactivated(WindowEvent e) {
+		// TODO Auto-generated method stub
+		throw new UnsupportedOperationException("Unimplemented method 'windowDeactivated'");
+	}
 }
