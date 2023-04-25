@@ -24,7 +24,6 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import hospitalFrame.LoginForm;
 import hospitalFrame.HospitalFrame;
 import profile.User;
 
@@ -33,7 +32,6 @@ public class Account extends JFrame implements ActionListener{
 
 	private ArrayList<User> users = new ArrayList<User>();
 	private HospitalFrame hospitalFrame;
-	private LoginForm loginForm;
 	private static int index;
 
 	public static int getIndex() {
