@@ -24,12 +24,14 @@ import javax.swing.JTextField;
 
 import profile.User;
 import profile.Account;
+import appointment.ViewAppointment;
 
 public class LoginForm extends JFrame implements ActionListener, WindowListener{
     private Font font_title = new Font(Font.SANS_SERIF, Font.BOLD, 25);
     private HospitalFrame hospitalFrame;
     private LoginForm loginForm;
     private Account account;
+    private ViewAppointment viewAppointment;
     private JDesktopPane jdPane = new JDesktopPane();
 
     // Header
@@ -58,7 +60,7 @@ public class LoginForm extends JFrame implements ActionListener, WindowListener{
     private JButton btn_submit = new JButton("Login");
 
     private ArrayList<User> users = new ArrayList<User>();
-    private int index;
+    private static int index;
 
     void load_user_data(){
         File file = new File("src/database/user.txt");
@@ -202,6 +204,7 @@ public class LoginForm extends JFrame implements ActionListener, WindowListener{
         }
         
         account.setIndex(index);
+        viewAppointment.setIndex(index);
 
         Object obj = e.getSource();
         if(obj.equals(btn_submit)){
