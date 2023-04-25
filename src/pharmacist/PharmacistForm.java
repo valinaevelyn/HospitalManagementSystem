@@ -278,7 +278,6 @@ public class PharmacistForm extends JFrame implements ActionListener{
 	public void actionPerformed(ActionEvent e) {
 		if(e.getSource().equals(btn_submit)) {
 			int check = 1;
-			boolean flag = false;
 			String id = txt_id.getText();
 			String name = txt_name.getText();
 			int age = Integer.parseInt(txt_age.getText());

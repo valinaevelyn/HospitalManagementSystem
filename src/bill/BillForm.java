@@ -7,8 +7,13 @@ import java.awt.GridBagLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.lang.foreign.Addressable;
 import java.util.ArrayList;
+import java.util.Scanner;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -19,6 +24,8 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 
 public class BillForm extends JFrame implements ActionListener{
 	//declare tabel
@@ -65,11 +72,39 @@ public class BillForm extends JFrame implements ActionListener{
 	private JButton btn_submit = new JButton("Submit");
 	private JButton btn_clear = new JButton("Clear");
 	private JButton btn_delete = new JButton("Delete");
+	private JButton btn_update = new JButton("Update");
 	
 	private ArrayList<Bill> bills = new ArrayList<Bill>();
 	
+	private int size = 0;
+
 	public void load_bill_data() {
-		
+		File file = new File("src/database/bill.txt");
+		try{
+			Scanner scan = new Scanner(file);
+			String[] raw;
+			String id;
+			String date_start;
+			String date_end;
+			String proof;
+
+			while(scan.hasNextLine()){
+				raw = scan.nextLine().split("#");
+				id = raw[0];
+				date_start = raw[1];
+				date_end = raw[2];
+				proof = raw[3];
+
+				bills.add(new Bill(id, date_start, date_end, date_end, proof));
+				size++;
+			}
+
+			for(Bill bill : bills){
+				System.out.println(bill.getId());
+			}
+		}catch(FileNotFoundException e){
+			JOptionPane.showMessageDialog(null, "File is not found!");
+		}
 	}
 	
 	public void load_table_bill() {
@@ -154,6 +189,8 @@ public class BillForm extends JFrame implements ActionListener{
 		btn_clear.addActionListener(this);
 		panel_south.add(btn_delete);
 		btn_delete.addActionListener(this);
+		panel_south.add(btn_update);
+		btn_update.addActionListener(this);
 		panel_southFrame.add(panel_south, "South");
 		add(panel_southFrame, "South");
 				
@@ -169,6 +206,26 @@ public class BillForm extends JFrame implements ActionListener{
 		init_component();
 		load_bill_data();
 		load_table_bill();
+
+		table_bill.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
+			
+			@Override
+			public void valueChanged(ListSelectionEvent e) {
+				int row = table_bill.getSelectedRow();
+
+				String id = table_bill.getValueAt(row,  0).toString();
+				txt_id.setText(id);
+				
+				String date_start = table_bill.getValueAt(row, 1).toString();
+				txt_date_start.setText(date_start);
+				
+				String date_end = table_bill.getValueAt(row, 2).toString();
+				txt_date_end.setText(date_end);
+				
+				String proof = table_bill.getValueAt(row, 3).toString();
+				txt_proof.setText(proof);
+			}
+		});
 	}
 
 	public static void main(String[] args) {
@@ -180,28 +237,39 @@ public class BillForm extends JFrame implements ActionListener{
 		Object obj = e.getSource();
 		
 		if(obj.equals(btn_submit)) {
-			boolean flag = false;
+			int check = 1;
 			String id = txt_id.getText();
 			String date_start = txt_date_start.getText();
 			String date_end = txt_date_end.getText();
 			String proof = txt_proof.getText();
 
 			//VALIDATION
-			if(id.equals("")) {
-				JOptionPane.showMessageDialog(null, "ID must be filled!");
-				flag = false;
-			}else{
-				JOptionPane.showMessageDialog(null, "Bill has generated!!");
-				flag = true;
+			String id_validation = "P+[0-9]+[0-9]+[0-9]+[0-9]+[0-9]+[0-9]+";
+			if(id.matches(id_validation)) {
+				check *=1;
+				JOptionPane.showMessageDialog(null, "Bill has generated!");
+			}else {
+				JOptionPane.showMessageDialog(null, "ID must be true!");
+				check *=0;
 			}
 
 			//STORE DATA DI TABLE
 			Object[] row = {id, date_start, date_end, proof};
 
-			if(flag == true){
+			if(check == 1){
 				dtm_table_bill.addRow(row);
 				bills.add(new Bill(id, date_start, date_end, date_end, proof));
 				table_bill.invalidate();
+			}
+
+			File file = new File("src/database/bill.txt");
+			try{
+				FileWriter writer = new FileWriter(file, true);
+				writer.write(id+"#"+date_start+"#"+date_end+"#"+proof+"\n");
+				bills.add(new Bill(id, date_start, date_end, id_validation, proof));
+				writer.close();
+			}catch(IOException a){
+				System.out.println("File not found!");
 			}
 
 			txt_id.setText("");
@@ -218,6 +286,8 @@ public class BillForm extends JFrame implements ActionListener{
 			}
 		}else if(obj.equals(btn_clear)){
 			dtm_table_bill.setRowCount(0);
+		}else if(obj.equals(btn_update)){
+
 		}
 	}
 

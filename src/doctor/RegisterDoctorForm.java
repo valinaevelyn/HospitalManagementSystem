@@ -26,6 +26,8 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
 
 public class RegisterDoctorForm extends JFrame implements ActionListener{
@@ -58,6 +60,7 @@ public class RegisterDoctorForm extends JFrame implements ActionListener{
 	private JTextField txt_phone = new JTextField();
 	private JRadioButton radio_male = new JRadioButton("Male");
 	private JRadioButton radio_female = new JRadioButton("Female");
+	private ButtonGroup bg_gender;
 	private JComboBox<String> combo_specialization = new JComboBox<>();
 	
 	private JLabel id = new JLabel("ID");
@@ -78,8 +81,11 @@ public class RegisterDoctorForm extends JFrame implements ActionListener{
 	private JButton btn_submit = new JButton("Submit");
 	private JButton btn_clear = new JButton("Clear");
 	private JButton btn_delete = new JButton("Delete");
+	private JButton btn_update = new JButton("Update");
 	
 	private ArrayList<Doctor> doctors = new ArrayList<Doctor>();
+
+	private int size = 0;
 
 	public void load_doctor_data(){
 		File file = new File("src/database/datadoctor.txt");
@@ -105,6 +111,7 @@ public class RegisterDoctorForm extends JFrame implements ActionListener{
 				specialization = raw[6];
 				
 				doctors.add(new Doctor(id, name, age, address, phoneNumber, gender, specialization));
+				size++;
 			}
 			
 			for(Doctor doctor : doctors) {
@@ -117,7 +124,40 @@ public class RegisterDoctorForm extends JFrame implements ActionListener{
 	}
 	
 	public void write_doctor_data(String list){
-		
+		File file = new File("src/database/datadoctor.txt");
+		try {
+			Scanner scan = new Scanner(file);
+			String[] raw;
+			String id;
+			String name;
+			int age;
+			String address;
+			String phoneNumber;
+			String gender;
+			String specialization;
+			
+			//while not end of file
+			while(scan.hasNextLine()) {
+				raw = scan.nextLine().split("#");
+				id = raw[0];
+				name = raw[1];
+				age = Integer.parseInt(raw[2]);
+				address = raw[3];
+				phoneNumber = raw[4];
+				gender = raw[5];
+				specialization = raw[6];
+				// space = raw[7];
+				doctors.add(new Doctor(id, name, age, address, phoneNumber, gender, specialization));
+				size++;
+			}
+			
+			for(Doctor doctor : doctors) {
+				System.out.println(doctor.getName());
+			}
+			
+		} catch (FileNotFoundException e) {
+			JOptionPane.showMessageDialog(null, e.getMessage());
+		}
 	}
 	
 	public void load_table_doctor() {
@@ -192,7 +232,7 @@ public class RegisterDoctorForm extends JFrame implements ActionListener{
 		panel_center_kanan.add(gender);
 		JPanel panel_gender = new JPanel();
 		panel_gender.setLayout(new GridLayout(2,1));
-		ButtonGroup bg_gender = new ButtonGroup();
+		bg_gender = new ButtonGroup();
 		bg_gender.add(radio_male);
 		bg_gender.add(radio_female);
 		panel_gender.add(radio_male);
@@ -237,6 +277,36 @@ public class RegisterDoctorForm extends JFrame implements ActionListener{
 		init_component();
 		load_doctor_data();
 		load_table_doctor();
+
+		table_doctor.getSelectionModel().addListSelectionListener(new ListSelectionListener(){
+			
+			@Override
+			public void valueChanged(ListSelectionEvent e) {
+				int row = table_doctor.getSelectedRow();
+
+				String id = table_doctor.getValueAt(row,  0).toString();
+				txt_id.setText(id);
+				
+				String name = table_doctor.getValueAt(row, 1).toString();
+				txt_name.setText(name);
+				
+				String age = table_doctor.getValueAt(row, 2).toString();
+				txt_age.setText(age);
+				
+				String address = table_doctor.getValueAt(row, 3).toString();
+				txt_address.setText(address);
+				
+				String phoneNum = table_doctor.getValueAt(row, 4).toString();
+				txt_phone.setText(phoneNum);
+
+				String gender = table_doctor.getValueAt(row, 5).toString();
+				bg_gender.setSelected(null, true);
+				//kalau radio button belum nemu formulanya
+				
+				String specialization = table_doctor.getValueAt(row, 6).toString();
+				combo_specialization.setSelectedItem(specialization);
+			}
+		});
 	}
 	
 	public static void main(String[] args) {
@@ -246,15 +316,13 @@ public class RegisterDoctorForm extends JFrame implements ActionListener{
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		if(e.getSource().equals(btn_submit)) {
+			int check = 1;
 			String id = txt_id.getText();
-			
 			String name = txt_name.getText();
 			int age = Integer.parseInt(txt_age.getText());
 			String address = txt_address.getText();
 			String phoneNumber = txt_phone.getText();
 			String gender = "";
-			
-			boolean flag = false;
 			
 			if(radio_male.isSelected()) {
 				gender = "Male";
@@ -265,29 +333,30 @@ public class RegisterDoctorForm extends JFrame implements ActionListener{
 			String specialization = combo_specialization.getSelectedItem().toString();
 			
 			//VALIDATION
-			if(id.equals("")) {
-				JOptionPane.showMessageDialog(null, "ID must be filled!");
-				flag = false;
+			String id_validation = "P+[0-9]+[0-9]+[0-9]+[0-9]+[0-9]+[0-9]+";
+			if(id.matches(id_validation)) {
+				check *=1;
 			}else {
-				flag = true;
+				JOptionPane.showMessageDialog(null, "ID must be true!");
+				check *=0;
 			}
 			if(name.equals("")) {
 				JOptionPane.showMessageDialog(null, "Name must be filled!");
-				flag = false;
+				check *=0;
 			}else {
-				flag = true;
+				check *=1;
 			}
 			if(age < 20) {
 				JOptionPane.showMessageDialog(null, "Age must be more than 20 years old!");
-				flag = false;
+				check *=0;
 			}else {
-				flag = true;
+				check *=1;
 			}
 			
 			//STORE DATA DI TABEL
 			Object[] row = {id, name, age, address, phoneNumber, gender, specialization};
 			
-			if(flag == true) {
+			if(check == 1) {
 				dtm_table_doctor.addRow(row);
 				doctors.add(new Doctor(id, name, age, address, phoneNumber, gender, specialization));
 				table_doctor.invalidate();	
@@ -299,7 +368,8 @@ public class RegisterDoctorForm extends JFrame implements ActionListener{
 			txt_age.setText("");
 			txt_address.setText("");
 			txt_phone.setText("");
-			// combo_specialization.se
+			bg_gender.clearSelection();
+			combo_specialization.setSelectedItem("General");
 	
 		}else if(e.getSource().equals(btn_delete)) {
 			int selectedRow = table_doctor.getSelectedRow();
@@ -310,6 +380,8 @@ public class RegisterDoctorForm extends JFrame implements ActionListener{
 			}
 		}else if(e.getSource().equals(btn_clear)) {
 			dtm_table_doctor.setRowCount(0);
+		}else if(e.getSource().equals(btn_update)){
+
 		}
 		
 	}
