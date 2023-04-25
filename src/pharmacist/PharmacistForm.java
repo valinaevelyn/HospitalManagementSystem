@@ -61,6 +61,7 @@ public class PharmacistForm extends JFrame implements ActionListener{
 	private JTextField txt_phone = new JTextField();
 	private JRadioButton radio_male = new JRadioButton("Male");
 	private JRadioButton radio_female = new JRadioButton("Female");
+	private ButtonGroup bg_gender;
 	private JTextField txt_experience = new JTextField();
 		
 	private JLabel id = new JLabel("ID");
@@ -225,7 +226,7 @@ public class PharmacistForm extends JFrame implements ActionListener{
 		panel_center_kanan.add(gender);
 		JPanel panel_gender = new JPanel();
 		panel_gender.setLayout(new GridLayout(2,1));
-		ButtonGroup bg_gender = new ButtonGroup();
+		bg_gender = new ButtonGroup();
 		bg_gender.add(radio_male);
 		bg_gender.add(radio_female);
 		panel_gender.add(radio_male);
@@ -350,8 +351,7 @@ public class PharmacistForm extends JFrame implements ActionListener{
 			txt_age.setText("");
 			txt_address.setText("");
 			txt_phone.setText("");
-			radio_female.setText("");
-			radio_female.setText("");
+			bg_gender.clearSelection();
 			txt_experience.setText("");
 
 		}else if(e.getSource().equals(btn_delete)) {
