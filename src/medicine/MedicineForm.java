@@ -21,6 +21,8 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
 
 import patient.Patient;
@@ -68,6 +70,7 @@ public class MedicineForm extends JFrame implements ActionListener{
 	private JButton btn_submit = new JButton("Submit");
 	private JButton btn_clear = new JButton("Clear");
 	private JButton btn_delete = new JButton("Delete");
+	private JButton btn_update = new JButton("Update");
 	
 	private ArrayList<Medicine> medicines = new ArrayList<Medicine>();
 	
@@ -186,6 +189,8 @@ public class MedicineForm extends JFrame implements ActionListener{
 		panel_south.setLayout(new FlowLayout());
 		panel_south.add(btn_submit);
 		btn_submit.addActionListener(this);
+		panel_south.add(btn_update);
+		btn_update.addActionListener(this);
 		panel_south.add(btn_clear);
 		btn_clear.addActionListener(this);
 		panel_south.add(btn_delete);
@@ -205,6 +210,31 @@ public class MedicineForm extends JFrame implements ActionListener{
 		initComponent();
 		load_medicine_data();
 		load_table_medicine();
+		
+		table_medicine.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
+			
+			@Override
+			public void valueChanged(ListSelectionEvent e) {
+				int row = table_medicine.getSelectedRow();
+				String id = table_medicine.getValueAt(row,  0).toString();
+				txt_id.setText(id);
+				
+				String name = table_medicine.getValueAt(row, 1).toString();
+				txt_name.setText(name);
+				
+				String function = table_medicine.getValueAt(row, 2).toString();
+				txt_function.setText(function);
+				
+				String price = table_medicine.getValueAt(row, 3).toString();
+				txt_price.setText(price);
+				
+				String stock = table_medicine.getValueAt(row, 4).toString();
+				txt_stock.setText(stock);
+				
+				String type = table_medicine.getValueAt(row, 5).toString();
+				combo_type.setSelectedItem(type);;
+			}
+		});
 	}
 	
 	public static void main(String[] args) {
@@ -275,6 +305,10 @@ public class MedicineForm extends JFrame implements ActionListener{
 				medicines.remove(selectedRow);
 				table_medicine.invalidate();
 			}
+		}
+		
+		else if(obj.equals(btn_update)) {
+			
 		}
 	}
 

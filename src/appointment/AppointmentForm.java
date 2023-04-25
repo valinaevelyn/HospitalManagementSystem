@@ -1,6 +1,8 @@
 package appointment;
 
 import java.awt.BorderLayout;
+import progressbar.ProgressBar;
+
 import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.GridLayout;
@@ -13,10 +15,12 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 import javax.swing.JButton;
+import javax.swing.JDesktopPane;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JProgressBar;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextArea;
@@ -25,10 +29,12 @@ import javax.swing.table.DefaultTableModel;
 
 import doctor.Doctor;
 import patient.Patient;
+import progressbar.ProgressBar;
 
-public class AppointmentForm extends JFrame implements ActionListener{
-    
+public class AppointmentForm extends JFrame implements ActionListener{	
     private Font font_title = new Font(Font.SANS_SERIF, Font.BOLD, 24);
+    private ProgressBar progressBar;
+    private JDesktopPane jdPane = new JDesktopPane();
 
     // Header
     private JPanel panel_north = new JPanel();
@@ -226,7 +232,10 @@ public class AppointmentForm extends JFrame implements ActionListener{
     @Override
     public void actionPerformed(ActionEvent e) {
         Object obj = e.getSource();
-        if(obj.equals(btn_save)) JOptionPane.showMessageDialog(null, "Appointment Created Successfully!");
+        if(obj.equals(btn_save)) {
+        	progressBar = new ProgressBar();
+        	JOptionPane.showMessageDialog(null, "Appointment Created Successfully!");
+        }
         
     }
 
