@@ -28,6 +28,8 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
 
 public class PharmacistForm extends JFrame implements ActionListener{
@@ -82,7 +84,7 @@ public class PharmacistForm extends JFrame implements ActionListener{
 	private JButton btn_submit = new JButton("Submit");
 	private JButton btn_clear = new JButton("Clear");
 	private JButton btn_delete = new JButton("Delete");
-	
+	private JButton btn_update = new JButton("Update");
 	private ArrayList<Pharmacist> pharmacists = new ArrayList<Pharmacist>();
 		
 	private int size = 0;
@@ -222,6 +224,8 @@ public class PharmacistForm extends JFrame implements ActionListener{
 		btn_clear.addActionListener(this);
 		panel_south.add(btn_delete);
 		btn_delete.addActionListener(this);
+		panel_south.add(btn_update);
+		btn_update.addActionListener(this);
 		panel_southFrame.add(panel_south, "South");
 		add(panel_southFrame, "South");
 		
@@ -236,6 +240,34 @@ public class PharmacistForm extends JFrame implements ActionListener{
 		init_component();
 		load_pharmacist_data();
 		load_table_pharmacist();
+
+		table_pharmacist.getSelectionModel().addListSelectionListener(new ListSelectionListener(){
+			
+			@Override
+			public void valueChanged(ListSelectionEvent e) {
+				int row = table_pharmacist.getSelectedRow();
+
+				String id = table_pharmacist.getValueAt(row,  0).toString();
+				txt_id.setText(id);
+				
+				String name = table_pharmacist.getValueAt(row, 1).toString();
+				txt_name.setText(name);
+				
+				String age = table_pharmacist.getValueAt(row, 2).toString();
+				txt_age.setText(age);
+				
+				String address = table_pharmacist.getValueAt(row, 3).toString();
+				txt_address.setText(address);
+				
+				String phoneNum = table_pharmacist.getValueAt(row, 4).toString();
+				txt_phone.setText(phoneNum);
+
+				//kalau radio button belum nemu formulanya
+				
+				String experience = table_pharmacist.getValueAt(row, 6).toString();
+				txt_experience.setText(experience);
+			}
+		});
 	}
 
 	public static void main(String[] args) {
@@ -269,9 +301,11 @@ public class PharmacistForm extends JFrame implements ActionListener{
 				check *=1;
 			}else {
 				JOptionPane.showMessageDialog(null, "ID must be true!");
+				check *=0;
 			}
 			if(name.equals("")) {
 				JOptionPane.showMessageDialog(null, "Name must be filled!");
+				check *=0;
 			}else {
 				check *=1;
 			}
@@ -323,6 +357,8 @@ public class PharmacistForm extends JFrame implements ActionListener{
 			}
 		}else if(e.getSource().equals(btn_clear)) {
 			dtm_table_pharmacist.setRowCount(0);
+		}else if(e.getSource().equals(btn_update)){
+
 		}
 		
 	}
