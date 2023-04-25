@@ -200,7 +200,7 @@ public class LoginForm extends JFrame implements ActionListener, WindowListener{
                 }
             }
         }
-
+        
         account.setIndex(index);
 
         Object obj = e.getSource();
