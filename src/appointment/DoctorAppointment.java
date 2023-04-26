@@ -1,39 +1,34 @@
 package appointment;
 
 import java.awt.BorderLayout;
-import java.awt.FlowLayout;
 import java.awt.Font;
-import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowListener;
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
-import javax.swing.JTextArea;
-import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 
-import doctor.Doctor;
-import patient.Patient;
+import hospitalFrame.LoginForm;
 import profile.User;
 
-public class CancelAppointment extends JFrame implements ActionListener{
+public class DoctorAppointment extends JFrame implements ActionListener, WindowListener{
     
     private Font font_title = new Font(Font.SANS_SERIF, Font.BOLD, 24);
 
     // Header
     private JPanel panel_north = new JPanel();
-    private JLabel lbl_makeAppointment = new JLabel("CANCEL APPOINTMENT");
+    private JLabel lbl_makeAppointment = new JLabel("VIEW APPOINTMENT");
 	private JPanel panel_space_north = new JPanel();
 	private JPanel panel_space_north2 = new JPanel();
 	private JPanel panel_north_table = new JPanel();
@@ -46,28 +41,20 @@ public class CancelAppointment extends JFrame implements ActionListener{
     private JScrollPane scrollpane_table_appointment;
     private DefaultTableModel dtm_table_appointment;
 
-    // Footer 
-    private JPanel panel_south = new JPanel();
-    private JPanel panel_south_frame = new JPanel();
-    private JPanel panel_space_south1 = new JPanel();
-    private JPanel panel_space_south2 = new JPanel();
-    private JButton btn_save = new JButton("SAVE CHANGES");
-    private JButton btn_cancel = new JButton("CANCEL");
-
-    private static int index;
+	private static int index;
 
 	public static int getIndex() {
 		return index;
 	}
 
 	public static void setIndex(int index) {
-		CancelAppointment.index = index;
+		DoctorAppointment.index = index;
 	}
 
     private static ArrayList<Appointment> appointments = new ArrayList<Appointment>();
 	private static ArrayList<User> users = new ArrayList<User>();
-
-    public void load_appointment_data() {
+    
+    public static void load_appointment_data(int index) {
     	File file = new File("src/database/appointment.txt");
 		File fileUser = new File("src/database/user.txt");
         try{
@@ -111,7 +98,7 @@ public class CancelAppointment extends JFrame implements ActionListener{
 				time = raw[4];
 				doctorName = raw[5];
 
-				if(name.equals(users.get(index).getName())){
+				if(doctorName.equals(users.get(index).getName())){
 					appointments.add(new Appointment(id, name, complaint, date, time, doctorName));
 				} 
 			}
@@ -124,21 +111,9 @@ public class CancelAppointment extends JFrame implements ActionListener{
 			JOptionPane.showMessageDialog(null, e.getMessage());
 		}
     }
-
-    public void saveFile(ArrayList<Appointment> appointments){
-        try{
-            PrintWriter writer = new PrintWriter("src/database/appointment.txt");
-            for(int i = 0; i < appointments.size(); i++){
-                writer.println(i);
-            }
-            writer.close();
-        }catch (FileNotFoundException e){
-            System.out.println("File not found!");
-        }
-    }
     
     public void load_table_appointment() {
-		String[] column = {"ID", "Name", "Complaints", "Date", "Time", "Doctor Name"};
+		String[] column = {"ID", "Name", "Complaints", "Date", "Time", "Patient Name"};
 		dtm_table_appointment = new DefaultTableModel(column, 0);
 		
 		for(Appointment app: appointments) {
@@ -149,7 +124,7 @@ public class CancelAppointment extends JFrame implements ActionListener{
 			String time = app.getTime();
 			String doctorName = app.getDoctorName();
 			
-			Object[] row = {id, name, complaints, date, time, doctorName};
+			Object[] row = {id, doctorName, complaints, date, time, name};
 			dtm_table_appointment.addRow(row);
 		}
 		table_appointment.setModel(dtm_table_appointment); 
@@ -167,7 +142,6 @@ public class CancelAppointment extends JFrame implements ActionListener{
 		
 		panel_north_table.setLayout(new BorderLayout());
 		
-		
 		// Table
 		table_appointment = new JTable();
 		scrollpane_table_appointment = new JScrollPane(table_appointment);
@@ -178,40 +152,25 @@ public class CancelAppointment extends JFrame implements ActionListener{
 		add(panel_north, "North");
 		add(panel_left, "West");
 		add(panel_right, "East");
-        
-        // Footer
-        panel_south_frame.setLayout(new BorderLayout());
-        panel_south_frame.add(panel_space_south1, "North");
-        panel_south_frame.add(panel_space_south2, "Center");
+    
 
-        panel_south.setLayout(new FlowLayout());
-        btn_save.addActionListener(this);
-        panel_south.add(btn_save);
-
-        btn_cancel.addActionListener(this);
-        panel_south.add(btn_cancel);
-        add(panel_south, "South");
-
-        panel_south_frame.add(panel_south, "South");
-        add(panel_south_frame, "South");
-
-        setTitle("Cancel Appointment");
+        setTitle("View Appointment");
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        setSize(1000, 543);
+        setSize(1000, 500);
         setLocationRelativeTo(null);
         setVisible(true);
         setResizable(false);
     }
 
-    public CancelAppointment() {
+	public DoctorAppointment() {
         init_components();
-        load_appointment_data();
+        load_appointment_data(index);
         load_table_appointment();
-        appointments.clear();
+		appointments.clear();
     }
     
     public static void main(String[] args) {
-        new CancelAppointment();
+        new DoctorAppointment();
     }
 
     @Override
@@ -220,20 +179,49 @@ public class CancelAppointment extends JFrame implements ActionListener{
         // throw new UnsupportedOperationException("Unimplemented method 'actionPerformed'");
 
         Object obj = e.getSource();
-        if(obj.equals(btn_save)){
-            dispose();
-            JOptionPane.showMessageDialog(null, "Changes Saved Successfully!");
-        } 
-        if(obj.equals(btn_cancel)){
-            int selectedRow = table_appointment.getSelectedRow();
-			if(selectedRow != -1) {
-				dtm_table_appointment.removeRow(selectedRow);
-				appointments.remove(selectedRow);
-				table_appointment.invalidate();
-			}
-            JOptionPane.showMessageDialog(null, "Appointment Cancelled Successfully!");
-        } 
-        
+         
     }
 
+	@Override
+	public void windowClosing(WindowEvent e) {
+		// TODO Auto-generated method stub
+		throw new UnsupportedOperationException("Unimplemented method 'windowClosing'");
+		
+	}
+
+	@Override
+	public void windowOpened(WindowEvent e) {
+		// TODO Auto-generated method stub
+		throw new UnsupportedOperationException("Unimplemented method 'windowOpened'");
+	}
+
+	@Override
+	public void windowClosed(WindowEvent e) {
+		// TODO Auto-generated method stub
+		throw new UnsupportedOperationException("Unimplemented method 'windowClosed'");
+	}
+
+	@Override
+	public void windowIconified(WindowEvent e) {
+		// TODO Auto-generated method stub
+		throw new UnsupportedOperationException("Unimplemented method 'windowIconified'");
+	}
+
+	@Override
+	public void windowDeiconified(WindowEvent e) {
+		// TODO Auto-generated method stub
+		throw new UnsupportedOperationException("Unimplemented method 'windowDeiconified'");
+	}
+
+	@Override
+	public void windowActivated(WindowEvent e) {
+		// TODO Auto-generated method stub
+		throw new UnsupportedOperationException("Unimplemented method 'windowActivated'");
+	}
+
+	@Override
+	public void windowDeactivated(WindowEvent e) {
+		// TODO Auto-generated method stub
+		throw new UnsupportedOperationException("Unimplemented method 'windowDeactivated'");
+	}
 }

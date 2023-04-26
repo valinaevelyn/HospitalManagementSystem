@@ -18,6 +18,7 @@ import appointment.ViewAppointment;
 import appointment.CancelAppointment;
 import profile.Account;
 import Payment.PaymentForm;
+import appointment.DoctorAppointment;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -92,6 +93,7 @@ public class HospitalFrame extends JFrame implements ActionListener, WindowListe
     private CancelAppointment cancelAppointment;
     private Account account;
     private PaymentForm paymentForm;
+    private DoctorAppointment doctorAppointment;
     private JDesktopPane jdPane = new JDesktopPane();
 
     public HospitalFrame(){
@@ -402,8 +404,8 @@ public class HospitalFrame extends JFrame implements ActionListener, WindowListe
         }
         
         if(e.getSource().equals(menuAppointment)){
-            viewAppointment = new ViewAppointment(); 
-            jdPane.add(viewAppointment);
+            doctorAppointment = new DoctorAppointment(); 
+            jdPane.add(doctorAppointment);
             dispose();
         }
         
