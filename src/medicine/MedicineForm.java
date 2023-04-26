@@ -8,6 +8,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -73,6 +75,7 @@ public class MedicineForm extends JFrame implements ActionListener{
 	private JButton btn_update = new JButton("Update");
 	
 	private ArrayList<Medicine> medicines = new ArrayList<Medicine>();
+	private int size = 0;
 	
 	public void load_medicine_data() {
 		File file = new File("src/database/medicine.txt");
@@ -246,7 +249,7 @@ public class MedicineForm extends JFrame implements ActionListener{
 		Object obj = e.getSource();
 		
 		if(obj.equals(btn_submit)) {
-			boolean flag = false;
+			int check = 1;
 			String id = txt_id.getText();
 			String name = txt_name.getText();
 			String function = txt_function.getText();
@@ -257,41 +260,56 @@ public class MedicineForm extends JFrame implements ActionListener{
 			//VALIDATION
 			String id_validation = "M+[0-9]+[0-9]+[0-9]+";
 			if(id.matches(id_validation)){
-				flag = true;
+				check *=1;
 			}else{
-				flag = false;
 				JOptionPane.showMessageDialog(null, "ID must start with 'M'");
+				check *=0;
 			}
 
 			if(name.length()<10){
-				flag = false;
+				check *=0;
 				JOptionPane.showMessageDialog(null, "Name must be more than 10 characters");
 			}else{
-				flag = true;
+				check *=1;
 			}
 
 			if(price < 500){
-				flag = false;
+				check *=0;
 				JOptionPane.showMessageDialog(null, "Price must be more than 500.00!");
 			}else{
-				flag = true;
+				check *=1;
 			}
 
 			if(stock < 0){
-				flag = false;
+				check *=0;
 				JOptionPane.showMessageDialog(null, "Stock must be more than 0");
 			}else{
-				flag = true;
+				check *=1;
 			}
 			
 			//STORE DATA DI DALAM TABEL
 			Object[] row = {id, name, function, price, stock, type};
-			if(flag==true){
+			if(check == 1){
 				dtm_table_medicine.addRow(row);
 				medicines.add(new Medicine(id, name, function, price, stock, type));
 				table_medicine.invalidate();
 			}
-					
+			
+			File file = new File("src/database/medicine.txt");
+			try {
+				FileWriter writer = new FileWriter(file, true);
+				writer.write(id+"#"+name+"#"+function+"#"+price+"#"+stock+"#"+type+"\n");
+				medicines.add(new Medicine(id, name, function, price, stock, type));
+				writer.close();
+			}catch(IOException a) {
+				System.out.println("File Not Found!");
+			}
+			
+			txt_id.setText("");
+			txt_name.setText("");
+			txt_function.setText("");
+			txt_price.setText("");
+			txt_stock.setText("");
 		}
 		
 		else if(obj.equals(btn_clear)) {
