@@ -1,3 +1,3 @@
-M123#Paracetamol#Obat Nyeri Kepala#10000#100#Tablet
-M267#Ponstan#Obat Sakit Gigi#17000#90#Capsul
-M678#Vicks#Obat Batuk Berdahak#34000#80#Syrup
+M123#Paracetamol#Obat Nyeri Kepala#10000#100#Capsul
+M267#Ponstan Premium#Obat Sakit Gigi#17000#90#Capsul
+M678#Vicks Merah#Obat Batuk Berdahak#34000#80#Syrup

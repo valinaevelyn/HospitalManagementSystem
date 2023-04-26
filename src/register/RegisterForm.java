@@ -122,6 +122,7 @@ public class RegisterForm extends JFrame implements ActionListener{
 		String email_pattern = "[a-zA-Z0-9._]+@[a-z]+\\.+[a-z]+";
 		//untuk .co.id
 		String email_pattern2 = "[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+\\.+[a-z]+"; 
+		
 
 		if(email.matches(email_pattern)){
 			validate = true;
@@ -131,7 +132,21 @@ public class RegisterForm extends JFrame implements ActionListener{
 			validate = false;
 			JOptionPane.showMessageDialog(null, "Email wrong!");
 		}
-
+		
+		if(username.startsWith("patient_")) {
+			validate = true;
+		}else if(username.startsWith("doctor_")) {
+			validate = true;
+		}else if(username.startsWith("receptionist_")) {
+			validate = true;
+		}else if(username.startsWith("pharmacist_")) {
+			validate = true;
+		}else {
+			validate = false;
+			JOptionPane.showMessageDialog(null, "Username must start with[role_]!");
+		}    
+		
+		
 		if(username.length()<8){
 			JOptionPane.showMessageDialog(null, "Username must be more than 8 characters");
 		}

@@ -20,9 +20,11 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
+import javax.swing.JProgressBar;
 import javax.swing.JTextField;
 
 import profile.User;
+import progressbar.ProgressBar;
 import profile.Account;
 import appointment.ViewAppointment;
 
@@ -32,6 +34,8 @@ public class LoginForm extends JFrame implements ActionListener, WindowListener{
     private LoginForm loginForm;
     private Account account;
     private ViewAppointment viewAppointment;
+    private ProgressBar progressBar;
+    private JProgressBar jpb = new JProgressBar();
     private JDesktopPane jdPane = new JDesktopPane();
 
     // Header
@@ -208,6 +212,8 @@ public class LoginForm extends JFrame implements ActionListener, WindowListener{
 
         Object obj = e.getSource();
         if(obj.equals(btn_submit)){
+//            progressBar = new ProgressBar();
+//            jpb.add(progressBar);
             JOptionPane.showMessageDialog(null, "Logged in as " +username+".");
         }
     }
