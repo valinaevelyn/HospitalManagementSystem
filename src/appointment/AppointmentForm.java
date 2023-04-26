@@ -77,6 +77,7 @@ public class AppointmentForm extends JFrame implements ActionListener{
     private JPanel panel_space_south2 = new JPanel();
     private JButton btn_save = new JButton("SAVE");
     private JButton btn_clear = new JButton("CLEAR TEXT");
+    private JButton btn_exit = new JButton("EXIT");
 
     // Date & Time
     SimpleDateFormat dateFormat = new SimpleDateFormat("dd MMMM yyyy");
@@ -287,6 +288,10 @@ public class AppointmentForm extends JFrame implements ActionListener{
         btn_clear.addActionListener(this);
         panel_south.add(btn_clear);
         add(panel_south, "South");
+        
+        btn_exit.addActionListener(this);
+        panel_south.add(btn_exit);
+        add(panel_south, "South");
 
         panel_south_frame.add(panel_south, "South");
         add(panel_south_frame, "South");
@@ -493,7 +498,9 @@ public class AppointmentForm extends JFrame implements ActionListener{
             txt_date.setText("");
             txt_time.setText("");
             txt_doctorName.setText("");
-		}
+		} else if(e.getSource().equals(btn_exit)){
+            dispose();
+        }
         
     }
 
