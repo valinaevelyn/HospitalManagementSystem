@@ -26,7 +26,10 @@ import javax.swing.JTextField;
 import profile.User;
 import progressbar.ProgressBar;
 import profile.Account;
+import appointment.DoctorAppointment;
 import appointment.ViewAppointment;
+import appointment.CancelAppointment;
+import appointment.AppointmentForm;
 
 public class LoginForm extends JFrame implements ActionListener, WindowListener{
     private Font font_title = new Font(Font.SANS_SERIF, Font.BOLD, 25);
@@ -36,6 +39,9 @@ public class LoginForm extends JFrame implements ActionListener, WindowListener{
     private ViewAppointment viewAppointment;
     private ProgressBar progressBar;
     private JProgressBar jpb = new JProgressBar();
+    private DoctorAppointment doctorAppointment;
+    private CancelAppointment cancelAppointment;
+    private AppointmentForm appointmentForm;
     private JDesktopPane jdPane = new JDesktopPane();
 
     // Header
@@ -209,6 +215,9 @@ public class LoginForm extends JFrame implements ActionListener, WindowListener{
         
         account.setIndex(index);
         viewAppointment.setIndex(index);
+        doctorAppointment.setIndex(index);
+        cancelAppointment.setIndex(index);
+        appointmentForm.setIndex(index);
 
         Object obj = e.getSource();
         if(obj.equals(btn_submit)){
