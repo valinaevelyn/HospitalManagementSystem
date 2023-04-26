@@ -263,7 +263,13 @@ public class PharmacistForm extends JFrame implements ActionListener{
 				txt_phone.setText(phoneNum);
 
 				//kalau radio button belum nemu formulanya
-				
+				String gender = table_pharmacist.getValueAt(row, 5).toString();
+				if(radio_female.isSelected()){
+					radio_female.setSelected(true);
+				}else if(radio_male.isSelected()){
+					radio_male.setSelected(true);
+				}
+
 				String experience = table_pharmacist.getValueAt(row, 6).toString();
 				txt_experience.setText(experience);
 			}
@@ -357,7 +363,58 @@ public class PharmacistForm extends JFrame implements ActionListener{
 		}else if(e.getSource().equals(btn_clear)) {
 			dtm_table_pharmacist.setRowCount(0);
 		}else if(e.getSource().equals(btn_update)){
+			int selectedUpdate = table_pharmacist.getSelectedRow();
+			if(selectedUpdate >= 0){
+				String id = txt_id.getText();
+				String name = txt_name.getText();
+				int age = Integer.parseInt(txt_age.getText());
+				String address = txt_address.getText();
+				String phoneNumber = txt_phone.getText();
+				String gender = "";
+				if(radio_male.isSelected()) {
+					gender = "Male";
+				}else if(radio_female.isSelected()) {
+					gender = "Female";
+				}
+				int experience = Integer.parseInt(txt_experience.getText());
 
+				dtm_table_pharmacist.setValueAt(id, selectedUpdate, 0);
+				dtm_table_pharmacist.setValueAt(name, selectedUpdate, 1);
+				dtm_table_pharmacist.setValueAt(age, selectedUpdate, 2);
+				dtm_table_pharmacist.setValueAt(address, selectedUpdate, 3);
+				dtm_table_pharmacist.setValueAt(phoneNumber, selectedUpdate, 4);
+				dtm_table_pharmacist.setValueAt(gender, selectedUpdate, 5);
+				dtm_table_pharmacist.setValueAt(experience, selectedUpdate, 6);
+
+				//set datanya
+				pharmacists.get(selectedUpdate).setId(id);
+				pharmacists.get(selectedUpdate).setName(name);
+				pharmacists.get(selectedUpdate).setAge(age);
+				pharmacists.get(selectedUpdate).setAddress(address);
+				pharmacists.get(selectedUpdate).setPhoneNumber(phoneNumber);
+				pharmacists.get(selectedUpdate).setGender(gender);
+				pharmacists.get(selectedUpdate).setExperience(experience);
+
+				//write file
+				File file = new File("src/database/datapharmacist.txt");
+				try{
+					FileWriter writer = new FileWriter(file, true);
+					writer.write(id+"#"+name+"#"+age+"#"+address+"#"+phoneNumber+"#"+gender+"#"+experience+"\n");
+					pharmacists.add(new Pharmacist(id, name, age, address, phoneNumber, gender, experience));
+					writer.close();
+				}catch (IOException a){
+					System.out.println("File not found!");
+				}
+
+				//biar kehapus
+				txt_id.setText("");
+				txt_name.setText("");
+				txt_age.setText("");
+				txt_address.setText("");
+				txt_phone.setText("");
+				bg_gender.clearSelection();
+				txt_experience.setText("");
+			}
 		}
 		
 	}

@@ -262,6 +262,8 @@ public class RegisterDoctorForm extends JFrame implements ActionListener{
 		btn_clear.addActionListener(this);
 		panel_south.add(btn_delete);
 		btn_delete.addActionListener(this);
+		panel_south.add(btn_update);
+		btn_update.addActionListener(this);
 		panel_southFrame.add(panel_south, "South");
 		add(panel_southFrame, "South");
 		
@@ -300,7 +302,7 @@ public class RegisterDoctorForm extends JFrame implements ActionListener{
 				txt_phone.setText(phoneNum);
 
 				String gender = table_doctor.getValueAt(row, 5).toString();
-				bg_gender.setSelected(null, true);
+				// bg_gender.setSelected(true);
 				//kalau radio button belum nemu formulanya
 				
 				String specialization = table_doctor.getValueAt(row, 6).toString();
@@ -381,7 +383,58 @@ public class RegisterDoctorForm extends JFrame implements ActionListener{
 		}else if(e.getSource().equals(btn_clear)) {
 			dtm_table_doctor.setRowCount(0);
 		}else if(e.getSource().equals(btn_update)){
+			int selectedUpdate = table_doctor.getSelectedRow();
+			if(selectedUpdate >= 0){
+				String id = txt_id.getText();
+				String name = txt_name.getText();
+				int age = Integer.parseInt(txt_age.getText());
+				String address = txt_address.getText();
+				String phoneNumber = txt_phone.getText();
+				String gender = "";
+				if(radio_male.isSelected()) {
+					gender = "Male";
+				}else if(radio_female.isSelected()) {
+					gender = "Female";
+				}
+				String specialization = combo_specialization.getSelectedItem().toString();
 
+				dtm_table_doctor.setValueAt(id, selectedUpdate, 0);
+				dtm_table_doctor.setValueAt(name, selectedUpdate, 1);
+				dtm_table_doctor.setValueAt(age, selectedUpdate, 2);
+				dtm_table_doctor.setValueAt(address, selectedUpdate, 3);
+				dtm_table_doctor.setValueAt(phoneNumber, selectedUpdate, 4);
+				dtm_table_doctor.setValueAt(gender, selectedUpdate, 5);
+				dtm_table_doctor.setValueAt(combo_specialization.getSelectedItem(), selectedUpdate, 6);
+
+				//set datanya
+				doctors.get(selectedUpdate).setId(id);
+				doctors.get(selectedUpdate).setName(name);
+				doctors.get(selectedUpdate).setAge(age);
+				doctors.get(selectedUpdate).setAddress(address);
+				doctors.get(selectedUpdate).setPhoneNumber(phoneNumber);
+				doctors.get(selectedUpdate).setGender(gender);
+				doctors.get(selectedUpdate).setSpecialization(specialization);
+
+				//write file
+				File file = new File("src/database/datadoctor.txt");
+				try{
+					FileWriter writer = new FileWriter(file, true);
+					writer.write(id+"#"+name+"#"+age+"#"+address+"#"+phoneNumber+"#"+gender+"#"+specialization+"\n");
+					doctors.add(new Doctor(id, name, age, address, phoneNumber, gender, specialization));
+					writer.close();
+				}catch (IOException a){
+					System.out.println("File not found!");
+				}
+
+				//biar kehapus
+				txt_id.setText("");
+				txt_name.setText("");
+				txt_age.setText("");
+				txt_address.setText("");
+				txt_phone.setText("");
+				bg_gender.clearSelection();
+				combo_specialization.setSelectedItem("General");
+			}
 		}
 		
 	}

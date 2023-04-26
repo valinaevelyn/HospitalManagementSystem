@@ -6,12 +6,11 @@ public class Bill {
 	private String virtualAcc;
 	private String proof;
 	
-	public Bill(String id, String date_start, String date_end, String virtualAcc, String proof) {
+	public Bill(String id, String date_start, String date_end, String proof) {
 		super();
 		this.id = id;
 		this.date_start = date_start;
 		this.date_end = date_end;
-		this.virtualAcc = virtualAcc;
 		this.proof = proof;
 	}
 	

@@ -95,7 +95,7 @@ public class BillForm extends JFrame implements ActionListener{
 				date_end = raw[2];
 				proof = raw[3];
 
-				bills.add(new Bill(id, date_start, date_end, date_end, proof));
+				bills.add(new Bill(id, date_start, date_end, proof));
 				size++;
 			}
 
@@ -258,7 +258,7 @@ public class BillForm extends JFrame implements ActionListener{
 
 			if(check == 1){
 				dtm_table_bill.addRow(row);
-				bills.add(new Bill(id, date_start, date_end, date_end, proof));
+				bills.add(new Bill(id, date_start, date_end, proof));
 				table_bill.invalidate();
 			}
 
@@ -266,7 +266,7 @@ public class BillForm extends JFrame implements ActionListener{
 			try{
 				FileWriter writer = new FileWriter(file, true);
 				writer.write(id+"#"+date_start+"#"+date_end+"#"+proof+"\n");
-				bills.add(new Bill(id, date_start, date_end, id_validation, proof));
+				bills.add(new Bill(id, date_start, date_end, proof));
 				writer.close();
 			}catch(IOException a){
 				System.out.println("File not found!");
@@ -287,7 +287,42 @@ public class BillForm extends JFrame implements ActionListener{
 		}else if(obj.equals(btn_clear)){
 			dtm_table_bill.setRowCount(0);
 		}else if(obj.equals(btn_update)){
+			int selectedUpdate = table_bill.getSelectedRow();
+			if(selectedUpdate >= 0){
+				String id = txt_id.getText();
+				String date_start = txt_date_start.getText();
+				String date_end = txt_date_end.getText();
+				String proof = txt_proof.getText();
+				
 
+				dtm_table_bill.setValueAt(id, selectedUpdate, 0);
+				dtm_table_bill.setValueAt(date_start, selectedUpdate, 1);
+				dtm_table_bill.setValueAt(date_end, selectedUpdate, 2);
+				dtm_table_bill.setValueAt(proof, selectedUpdate, 3);
+
+				//set datanya
+				bills.get(selectedUpdate).setId(id);
+				bills.get(selectedUpdate).setDate_start(date_start);
+				bills.get(selectedUpdate).setDate_end(date_end);
+				bills.get(selectedUpdate).setProof(proof);
+				
+				//write file
+				File file = new File("src/database/bill.txt");
+				try{
+					FileWriter writer = new FileWriter(file, true);
+					writer.write(id+"#"+date_start+"#"+date_end+"#"+proof+"\n");
+					bills.add(new Bill(id, date_start, date_end, proof));
+					writer.close();
+				}catch (IOException a){
+					System.out.println("File not found!");
+				}
+
+				//biar kehapus
+				txt_id.setText("");
+				txt_date_start.setText("");
+				txt_date_end.setText("");
+				txt_proof.setText("");
+			}
 		}
 	}
 
