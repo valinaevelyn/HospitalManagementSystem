@@ -1,3 +1,3 @@
 P101#Patient 1#23#Jalan Melati#08826723123#Male#O
-P231#Patient 2#17#Jalan Kenari#08231234233#Female#AB
+P290#Patient 2#20#Jalan Senam#08123456789#Female#A
 P892#Patient 3#30#Jalan Sehat#08872324312#Male#B

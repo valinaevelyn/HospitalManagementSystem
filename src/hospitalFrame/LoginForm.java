@@ -227,10 +227,6 @@ public class LoginForm extends JFrame implements ActionListener, WindowListener{
         }
     }
 
-    // public void setAccountVisibility(){
-    //     account.setVisible(true);
-    // }
-
     public void setIndex(int index) {
         this.index = index;
     }
@@ -238,7 +234,6 @@ public class LoginForm extends JFrame implements ActionListener, WindowListener{
     public int getIndex() {
         return index;
     }
-
 
     @Override
     public void windowOpened(WindowEvent e) {
