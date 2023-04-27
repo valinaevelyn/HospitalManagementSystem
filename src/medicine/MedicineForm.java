@@ -323,6 +323,17 @@ public class MedicineForm extends JFrame implements ActionListener{
 				medicines.remove(selectedRow);
 				table_medicine.invalidate();
 			}
+			
+//			try {
+//				FileWriter writer = new FileWriter("src/database/medicine.txt");
+//				for (Medicine medicine : medicines) {
+//					writer.write(medicine.getId() + "#" + medicine.getName() + "#" + medicine.getFunction() + "#" + medicine.getPrice() + "#" + medicine.getStock() + "#" + medicine.getType() + "\n");
+//				}
+//				writer.close();
+//			}catch(IOException a){
+//				System.out.println("File Not Found!");
+//			}
+
 		}
 		
 		else if(obj.equals(btn_update)) {

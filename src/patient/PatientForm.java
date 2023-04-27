@@ -12,6 +12,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -30,6 +32,8 @@ import javax.swing.JTextField;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
+
+import medicine.Medicine;
 
 public class PatientForm extends JFrame implements ActionListener{
 	private Font font_title = new Font(Font.SERIF, Font.BOLD, 24);
@@ -266,10 +270,62 @@ public class PatientForm extends JFrame implements ActionListener{
 		else if (obj.equals(btn_delete)) {
 			int selectedRow = table_patient.getSelectedRow();
 			if(selectedRow != -1) {
-				dtm_table_patient.removeRow(selectedRow);
-				patients.remove(selectedRow);
+//				dtm_table_patient.removeRow(selectedRow);
+//				patients.remove(selectedRow);
+			    File file = new File("src/database/patient.txt");
+			    ArrayList<Patient> tempPatients = new ArrayList<Patient>();
+
+			    try {
+			        Scanner scan = new Scanner(file);
+			        String[] raw;
+			        String currId;
+			        String name;
+			        int age;
+			        String address;
+			        String phoneNumber;
+			        String gender;
+			        String blood;
+			        String id = (String) dtm_table_patient.getValueAt(selectedRow, 0);
+
+			        while(scan.hasNextLine()) {
+			            raw = scan.nextLine().split("#");
+			            currId = raw[0];
+			            name = raw[1];
+			            age = Integer.parseInt(raw[2]);
+			            address = raw[3];
+			            phoneNumber = raw[4];
+			            gender = raw[5];
+			            blood = raw[6];
+			            
+
+			            if (!currId.equals(id)) {
+			                tempPatients.add(new Patient(currId, name, age, address, phoneNumber, gender, blood));
+			            }
+			        }
+			    } catch (FileNotFoundException a) {
+			        JOptionPane.showMessageDialog(null, a.getMessage());
+			    }
+
+			    try {
+			        FileWriter writer = new FileWriter(file);
+
+			        for (Patient patient : tempPatients) {
+			            String patientData = patient.getId() + "#" + patient.getName() + "#" + patient.getAge() + "#" + patient.getAddress() + "#" + patient.getPhoneNum() + "#" + patient.getGender() + "#" + patient.getBlood();
+			            writer.write(patientData + "\n");
+			        }
+
+			        writer.close();
+			    } catch (IOException a) {
+			        JOptionPane.showMessageDialog(null, a.getMessage());
+			    }
+
+			    // Refresh the data in the ArrayList and the JTable
+			    patients.clear();
+			    load_patient_data();
+			    load_table_patient();
 				table_patient.invalidate();
 			}
+			
 		}
 	}
 
