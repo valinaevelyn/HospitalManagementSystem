@@ -302,8 +302,11 @@ public class RegisterDoctorForm extends JFrame implements ActionListener{
 				txt_phone.setText(phoneNum);
 
 				String gender = table_doctor.getValueAt(row, 5).toString();
-				// bg_gender.setSelected(true);
-				//kalau radio button belum nemu formulanya
+				if(gender.equals("Female")){
+					radio_female.setSelected(true);
+				}else if(gender.equals("Male")){
+					radio_male.setSelected(true);
+				}
 				
 				String specialization = table_doctor.getValueAt(row, 6).toString();
 				combo_specialization.setSelectedItem(specialization);
@@ -364,7 +367,16 @@ public class RegisterDoctorForm extends JFrame implements ActionListener{
 				table_doctor.invalidate();	
 			}
 			
-			
+			File file = new File("src/database/datadoctor.txt");
+       		try{
+				FileWriter writer = new FileWriter(file, true);
+				writer.write(id+"#"+name+"#"+age+"#"+address+"#"+phoneNumber+"#"+gender+"#"+specialization+"\n");
+				doctors.add(new Doctor(id, name, age, address, phoneNumber, gender, specialization));
+				writer.close();
+        	}catch (IOException a){
+				System.out.println("File not found!");
+			}
+
 			txt_id.setText("");
 			txt_name.setText("");
 			txt_age.setText("");
@@ -382,6 +394,14 @@ public class RegisterDoctorForm extends JFrame implements ActionListener{
 			}
 		}else if(e.getSource().equals(btn_clear)) {
 			dtm_table_doctor.setRowCount(0);
+			try {
+				FileWriter writer = new FileWriter("src/database/datadoctor.txt");
+				writer.write("");
+				writer.close();
+				System.out.println("File cleared succesfully!");
+			}catch(IOException a){
+				System.out.println("File Not Found!");
+			}
 		}else if(e.getSource().equals(btn_update)){
 			int selectedUpdate = table_doctor.getSelectedRow();
 			if(selectedUpdate >= 0){

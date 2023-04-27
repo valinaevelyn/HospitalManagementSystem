@@ -286,6 +286,14 @@ public class BillForm extends JFrame implements ActionListener{
 			}
 		}else if(obj.equals(btn_clear)){
 			dtm_table_bill.setRowCount(0);
+			try {
+				FileWriter writer = new FileWriter("src/database/bill.txt");
+				writer.write("");
+				writer.close();
+				System.out.println("File cleared succesfully!");
+			}catch(IOException a){
+				System.out.println("File Not Found!");
+			}
 		}else if(obj.equals(btn_update)){
 			int selectedUpdate = table_bill.getSelectedRow();
 			if(selectedUpdate >= 0){

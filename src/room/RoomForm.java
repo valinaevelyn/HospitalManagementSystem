@@ -8,6 +8,8 @@ import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -21,6 +23,8 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
 
 public class RoomForm extends JFrame implements ActionListener{
@@ -67,6 +71,7 @@ public class RoomForm extends JFrame implements ActionListener{
 	private JButton btn_submit = new JButton("Submit");
 	private JButton btn_clear = new JButton("Clear");
 	private JButton btn_delete = new JButton("Delete");
+	private JButton btn_update = new JButton("Update");
 	
 	private ArrayList<Room> rooms = new ArrayList<Room>();
 	
@@ -187,6 +192,8 @@ public class RoomForm extends JFrame implements ActionListener{
 		btn_clear.addActionListener(this);
 		panel_south.add(btn_delete);
 		btn_delete.addActionListener(this);
+		panel_south.add(btn_update);
+		btn_update.addActionListener(this);
 		panel_southFrame.add(panel_south, "South");
 		add(panel_southFrame, "South");
 		
@@ -202,6 +209,26 @@ public class RoomForm extends JFrame implements ActionListener{
 		init_component();
 		load_room_data();
 		load_table_room();
+
+		table_room.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
+			
+			@Override
+			public void valueChanged(ListSelectionEvent e){
+				int row = table_room.getSelectedRow();
+
+				String number = table_room.getValueAt(row, 0).toString();
+				txt_number.setText(number);
+
+				String type = table_room.getValueAt(row, 1).toString();
+				combo_type.setSelectedItem(type);
+
+				String duration = table_room.getValueAt(row, 2).toString();
+				txt_duration.setText(duration);
+
+				String charge = table_room.getValueAt(row, 3).toString();
+				txt_charge.setText(charge);
+			}
+		});
 	}
 
 	public static void main(String[] args) {
@@ -213,29 +240,45 @@ public class RoomForm extends JFrame implements ActionListener{
 		Object obj = e.getSource();
 		
 		if(obj.equals(btn_submit)) {
-			boolean flag = false;
+			int check = 1;
 			String number = txt_number.getText();
 			String type = combo_type.getSelectedItem().toString();
 			Integer duration = Integer.parseInt(txt_duration.getText());
 			Double charge = Double.parseDouble(txt_charge.getText());
 			
 			//VALIDATION
-			if(number.length()!=3) {
-				JOptionPane.showMessageDialog(null, "Room Number must between 001 until 999");
-				flag = false;
-			}else{
-				JOptionPane.showMessageDialog(null, "Room Registration Success!");
-				flag = true;
+			String number_validation = "[0-9]+[0-9]+[0-9]+";
+
+			if(number.matches(number_validation)) {
+				check *=1;
+			}else {
+				JOptionPane.showMessageDialog(null, "Number must be true!");
+				check *=0;
 			}
 
 			//STORE DATA DI TABEL
 			Object[] row = {number, type, duration, charge};
 
-			if(flag == true){
+			if(check == 1){
 				dtm_table_room.addRow(row);
 				rooms.add(new Room(number, type, duration, charge));
 				table_room.invalidate();
 			}
+
+			File file = new File("src/database/dataroom.txt");
+       		try{
+				FileWriter writer = new FileWriter(file, true);
+				writer.write(number+"#"+type+"#"+duration+"#"+charge+"\n");
+				rooms.add(new Room(number, type, duration, charge));
+				writer.close();
+        	}catch (IOException a){
+				System.out.println("File not found!");
+			}
+
+			txt_number.setText("");
+			combo_type.setSelectedItem("");
+			txt_duration.setText("");
+			txt_charge.setText("");
 
 		}else if(obj.equals(btn_delete)){
 			int selectedRow = table_room.getSelectedRow();
@@ -246,7 +289,37 @@ public class RoomForm extends JFrame implements ActionListener{
 			}
 		}else if(obj.equals(btn_clear)){
 			dtm_table_room.setRowCount(0);
+			try {
+				FileWriter writer = new FileWriter("src/database/dataroom.txt");
+				writer.write("");
+				writer.close();
+				System.out.println("File cleared succesfully!");
+			}catch(IOException a){
+				System.out.println("File Not Found!");
+			}
+		}else if(obj.equals(btn_update)){
+			int selectedUpdate = table_room.getSelectedRow();
+			if(selectedUpdate >= 0){
+				String number = txt_number.getText();
+				String type = combo_type.getSelectedItem().toString();
+				Integer duration = Integer.parseInt(txt_duration.getText());
+				Double charge = Double.parseDouble(txt_charge.getText());
+
+				dtm_table_room.setValueAt(number, selectedUpdate, 0);
+				dtm_table_room.setValueAt(combo_type.getSelectedItem(), selectedUpdate, 1);
+				dtm_table_room.setValueAt(duration, selectedUpdate, 2);
+				dtm_table_room.setValueAt(charge, selectedUpdate, 3);
+
+				rooms.get(selectedUpdate).setNumber(number);
+				rooms.get(selectedUpdate).setType(type);
+				rooms.get(selectedUpdate).setDuration(duration);
+				rooms.get(selectedUpdate).setCharge(charge);
+
+				txt_number.setText("");
+				combo_type.setSelectedItem("");
+				txt_duration.setText("");
+				txt_charge.setText("");
+			}
 		}
 	}
-
 }

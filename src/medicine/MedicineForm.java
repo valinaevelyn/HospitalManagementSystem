@@ -310,10 +310,19 @@ public class MedicineForm extends JFrame implements ActionListener{
 			txt_function.setText("");
 			txt_price.setText("");
 			txt_stock.setText("");
+			combo_type.setSelectedItem("");
 		}
 		
 		else if(obj.equals(btn_clear)) {
 			dtm_table_medicine.setRowCount(0);
+			try {
+				FileWriter writer = new FileWriter("src/database/medicine.txt");
+				writer.write("");
+				writer.close();
+				System.out.println("File cleared succesfully!");
+			}catch(IOException a){
+				System.out.println("File Not Found!");
+			}
 		}
 		
 		else if(obj.equals(btn_delete)) {
@@ -337,7 +346,39 @@ public class MedicineForm extends JFrame implements ActionListener{
 		}
 		
 		else if(obj.equals(btn_update)) {
-			
+			int selectedUpdate = table_medicine.getSelectedRow();
+			if(selectedUpdate >= 0){
+				String id = txt_id.getText();
+				String name = txt_name.getText();
+				String function = txt_function.getText();
+				double price = Double.parseDouble(txt_price.getText());
+				int stock = Integer.parseInt(txt_stock.getText());
+				String type = combo_type.getSelectedItem().toString();
+
+				dtm_table_medicine.setValueAt(id, selectedUpdate, 0);
+				dtm_table_medicine.setValueAt(name, selectedUpdate, 1);
+				dtm_table_medicine.setValueAt(function, selectedUpdate, 2);
+				dtm_table_medicine.setValueAt(price, selectedUpdate, 3);
+				dtm_table_medicine.setValueAt(stock, selectedUpdate, 4);
+				dtm_table_medicine.setValueAt(combo_type.getSelectedItem(), selectedUpdate, 5);
+
+				medicines.get(selectedUpdate).setId(id);
+				medicines.get(selectedUpdate).setName(name);
+				medicines.get(selectedUpdate).setFunction(function);
+				medicines.get(selectedUpdate).setPrice(price);
+				medicines.get(selectedUpdate).setStock(stock);
+				medicines.get(selectedUpdate).setType(type);
+
+				//write file
+
+				//biar kehapus
+				txt_id.setText("");
+				txt_name.setText("");
+				txt_function.setText("");
+				txt_price.setText("");
+				txt_stock.setText("");
+				combo_type.setSelectedItem("");
+			}
 		}
 	}
 

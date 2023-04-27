@@ -6,9 +6,11 @@ import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -264,11 +266,11 @@ public class PharmacistForm extends JFrame implements ActionListener{
 				String phoneNum = table_pharmacist.getValueAt(row, 4).toString();
 				txt_phone.setText(phoneNum);
 
-				//kalau radio button belum nemu formulanya
 				String gender = table_pharmacist.getValueAt(row, 5).toString();
-				if(radio_female.isSelected()){
+
+				if(gender.equals("Female")){
 					radio_female.setSelected(true);
-				}else if(radio_male.isSelected()){
+				}else if(gender.equals("Male")){
 					radio_male.setSelected(true);
 				}
 
@@ -374,6 +376,14 @@ public class PharmacistForm extends JFrame implements ActionListener{
 //			}
 		}else if(e.getSource().equals(btn_clear)) {
 			dtm_table_pharmacist.setRowCount(0);
+			try {
+				FileWriter writer = new FileWriter("src/database/datapharmacist.txt");
+				writer.write("");
+				writer.close();
+				System.out.println("File cleared succesfully!");
+			}catch(IOException a){
+				System.out.println("File Not Found!");
+			}
 		}else if(e.getSource().equals(btn_update)){
 			int selectedUpdate = table_pharmacist.getSelectedRow();
 			if(selectedUpdate >= 0){
@@ -407,16 +417,58 @@ public class PharmacistForm extends JFrame implements ActionListener{
 				pharmacists.get(selectedUpdate).setGender(gender);
 				pharmacists.get(selectedUpdate).setExperience(experience);
 
-				//write file
-				File file = new File("src/database/datapharmacist.txt");
+				//write update file (INI MASIH BINGUNG TAPI INSYATUHAN OKE OKE OKE OKE TINGGAL CARI DIKIT)
 				try{
-					FileWriter writer = new FileWriter(file, true);
+					File file = new File("src/database/datapharmacist.txt");
+					BufferedReader reader = new BufferedReader(new FileReader(file));
+					String line = ""; 
+					String oldText = "";
+
+					String oldId = id;
+					String oldName = name;
+					int oldAge = age;
+					String oldAddress = address;
+					String oldPhoneNumber = phoneNumber;
+					String oldGender = gender;
+					int oldExperience = experience;
+
+					while((line = reader.readLine())!= null){
+						oldText+=line + "#";
+						oldId += line + "#";
+						oldName += line + "#";
+						// oldAge += line + "#";
+						oldAddress += line + "#";
+						oldPhoneNumber += line + "#";
+						oldGender += line + "#";
+						// oldExperience += line + "#";
+					}
+					reader.close();
+
+					String newText = oldText.replaceAll("old text", "new text");
+
+					FileWriter writer = new FileWriter(file);
 					writer.write(id+"#"+name+"#"+age+"#"+address+"#"+phoneNumber+"#"+gender+"#"+experience+"\n");
-					pharmacists.add(new Pharmacist(id, name, age, address, phoneNumber, gender, experience));
 					writer.close();
 				}catch (IOException a){
 					System.out.println("File not found!");
 				}
+
+				// LOGIC MUASAL
+				
+				// import java.io.*;
+				// public class UpdateFileExample {
+				// 	public static void main(String[] args) {
+				// 		try {
+				// 			FileWriter writer = new FileWriter("example.txt", true);
+				// 			writer.write("This is new content that has been added to the file.");
+				// 			writer.close();
+				// 			System.out.println("File updated successfully.");
+				// 		} catch (IOException e) {
+				// 			System.out.println("An error occurred while updating the file: " + e.getMessage());
+				// 		}
+				// 	}
+				// }
+
 
 				//biar kehapus
 				txt_id.setText("");
