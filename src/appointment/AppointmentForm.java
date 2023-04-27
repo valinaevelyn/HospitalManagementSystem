@@ -77,6 +77,7 @@ public class AppointmentForm extends JFrame implements ActionListener{
     private JPanel panel_space_south2 = new JPanel();
     private JButton btn_save = new JButton("SAVE");
     private JButton btn_clear = new JButton("CLEAR TEXT");
+    private JButton btn_exit = new JButton("EXIT");
 
     // Date & Time
     SimpleDateFormat dateFormat = new SimpleDateFormat("dd MMMM yyyy");
@@ -143,6 +144,10 @@ public class AppointmentForm extends JFrame implements ActionListener{
 
             while(scan.hasNextLine()){
                 raw = scan.nextLine().split("#");
+                // if(raw.length != 4) {
+				// 	// System.out.println("Invalid data format");
+				// 	continue;
+				// }
                 username = raw[0];
                 role = raw[1];
                 password = raw[2];
@@ -287,6 +292,10 @@ public class AppointmentForm extends JFrame implements ActionListener{
         btn_clear.addActionListener(this);
         panel_south.add(btn_clear);
         add(panel_south, "South");
+        
+        btn_exit.addActionListener(this);
+        panel_south.add(btn_exit);
+        add(panel_south, "South");
 
         panel_south_frame.add(panel_south, "South");
         add(panel_south_frame, "South");
@@ -374,8 +383,9 @@ public class AppointmentForm extends JFrame implements ActionListener{
             
             for(Appointment a: appointments){
                 if(id.matches(a.getId())){
+                    txt_id.setText("");
                     check *= 0;
-                    JOptionPane.showMessageDialog(null, "ID should be unique! Don't use existing id! (refer to appointment.txt)");
+                    JOptionPane.showMessageDialog(null, "ID was taken, try another id!");
                     return;
                 } else{
                     check *= 1;
@@ -385,15 +395,17 @@ public class AppointmentForm extends JFrame implements ActionListener{
             if(name.equals("")) {
 				JOptionPane.showMessageDialog(null, "Name field can not be empty!");
 				check *=0;
+                txt_name.setText("");
                 return;
 			}else {
                 check *=1;
 			}
-
+            
             if(name.equals(users.get(index).getName())) {
                 check *=1;
 			}else {
-				JOptionPane.showMessageDialog(null, "Name must be filled with your name!");
+                JOptionPane.showMessageDialog(null, "Name must be filled with your name!");
+                txt_name.setText("");
                 check *=0;
                 return;
 			}
@@ -401,14 +413,16 @@ public class AppointmentForm extends JFrame implements ActionListener{
             if(complaint.equals("")) {
 				JOptionPane.showMessageDialog(null, "Complaint field can not be empty!");
 				check *=0;
+                txt_complaint.setText("");
                 return;
 			}else {
 				check *=1;
 			}
 
             if(date.equals("")) {
-				JOptionPane.showMessageDialog(null, "Complaint field can not be empty!");
+				JOptionPane.showMessageDialog(null, "Date field can not be empty!");
 				check *=0;
+                txt_date.setText("");
                 return;
 			}else {
                 check *=1;
@@ -418,13 +432,15 @@ public class AppointmentForm extends JFrame implements ActionListener{
                 dateChecker = dateFormat.parse(date);
                 check *= 1;
             } catch (ParseException ee) {
-                JOptionPane.showMessageDialog(null, "Invalid input, please use dd MMMM yyyy format. (ex : 1 April 1900)");
+                JOptionPane.showMessageDialog(null, "Invalid date, please use dd MMMM yyyy format. (ex : 1 April 1900)");
                 check *= 0;
+                txt_date.setText("");
                 return;
             }
 
             if(time.equals("")) {
-				JOptionPane.showMessageDialog(null, "Time field can not be empty!");
+                JOptionPane.showMessageDialog(null, "Time field can not be empty!");
+                txt_time.setText("");
 				check *=0;
                 return;
 			}else {
@@ -436,21 +452,24 @@ public class AppointmentForm extends JFrame implements ActionListener{
                 check *= 1;
             } else {
                 JOptionPane.showMessageDialog(null, "Incorrect Time Format, should be HH:MM (ex: 09:00)!");
+                txt_time.setText("");
                 check *=0;
                 return;
             }
-
+            
             if(doctorName.equals("")) {
-				JOptionPane.showMessageDialog(null, "Doctor Name field can not be empty!");
+                JOptionPane.showMessageDialog(null, "Doctor Name field can not be empty!");
+                txt_doctorName.setText("");
 				check *=0;
                 return;
 			}else {
-				check *=1;
+                check *=1;
 			}
-
+            
             for(Doctor d: doctors){
                 if(id.matches(d.getName())){
                     check *= 0;
+                    txt_doctorName.setText("");
                     JOptionPane.showMessageDialog(null, "Doctor name not found. Please refer to datadoctor.txt to find a valid doctor!");
                     return;
                 } else{
@@ -493,7 +512,9 @@ public class AppointmentForm extends JFrame implements ActionListener{
             txt_date.setText("");
             txt_time.setText("");
             txt_doctorName.setText("");
-		}
+		} else if(e.getSource().equals(btn_exit)){
+            dispose();
+        }
         
     }
 

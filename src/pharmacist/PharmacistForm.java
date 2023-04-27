@@ -32,6 +32,8 @@ import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
 
+import medicine.Medicine;
+
 public class PharmacistForm extends JFrame implements ActionListener{
 	
 	//declare tabel
@@ -360,6 +362,16 @@ public class PharmacistForm extends JFrame implements ActionListener{
 				pharmacists.remove(selectedRow);
 				table_pharmacist.invalidate();
 			}
+			
+//			try {
+//				FileWriter writer = new FileWriter("src/database/medicine.txt");
+//				for (Pharmacist p : pharmacists) {
+//					writer.write(p.getId() + "#" + p.getName() + "#" + p.getAge() + "#" + p.getAddress() + "#" + p.getPhoneNumber() + "#" + p.getGender() + "#" + p.getExperience() + "\n");
+//				}
+//				writer.close();
+//			}catch(IOException a){
+//				System.out.println("File Not Found!");
+//			}
 		}else if(e.getSource().equals(btn_clear)) {
 			dtm_table_pharmacist.setRowCount(0);
 		}else if(e.getSource().equals(btn_update)){

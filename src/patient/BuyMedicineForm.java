@@ -50,9 +50,11 @@ public class BuyMedicineForm extends JFrame implements ActionListener{
 	
 	private JLabel lbl_name = new JLabel("Name");
 	private JLabel lbl_qty = new JLabel("Quantity");
+	private JLabel lbl_total = new JLabel("Total");
 
 	private JTextField txt_name = new JTextField();
 	private JTextField txt_quantity = new JTextField();
+	private JTextField txt_total = new JTextField();
 	
 	private JPanel panel_southFrame = new JPanel();
 	private JPanel panel_south = new JPanel();
@@ -139,11 +141,13 @@ public class BuyMedicineForm extends JFrame implements ActionListener{
 		add(panel_right, "East");
 		
 		//Content
-		panel_center.setLayout(new GridLayout(2,2));
+		panel_center.setLayout(new GridLayout(3,3));
 		panel_center.add(lbl_name);
 		panel_center.add(txt_name);
 		panel_center.add(lbl_qty);
 		panel_center.add(txt_quantity);
+		panel_center.add(lbl_total);
+		panel_center.add(txt_total);
 		panel_center.setBorder(BorderFactory.createEmptyBorder(20, 5, 5, 0));
 		add(panel_center, "Center");
 		
@@ -160,7 +164,7 @@ public class BuyMedicineForm extends JFrame implements ActionListener{
 		panel_southFrame.add(panel_south, "South");
 		add(panel_southFrame, "South");
 		
-		setTitle("Medicine!");
+		setTitle("Medicine");
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setSize(1000,650);
 		setVisible(true);
@@ -180,13 +184,18 @@ public class BuyMedicineForm extends JFrame implements ActionListener{
 				int row = table_medicine.getSelectedRow();
 				String name = table_medicine.getValueAt(row, 1).toString();
 				txt_name.setText(name);
+				
+				double price = (double) dtm_table_medicine.getValueAt(row, 3);
+				int quantity = Integer.parseInt(txt_quantity.getText());
+				double total = price * quantity;
+				txt_total.setText(String.valueOf(total));
 			}
 		});
 	}
-
-	public static void main(String[] args) {
-		new BuyMedicineForm();
-	}
+//
+//	public static void main(String[] args) {
+//		new BuyMedicineForm();
+//	}
 
 	@Override
 	public void actionPerformed(ActionEvent e) {

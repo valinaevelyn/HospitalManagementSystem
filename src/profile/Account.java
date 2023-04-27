@@ -54,6 +54,10 @@ public class Account extends JFrame implements ActionListener{
 
             while(scan.hasNextLine()){
                 raw = scan.nextLine().split("#");
+				// if(raw.length != 4) {
+				// 	// System.out.println("Invalid data format");
+				// 	continue;
+				// }
                 username = raw[0];
                 role = raw[1];
                 password = raw[2];

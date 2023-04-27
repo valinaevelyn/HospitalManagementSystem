@@ -2,6 +2,7 @@ package progressbar;
 
 import javax.swing.JFrame;
 import javax.swing.JProgressBar;
+import javax.swing.SwingWorker;
 
 public class ProgressBar extends JFrame{
 	
@@ -11,12 +12,14 @@ public class ProgressBar extends JFrame{
 		while(jpb.getValue() < jpb.getMaximum()) {
 			jpb.setValue(jpb.getValue() + 5);
 			try {
-				Thread.sleep(20);
+				Thread.sleep(25);
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 			}
 		}
-		
+	}
+	
+	public ProgressBar() {
 		jpb.setStringPainted(true);
 		jpb.setMaximum(1000);
 		jpb.setValue(0);
@@ -26,9 +29,6 @@ public class ProgressBar extends JFrame{
 		setLocationRelativeTo(null);
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		setVisible(true);
-	}
-	
-	public ProgressBar() {
-		updateProgressBar();
+//		new ProgressBar().updateProgressBar();;
 	}
 }
