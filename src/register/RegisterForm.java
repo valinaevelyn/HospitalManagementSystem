@@ -146,7 +146,6 @@ public class RegisterForm extends JFrame implements ActionListener{
 			JOptionPane.showMessageDialog(null, "Username must start with[role_]!");
 		}    
 		
-		
 		if(username.length()<8){
 			JOptionPane.showMessageDialog(null, "Username must be more than 8 characters");
 		}
