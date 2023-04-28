@@ -57,9 +57,9 @@ public class Guide extends JFrame implements ActionListener{
 		initComponent();
 	}
 	
-	public static void main(String[] args) {
-		new Guide();
-	}
+	// public static void main(String[] args) {
+	// 	new Guide();
+	// }
 	
 	@Override
 	public void actionPerformed(ActionEvent e) {

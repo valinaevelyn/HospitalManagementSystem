@@ -317,9 +317,9 @@ public class AppointmentForm extends JFrame implements ActionListener{
         appointments.clear();
     }
     
-    public static void main(String[] args) {
-        new AppointmentForm();
-    }
+    // public static void main(String[] args) {
+    //     new AppointmentForm();
+    // }
 
     @Override
     public void actionPerformed(ActionEvent e) {
@@ -570,7 +570,5 @@ public class AppointmentForm extends JFrame implements ActionListener{
 		} else if(e.getSource().equals(btn_exit)){
             dispose();
         }
-        
     }
-
 }
