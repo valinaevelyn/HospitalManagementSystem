@@ -14,9 +14,11 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.Scanner;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.text.DateFormat;
 import java.text.ParseException;
 
@@ -427,14 +429,67 @@ public class AppointmentForm extends JFrame implements ActionListener{
 			}else {
                 check *=1;
 			}
+
+            dateFormat.setLenient(false);
+            try {
+                Date dateChecker2 = dateFormat.parse(date);
+                check *= 1;
+            } catch (ParseException ee) {
+                JOptionPane.showMessageDialog(null, "Invalid date format!");
+                check *= 0;
+                txt_date.setText("");
+                return;
+            }
             
             try {
                 dateChecker = dateFormat.parse(date);
+                Calendar cal = Calendar.getInstance();
+                cal.setTime(dateChecker);
+                int year = cal.get(Calendar.YEAR);
+                int month = cal.get(Calendar.MONTH);
+                int day = cal.get(Calendar.DAY_OF_MONTH);
+            
+                if (year < 1900 || year > 2100 || month < 0 || month > 11 || day < 1 || day > 31) {
+                    JOptionPane.showMessageDialog(null, "Invalid date, please use dd MMMM yyyy format. (ex : 1 April 1900)");
+                    check *= 0;
+                    txt_date.setText("");
+                    return;
+                }
+            
                 check *= 1;
             } catch (ParseException ee) {
                 JOptionPane.showMessageDialog(null, "Invalid date, please use dd MMMM yyyy format. (ex : 1 April 1900)");
                 check *= 0;
                 txt_date.setText("");
+                return;
+            }
+
+            Date userInputDate = null;
+            try {
+                userInputDate = dateFormat.parse(date);
+            } catch (ParseException e1) {
+                // TODO Auto-generated catch block
+                e1.printStackTrace();
+            }
+
+            if (userInputDate != null) {
+                Date currentDate = new Date();
+
+                if (userInputDate.before(currentDate)) {
+                    // System.out.println("The date is before today.");
+                    JOptionPane.showMessageDialog(null, "Date has to be after today!");
+                    check *= 0;
+                    txt_date.setText("");
+                    return;
+                } else {
+                    System.out.println("The date is on or after today.");
+                    check *= 1;
+                }
+            } else {
+                System.out.println("Invalid date input");
+                JOptionPane.showMessageDialog(null, "Date has to be after today!");
+                txt_date.setText("");
+                check *= 0;
                 return;
             }
 
