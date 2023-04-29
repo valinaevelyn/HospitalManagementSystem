@@ -1,2 +1,34 @@
-M123#Paracetamol#Obat Nyeri Kepala#10000.0#100#Capsul
-M123#Panadol Merah#Obat Demam Tinggi#12000.0#200#Syrup
+M678#Paracetamol#Obat Nyeri Kepala#10000.0#100#Capsul
+M123#Ponstan Premium#Obat Sakit Gigi#17000.0#90#Capsul
+M145#Panadol Merah#Obat Demam Tinggi#12000.0#200#Syrup
+M234#Aspirin Forte#Obat Nyeri Kepala#8000.0#60#Capsul
+M567#Progesic Extra#Obat Flu#11000.0#100#Syrup
+M890#Promag#Obat Maag#15000.0#50#Bubuk
+M123#Sanmol#Obat Demam#9000.0#150#Syrup
+M456#Paracetamol Plus#Obat Nyeri Haid#12000.0#80#Capsul
+M789#Cataflam#Obat Sakit Gigi#14000.0#50#Capsul
+M012#Decolgen Forte#Obat Flu#10000.0#120#Syrup
+M345#Mylanta#Obat Maag#17000.0#40#Bubuk
+M678#Panadol Extra#Obat Demam Tinggi#13000.0#200#Syrup
+M901#Codipront#Obat Batuk#12000.0#90#Syrup
+M234#Neozep Forte#Obat Flu#9500.0#80#Capsul
+M567#Loperamide#Obat Diare#8000.0#50#Capsul
+M890#Bioplacenton#Obat Luka Bakar#19000.0#20#Cream
+M123#Paramex#Obat Nyeri#11000.0#100#Syrup
+M456#Inzana Forte#Obat Flu#9000.0#60#Capsul
+M789#Myonal#Obat Nyeri Otot#14000.0#30#Capsul
+M012#Dulcolax#Obat Konstipasi#15000.0#50#Syrup
+M345#Vitacimin#Obat Asam Lambung#12000.0#200#Syrup
+M678#Panadol Cold & Flu#Obat Flu#17000.0#100#Capsul
+M901#Oskadon#Obat Nyeri#13000.0#80#Capsul
+M234#Imboost Force#Obat Flu#16000.0#60#Capsul
+M567#Gaster#Obat Maag#19000.0#40#Bubuk
+M890#Medicol Advance#Obat Nyeri Kepala#8000.0#150#Capsul
+M123#Thrombo Aspilets#Obat Darah Tinggi#13000.0#100#Capsul
+M456#Konimex#Obat Sakit Kepala#12000.0#50#Syrup
+M789#Bodrex#Obat Nyeri#9000.0#200#Syrup
+M012#Bai Feng Wan#Obat Asam Urat#17000.0#30#Capsul
+M345#Asam Mefenamat#Obat Sakit Gigi#15000.0#90#Capsul
+M678#Rhinos SR#Obat Flu#11000.0#80#Capsul
+M901#Ventolin#Obat Asma#19000.0#40#Syrup
+M234#Kalmeco#Obat Mual#8000.0#120#Syrup

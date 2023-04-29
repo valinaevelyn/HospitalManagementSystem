@@ -1,3 +1,11 @@
 P101#Patient 1#23#Jalan Melati#08826723123#Male#O
 P290#Patient 2#20#Jalan Senam#08123456789#Female#A
 P892#Patient 3#30#Jalan Sehat#08872324312#Male#B
+P764#Patient 4#26#Jalan Bahagia#08213678912#Male#AB
+P901#Patient 5#35#Jalan Merdeka#08991234567#Female#O
+P453#Patient 6#19#Jalan Buntu#08127654321#Male#A
+P237#Patient 7#28#Jalan Raya#08219876543#Female#B
+P629#Patient 8#42#Jalan Maju#08871234567#Male#O
+P804#Patient 9#31#Jalan Terang#08123987654#Female#AB
+P562#Patient 10#37#Jalan Damai#08989876543#Male#A
+P977#Patient 11#25#Jalan Setia#08216789012#Female#B
