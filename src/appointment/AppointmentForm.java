@@ -225,7 +225,7 @@ public class AppointmentForm extends JFrame implements ActionListener{
 		table_appointment.setModel(dtm_table_appointment); 
     }
     
-    void init_components(){
+    public void init_components(){
         setLayout(new BorderLayout());
 
 		//Header
@@ -317,9 +317,9 @@ public class AppointmentForm extends JFrame implements ActionListener{
         appointments.clear();
     }
     
-    // public static void main(String[] args) {
-    //     new AppointmentForm();
-    // }
+    public static void main(String[] args) {
+        new AppointmentForm();
+    }
 
     @Override
     public void actionPerformed(ActionEvent e) {
@@ -543,7 +543,7 @@ public class AppointmentForm extends JFrame implements ActionListener{
             File file = new File("src/database/appointment.txt");
             try{
                 FileWriter writer = new FileWriter(file, true);
-                writer.write(id+"#"+name+"#"+complaint+"#"+date+"#"+time+"#"+doctorName);
+                writer.write(id+"#"+name+"#"+complaint+"#"+date+"#"+time+"#"+doctorName+"\n");
                 appointments.add(new Appointment(id, name, complaint, date, time, doctorName));
                 writer.close();
             } catch (IOException a){

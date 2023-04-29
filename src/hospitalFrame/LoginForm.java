@@ -28,6 +28,7 @@ import progressbar.ProgressBar;
 import profile.Account;
 import appointment.DoctorAppointment;
 import appointment.ViewAppointment;
+import patient.BuyMedicineForm;
 import appointment.CancelAppointment;
 import appointment.AppointmentForm;
 
@@ -37,6 +38,7 @@ public class LoginForm extends JFrame implements ActionListener, WindowListener{
     private LoginForm loginForm;
     private Account account;
     private ViewAppointment viewAppointment;
+    private BuyMedicineForm buyMedicineForm;
     private ProgressBar progressBar;
     private JProgressBar jpb = new JProgressBar();
     private DoctorAppointment doctorAppointment;
@@ -218,6 +220,7 @@ public class LoginForm extends JFrame implements ActionListener, WindowListener{
         doctorAppointment.setIndex(index);
         cancelAppointment.setIndex(index);
         appointmentForm.setIndex(index);
+        buyMedicineForm.setIndex(index);
 
         Object obj = e.getSource();
         if(obj.equals(btn_submit)){

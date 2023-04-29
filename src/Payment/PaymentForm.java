@@ -20,6 +20,8 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
 
 public class PaymentForm extends JFrame implements ActionListener{
@@ -54,7 +56,7 @@ public class PaymentForm extends JFrame implements ActionListener{
 	private JPanel panel_space_south2 = new JPanel();
 	private JPanel panel_space_south3 = new JPanel();
 	private JPanel panel_space_south4 = new JPanel();
-	private JButton btn_confirm = new JButton("Confirm");
+	private JButton btn_confirm = new JButton("Confirm Payment");
 	
 	private ArrayList<Payment> payments = new ArrayList<Payment>();
 	
@@ -84,7 +86,7 @@ public class PaymentForm extends JFrame implements ActionListener{
 	}
 	
 	public void load_table_payment() {
-		String[] column = {"Name", "Total", "Service", "Payment Status"};
+		String[] column = {"Patient Name", "Total", "Service/Product Name", "Payment Status"};
 		dtm_table_payment = new DefaultTableModel(column, 0);
 		
 		for(Payment payment: payments) {
@@ -97,7 +99,7 @@ public class PaymentForm extends JFrame implements ActionListener{
 			dtm_table_payment.addRow(row);
 		}
 		
-		table_payment.setModel(dtm_table_payment);;
+		table_payment.setModel(dtm_table_payment);
 	}
 	
 	public void init_components() {
@@ -157,6 +159,20 @@ public class PaymentForm extends JFrame implements ActionListener{
 		init_components();
 		load_payment_data();
 		load_table_payment();
+
+		table_payment.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
+
+			@Override
+			public void valueChanged(ListSelectionEvent e) {
+				int row = table_payment.getSelectedRow();
+				String name = table_payment.getValueAt(row, 0).toString();
+				txt_name.setText(name);
+
+				String service = table_payment.getValueAt(row, 2).toString();
+				txt_keterangan.setText(service);
+			}
+			
+		});
 	}
 	
 	public static void main(String[] args) {
@@ -165,7 +181,9 @@ public class PaymentForm extends JFrame implements ActionListener{
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		
+		if(e.getSource().equals(btn_confirm)){
+			
+		}
 	}
 
 }
