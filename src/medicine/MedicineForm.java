@@ -75,7 +75,6 @@ public class MedicineForm extends JFrame implements ActionListener{
 	private JButton btn_update = new JButton("Update");
 	
 	private ArrayList<Medicine> medicines = new ArrayList<Medicine>();
-	private int size = 0;
 	
 	public void load_medicine_data() {
 		File file = new File("src/database/medicine.txt");
@@ -235,7 +234,7 @@ public class MedicineForm extends JFrame implements ActionListener{
 				txt_stock.setText(stock);
 				
 				String type = table_medicine.getValueAt(row, 5).toString();
-				combo_type.setSelectedItem(type);;
+				combo_type.setSelectedItem(type);
 			}
 		});
 	}
@@ -328,21 +327,59 @@ public class MedicineForm extends JFrame implements ActionListener{
 		else if(obj.equals(btn_delete)) {
 			int selectedRow = table_medicine.getSelectedRow();
 			if(selectedRow != -1) {
-				dtm_table_medicine.removeRow(selectedRow);
-				medicines.remove(selectedRow);
-				table_medicine.invalidate();
-			}
-			
-//			try {
-//				FileWriter writer = new FileWriter("src/database/medicine.txt");
-//				for (Medicine medicine : medicines) {
-//					writer.write(medicine.getId() + "#" + medicine.getName() + "#" + medicine.getFunction() + "#" + medicine.getPrice() + "#" + medicine.getStock() + "#" + medicine.getType() + "\n");
-//				}
-//				writer.close();
-//			}catch(IOException a){
-//				System.out.println("File Not Found!");
-//			}
+//				dtm_table_patient.removeRow(selectedRow);
+//				patients.remove(selectedRow);
+			    File file = new File("src/database/medicine.txt");
+			    ArrayList<Medicine> tempMedicines = new ArrayList<Medicine>();
 
+			    try {
+			        Scanner scan = new Scanner(file);
+			        String[] raw;
+			        String currId;
+			        String name;
+			        String function;
+			        double price;
+			        int stock;
+			        String type;
+			        String id = (String) dtm_table_medicine.getValueAt(selectedRow, 0);
+
+			        while(scan.hasNextLine()) {
+			            raw = scan.nextLine().split("#");
+			            currId = raw[0];
+			            name = raw[1];
+			            function = raw[2];
+			            price = Double.parseDouble(raw[3]);
+			            stock = Integer.parseInt(raw[4]);
+			            type = raw[5];
+			            
+
+			            if (!currId.equals(id)) {
+			                tempMedicines.add(new Medicine(id, name, function, price, stock, type));
+			            }
+			        }
+			    } catch (FileNotFoundException a) {
+			        JOptionPane.showMessageDialog(null, a.getMessage());
+			    }
+			    
+
+			    try {
+			        FileWriter writer = new FileWriter(file);
+
+			        for (Medicine m : tempMedicines) {
+			            String medicineData = m.getId() + "#" + m.getName() + "#" + m.getFunction() + "#" + m.getPrice() + "#" + m.getStock() + "#" + m.getType();
+			            writer.write(medicineData + "\n");
+			        }
+
+			        writer.close();
+			    } catch (IOException a) {
+			        JOptionPane.showMessageDialog(null, a.getMessage());
+			    }
+
+			    // Refresh the data in the ArrayList and the JTable
+			    medicines.clear();
+			    load_medicine_data();
+			    load_table_medicine();
+				table_medicine.invalidate();
 		}
 		
 		else if(obj.equals(btn_update)) {
@@ -382,4 +419,5 @@ public class MedicineForm extends JFrame implements ActionListener{
 		}
 	}
 
+}
 }
