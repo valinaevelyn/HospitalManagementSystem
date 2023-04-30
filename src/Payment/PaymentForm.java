@@ -79,7 +79,9 @@ public class PaymentForm extends JFrame implements ActionListener{
 				keterangan = raw[2];
 				statusPayment = raw[3];
 				
-				payments.add(new Payment(name, total, keterangan, statusPayment));
+				if(statusPayment.equals("Belum Dibayar")){
+					payments.add(new Payment(name, total, keterangan, statusPayment));
+				}
 			}
 			
 		} catch (FileNotFoundException e) {
