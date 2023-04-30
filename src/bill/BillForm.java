@@ -24,6 +24,9 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
+
+import patient.Patient;
+
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
@@ -75,8 +78,6 @@ public class BillForm extends JFrame implements ActionListener{
 	private JButton btn_update = new JButton("Update");
 	
 	private ArrayList<Bill> bills = new ArrayList<Bill>();
-	
-	private int size = 0;
 
 	public void load_bill_data() {
 		File file = new File("src/database/bill.txt");
@@ -96,7 +97,6 @@ public class BillForm extends JFrame implements ActionListener{
 				proof = raw[3];
 
 				bills.add(new Bill(id, date_start, date_end, proof));
-				size++;
 			}
 
 			for(Bill bill : bills){
@@ -206,27 +206,28 @@ public class BillForm extends JFrame implements ActionListener{
 		init_component();
 		load_bill_data();
 		load_table_bill();
-
-		table_bill.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
-			
-			@Override
-			public void valueChanged(ListSelectionEvent e) {
-				int row = table_bill.getSelectedRow();
-
-				String id = table_bill.getValueAt(row,  0).toString();
-				txt_id.setText(id);
-				
-				String date_start = table_bill.getValueAt(row, 1).toString();
-				txt_date_start.setText(date_start);
-				
-				String date_end = table_bill.getValueAt(row, 2).toString();
-				txt_date_end.setText(date_end);
-				
-				String proof = table_bill.getValueAt(row, 3).toString();
-				txt_proof.setText(proof);
-			}
-		});
 	}
+
+//		table_bill.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
+//			
+//			@Override
+//			public void valueChanged(ListSelectionEvent e) {
+//				int row = table_bill.getSelectedRow();
+//
+//				String id = table_bill.getValueAt(row,  0).toString();
+//				txt_id.setText(id);
+//				
+//				String date_start = table_bill.getValueAt(row, 1).toString();
+//				txt_date_start.setText(date_start);
+//				
+//				String date_end = table_bill.getValueAt(row, 2).toString();
+//				txt_date_end.setText(date_end);
+//				
+//				String proof = table_bill.getValueAt(row, 3).toString();
+//				txt_proof.setText(proof);
+//			}
+//		});
+	
 
 	public static void main(String[] args) {
 		new BillForm();
@@ -244,7 +245,7 @@ public class BillForm extends JFrame implements ActionListener{
 			String proof = txt_proof.getText();
 
 			//VALIDATION
-			String id_validation = "P+[0-9]+[0-9]+[0-9]+[0-9]+[0-9]+[0-9]+";
+			String id_validation = "B+[0-9]+[0-9]+[0-9]+[0-9]+[0-9]+[0-9]";
 			if(id.matches(id_validation)) {
 				check *=1;
 				JOptionPane.showMessageDialog(null, "Bill has generated!");
@@ -279,10 +280,52 @@ public class BillForm extends JFrame implements ActionListener{
 
 		}else if(obj.equals(btn_delete)){
 			int selectedRow = table_bill.getSelectedRow();
-			if(selectedRow != -1){
-				dtm_table_bill.removeRow(selectedRow);
-				bills.remove(selectedRow);
+			if(selectedRow != -1) {
+				File file = new File("src/database/bill.txt");
+				ArrayList<Bill> tempBills = new ArrayList<Bill>();
+				
+				try {
+					Scanner scan = new Scanner(file);
+					String[] raw;
+					String currId;
+					String date_start;
+					String date_end;
+					String proof;
+					
+					String id = (String) dtm_table_bill.getValueAt(selectedRow, 0);
+					
+					while(scan.hasNextLine()) {
+						raw = scan.nextLine().split("#");
+						currId = raw[0];
+						date_start = raw[1];
+						date_end = raw[2];
+						proof = raw[3];
+						
+						if(!currId.equals(id)) {
+							tempBills.add(new Bill(currId, date_start, date_end, proof));
+						}
+					}
+					
+				} catch (FileNotFoundException a) {
+					// TODO Auto-generated catch block
+					JOptionPane.showMessageDialog(null, a.getMessage());
+				}
+				
+				try {
+					FileWriter writer = new FileWriter(file);
+					for(Bill bill: tempBills) {
+						String billData = bill.getId() + "#" + bill.getDate_start() + "#" + bill.getDate_end() + "#" + bill.getProof();
+						writer.write(billData + "\n");
+					}
+					writer.close();
+				} catch (IOException a) {
+					JOptionPane.showMessageDialog(null, a.getMessage());
+				}
+				bills.clear();
+				load_bill_data();
+				load_table_bill();
 				table_bill.invalidate();
+				
 			}
 		}else if(obj.equals(btn_clear)){
 			dtm_table_bill.setRowCount(0);

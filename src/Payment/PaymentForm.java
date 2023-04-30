@@ -8,6 +8,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -77,7 +79,9 @@ public class PaymentForm extends JFrame implements ActionListener{
 				keterangan = raw[2];
 				statusPayment = raw[3];
 				
-				payments.add(new Payment(name, total, keterangan, statusPayment));
+				if(statusPayment.equals("Belum Dibayar")){
+					payments.add(new Payment(name, total, keterangan, statusPayment));
+				}
 			}
 			
 		} catch (FileNotFoundException e) {
@@ -182,7 +186,36 @@ public class PaymentForm extends JFrame implements ActionListener{
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		if(e.getSource().equals(btn_confirm)){
-			
+			int row = table_payment.getSelectedRow();
+	        if(row == -1) {
+	            JOptionPane.showMessageDialog(null, "Please select a payment record.");
+	            return;
+	        }
+
+	        String name = txt_name.getText();
+	        String keterangan = txt_keterangan.getText();
+	        String statusPayment = "Sudah Dibayar"; // change payment status to "Sudah Dibayar"
+
+	        Payment payment = payments.get(row);
+	        payment.setKeterangan(keterangan);
+	        payment.setStatus(statusPayment);
+
+	        // update the payment record in the JTable
+	        table_payment.setValueAt(keterangan, row, 2);
+	        table_payment.setValueAt(statusPayment, row, 3);
+
+	        // update the txt file with the updated payments ArrayList
+	        try {
+	            FileWriter writer = new FileWriter("src/database/payment.txt");
+	            for (Payment p : payments) {
+	                String line = p.getPatientName() + "#" + p.getTotal() + "#" + p.getKeterangan() + "#" + p.getStatus() + "\n";
+	                writer.write(line);
+	            }
+	            writer.close();
+	            JOptionPane.showMessageDialog(null, "Payment has been confirmed.");
+	        } catch (IOException ex) {
+	            JOptionPane.showMessageDialog(null, ex.getMessage());
+	        }
 		}
 	}
 

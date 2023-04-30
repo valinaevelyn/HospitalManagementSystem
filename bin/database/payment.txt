@@ -1,5 +1,6 @@
-Patient 1#100000#Health Assessment#Belum Dibayar
+Patient 1#100000#Health Assessment#Sudah Dibayar
 Patient 2#200000#Health Assessment#Belum Dibayar
 Patient 3#300000#Health Assessment#Belum Dibayar
 Patient 1#1530000#Panadol Cold & Flu#Belum Dibayar
 Patient 3#2600000#Panadol Extra#Belum Dibayar
+Patient 3#24000#Vitacimin#Sudah Dibayar
