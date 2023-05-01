@@ -424,7 +424,7 @@ public class RegisterDoctorForm extends JFrame implements ActionListener{
 				dtm_table_doctor.setValueAt(address, selectedUpdate, 3);
 				dtm_table_doctor.setValueAt(phoneNumber, selectedUpdate, 4);
 				dtm_table_doctor.setValueAt(gender, selectedUpdate, 5);
-				dtm_table_doctor.setValueAt(combo_specialization.getSelectedItem(), selectedUpdate, 6);
+				dtm_table_doctor.setValueAt(specialization, selectedUpdate, 6);
 
 				//set datanya
 				doctors.get(selectedUpdate).setId(id);

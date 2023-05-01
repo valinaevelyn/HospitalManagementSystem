@@ -39,7 +39,7 @@ public class Guide extends JFrame implements ActionListener{
 		JPanel imagesPanel = new JPanel();
 		imagesPanel.setLayout(new BoxLayout(imagesPanel, BoxLayout.Y_AXIS));
 
-		ImageIcon imageIcon1 = new ImageIcon("src/hospitalFrame/pic-1.png");
+		ImageIcon imageIcon1 = new ImageIcon("src/hospitalFrame/pic-1.jpg");
 		JLabel imageLabel1 = new JLabel(imageIcon1);
 		JLabel titleLabel1 = new JLabel("First, click the menu File to use this system.");
 		JPanel imagePanel1 = new JPanel();
