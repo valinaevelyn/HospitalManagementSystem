@@ -88,7 +88,7 @@ public class Guide extends JFrame implements ActionListener{
 
 		setTitle("Guide");
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		setSize(1000,680);
+		setSize(1000,688);
 		setVisible(true);
 		setLocationRelativeTo(null);
 		setResizable(false);
