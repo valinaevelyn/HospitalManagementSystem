@@ -283,9 +283,54 @@ public class RoomForm extends JFrame implements ActionListener{
 		}else if(obj.equals(btn_delete)){
 			int selectedRow = table_room.getSelectedRow();
 			if(selectedRow != -1){
-				dtm_table_room.removeRow(selectedRow);
-				rooms.remove(selectedRow);
+				File file = new File("src/database/dataroom.txt");
+				ArrayList<Room> tempRooms = new ArrayList<Room>();
+				
+				try {
+					Scanner scan = new Scanner(file);
+					String[] raw;
+					String currNumber;
+					String type;
+					int duration;
+					double charge;
+					String number = (String) dtm_table_room.getValueAt(selectedRow, 0);
+					
+					while(scan.hasNextLine()) {
+						raw = scan.nextLine().split("#");
+						currNumber = raw[0];
+						type = raw[1];
+						duration = Integer.parseInt(raw[2]);
+						charge = Double.parseDouble(raw[3]);
+						
+						if(!currNumber.equals(number)) {
+							tempRooms.add(new Room(currNumber, type, duration, charge));
+						}
+					}
+				} catch (FileNotFoundException a) {
+					// TODO Auto-generated catch block
+					JOptionPane.showMessageDialog(null, a.getMessage());
+				}
+				
+				try {
+					FileWriter writer = new FileWriter(file);
+					for(Room room : tempRooms) {
+						String line = room.getNumber() + "#" +  room.getType() + "#" + room.getDuration() + "#" + room.getCharge();
+						writer.write(line + "\n");
+					}
+					writer.close();
+				} catch (IOException a) {
+					JOptionPane.showMessageDialog(null, a.getMessage());
+				}
+				dtm_table_room.removeRow(rooms.size()-1);
+				rooms.clear();
+				load_room_data();
+				load_table_room();
 				table_room.invalidate();
+
+				txt_number.setText("");
+				combo_type.setSelectedItem("");
+				txt_duration.setText("");
+				txt_charge.setText("");
 			}
 		}else if(obj.equals(btn_clear)){
 			dtm_table_room.setRowCount(0);
@@ -304,17 +349,17 @@ public class RoomForm extends JFrame implements ActionListener{
 				String type = combo_type.getSelectedItem().toString();
 				Integer duration = Integer.parseInt(txt_duration.getText());
 				Double charge = Double.parseDouble(txt_charge.getText());
-
-				dtm_table_room.setValueAt(number, selectedUpdate, 0);
-				dtm_table_room.setValueAt(combo_type.getSelectedItem(), selectedUpdate, 1);
-				dtm_table_room.setValueAt(duration, selectedUpdate, 2);
-				dtm_table_room.setValueAt(charge, selectedUpdate, 3);
-
+				
 				rooms.get(selectedUpdate).setNumber(number);
 				rooms.get(selectedUpdate).setType(type);
 				rooms.get(selectedUpdate).setDuration(duration);
 				rooms.get(selectedUpdate).setCharge(charge);
 
+				dtm_table_room.setValueAt(number, selectedUpdate, 0);
+				dtm_table_room.setValueAt(combo_type.getSelectedItem(), selectedUpdate, 1);
+				dtm_table_room.setValueAt(duration, selectedUpdate, 2);
+				dtm_table_room.setValueAt(charge, selectedUpdate, 3);
+				
 				txt_number.setText("");
 				combo_type.setSelectedItem("");
 				txt_duration.setText("");

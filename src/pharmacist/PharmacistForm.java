@@ -239,12 +239,8 @@ public class PharmacistForm extends JFrame implements ActionListener{
 		setLocationRelativeTo(null);
 		setResizable(false);
 	}
-	
-	public PharmacistForm() {
-		init_component();
-		load_pharmacist_data();
-		load_table_pharmacist();
 
+	public void changeValuePharmacist(){
 		table_pharmacist.getSelectionModel().addListSelectionListener(new ListSelectionListener(){
 			
 			@Override
@@ -278,6 +274,13 @@ public class PharmacistForm extends JFrame implements ActionListener{
 				txt_experience.setText(experience);
 			}
 		});
+	}
+	
+	public PharmacistForm() {
+		init_component();
+		load_pharmacist_data();
+		load_table_pharmacist();
+		changeValuePharmacist();
 	}
 
 	public static void main(String[] args) {
@@ -358,26 +361,68 @@ public class PharmacistForm extends JFrame implements ActionListener{
 			txt_experience.setText("");
 
 		}else if(e.getSource().equals(btn_delete)) {
-			File file = new File("src/database/datapharmacist.txt");
 			int selectedRow = table_pharmacist.getSelectedRow();
 			if(selectedRow != -1) {
-				dtm_table_pharmacist.removeRow(selectedRow);
-				pharmacists.remove(selectedRow);
+				File file = new File("src/database/datapharmacist.txt");
+				ArrayList<Pharmacist> tempPharmacists = new ArrayList<Pharmacist>();
+
+				try{
+					Scanner scan = new Scanner(file);
+					String[] raw;
+					String currId;
+					String name;
+					int age;
+					String address;
+					String phoneNumber;
+					String gender;
+					int experience;
+					String id = (String)dtm_table_pharmacist.getValueAt(selectedRow, 0);
+
+					while(scan.hasNextLine()){
+						raw = scan.nextLine().split("#");
+						currId = raw[0];
+						name = raw[1];
+						age = Integer.parseInt(raw[2]);
+						address = raw[3];
+						phoneNumber = raw[4];
+						gender = raw[5];
+						experience = Integer.parseInt(raw[6]);
+						
+						if(!currId.equals(id)){
+							tempPharmacists.add(new Pharmacist(currId, name, age, address, phoneNumber, gender, experience));
+						}						
+					}
+				}catch(FileNotFoundException a){
+					JOptionPane.showMessageDialog(null, a.getMessage());
+				}
+
+				try{
+					FileWriter writer = new FileWriter(file);
+
+					for(Pharmacist ph : tempPharmacists){
+						String line = ph.getId()+"#"+ph.getName()+"#"+ph.getAge()+"#"+ph.getAddress()+"#"+ph.getPhoneNumber()+"#"+ph.getGender()+"#"+ph.getExperience()+"\n";
+						writer.write(line);
+					}
+					writer.close();
+				}catch(IOException a){
+					JOptionPane.showMessageDialog(null, a.getMessage());
+				}
+
+				dtm_table_pharmacist.removeRow(pharmacists.size()-1);
+				pharmacists.clear();
+				load_pharmacist_data();
+				load_table_pharmacist();
 				table_pharmacist.invalidate();
+
+				txt_id.setText("");
+				txt_name.setText("");
+				txt_age.setText("");
+				txt_address.setText("");
+				txt_phone.setText("");
+				bg_gender.clearSelection();
+				txt_experience.setText("");
 			}
 			
-			try {
-				FileWriter writer = new FileWriter("src/database/medicine.txt");
-				// for (Pharmacist p : pharmacists) {
-				// 	writer.write(p.getId() + "#" + p.getName() + "#" + p.getAge() + "#" + p.getAddress() + "#" + p.getPhoneNumber() + "#" + p.getGender() + "#" + p.getExperience() + "\n");
-
-				
-				writer.write(id+"#"+name+"#"+age+"#"+address+"#"+phoneNumber+"#"+gender+"#"+experience+"\n");
-				// pharmacists.remove(new Pharmacist(id, name, age, address, phoneNumber, gender, experience));
-				writer.close();
-			}catch(IOException a){
-				System.out.println("File Not Found!");
-			}
 		}else if(e.getSource().equals(btn_clear)) {
 			dtm_table_pharmacist.setRowCount(0);
 			try {
@@ -403,7 +448,7 @@ public class PharmacistForm extends JFrame implements ActionListener{
 					gender = "Female";
 				}
 				int experience = Integer.parseInt(txt_experience.getText());
-
+				
 				dtm_table_pharmacist.setValueAt(id, selectedUpdate, 0);
 				dtm_table_pharmacist.setValueAt(name, selectedUpdate, 1);
 				dtm_table_pharmacist.setValueAt(age, selectedUpdate, 2);
@@ -411,7 +456,7 @@ public class PharmacistForm extends JFrame implements ActionListener{
 				dtm_table_pharmacist.setValueAt(phoneNumber, selectedUpdate, 4);
 				dtm_table_pharmacist.setValueAt(gender, selectedUpdate, 5);
 				dtm_table_pharmacist.setValueAt(experience, selectedUpdate, 6);
-
+				
 				//set datanya
 				pharmacists.get(selectedUpdate).setId(id);
 				pharmacists.get(selectedUpdate).setName(name);
@@ -425,41 +470,19 @@ public class PharmacistForm extends JFrame implements ActionListener{
 				}
 				pharmacists.get(selectedUpdate).setGender(gender);
 				pharmacists.get(selectedUpdate).setExperience(experience);
-
-				//write update file (INI MASIH BINGUNG TAPI INSYATUHAN OKE OKE OKE OKE TINGGAL CARI DIKIT)
+				
+								
+				//write update file
 				try{
 					File file = new File("src/database/datapharmacist.txt");
-					BufferedReader reader = new BufferedReader(new FileReader(file));
-					String line = ""; 
-					String oldText = "";
-
-					String oldId = id;
-					String oldName = name;
-					int oldAge = age;
-					String oldAddress = address;
-					String oldPhoneNumber = phoneNumber;
-					String oldGender = gender;
-					int oldExperience = experience;
-
-					while((line = reader.readLine())!= null){
-						oldText+=line + "#";
-						oldId += line + "#";
-						oldName += line + "#";
-						// oldAge += line + "#";
-						oldAddress += line + "#";
-						oldPhoneNumber += line + "#";
-						oldGender += line + "#";
-						// oldExperience += line + "#";
-					}
-					reader.close();
-
-					String newText = oldText.replaceAll("old text", "new text");
-					String newId = oldId.replaceAll(oldId, id);
-					String newName = oldName.replaceAll(oldName, name);
-
 					FileWriter writer = new FileWriter(file);
-					writer.write(id+"#"+name+"#"+age+"#"+address+"#"+phoneNumber+"#"+gender+"#"+experience+"\n");
+
+					for(Pharmacist ph : pharmacists){
+						String line = ph.getId()+"#"+ph.getName()+"#"+ph.getAge()+"#"+ph.getAddress()+"#"+ph.getPhoneNumber()+"#"+ph.getGender()+"#"+ph.getExperience()+"\n";
+						writer.write(line);
+					}
 					writer.close();
+					JOptionPane.showMessageDialog(null, "Data has been updated!");
 					}catch (IOException a){
 					System.out.println("File not found!");
 					}
@@ -473,7 +496,6 @@ public class PharmacistForm extends JFrame implements ActionListener{
 				bg_gender.clearSelection();
 				txt_experience.setText("");
 			}
-		}
-		
+		}	
 	}
 }

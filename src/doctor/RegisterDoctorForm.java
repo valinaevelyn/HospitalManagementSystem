@@ -274,12 +274,8 @@ public class RegisterDoctorForm extends JFrame implements ActionListener{
 		setLocationRelativeTo(null);
 		setResizable(false);
 	}
-	
-	public RegisterDoctorForm() {
-		init_component();
-		load_doctor_data();
-		load_table_doctor();
 
+	public void changeValueDoctor(){
 		table_doctor.getSelectionModel().addListSelectionListener(new ListSelectionListener(){
 			
 			@Override
@@ -312,6 +308,13 @@ public class RegisterDoctorForm extends JFrame implements ActionListener{
 				combo_specialization.setSelectedItem(specialization);
 			}
 		});
+	}
+	
+	public RegisterDoctorForm() {
+		init_component();
+		load_doctor_data();
+		load_table_doctor();
+		changeValueDoctor();
 	}
 	
 	public static void main(String[] args) {
@@ -388,9 +391,64 @@ public class RegisterDoctorForm extends JFrame implements ActionListener{
 		}else if(e.getSource().equals(btn_delete)) {
 			int selectedRow = table_doctor.getSelectedRow();
 			if(selectedRow != -1) {
-				dtm_table_doctor.removeRow(selectedRow);
-				doctors.remove(selectedRow);
+				File file = new File("src/database/datadoctor.txt");
+				ArrayList<Doctor> tempDoctors = new ArrayList<Doctor>();
+
+				try{
+					Scanner scan = new Scanner(file);
+					String[] raw;
+					String currId;
+					String name;
+					int age;
+					String address;
+					String phoneNumber;
+					String gender;
+					String specialization;
+					String id = (String)dtm_table_doctor.getValueAt(selectedRow, 0);
+
+					while(scan.hasNextLine()){
+						raw = scan.nextLine().split("#");
+						currId = raw[0];
+						name = raw[1];
+						age = Integer.parseInt(raw[2]);
+						address = raw[3];
+						phoneNumber = raw[4];
+						gender = raw[5];
+						specialization = raw[6];
+						
+						if(!currId.equals(id)){
+							tempDoctors.add(new Doctor(currId, name, age, address, phoneNumber, gender, specialization));
+						}
+					}
+				}catch(FileNotFoundException a){
+					JOptionPane.showMessageDialog(null, a.getMessage());
+				}
+
+				try{
+					FileWriter writer = new FileWriter(file);
+
+					for(Doctor d : tempDoctors){
+						String line = d.getId()+"#"+d.getName()+"#"+d.getAge()+"#"+d.getAddress()+"#"+d.getPhoneNumber()+"#"+d.getGender()+"#"+d.getSpecialization()+"\n";
+						writer.write(line);
+					}
+					writer.close();
+				}catch(IOException a){
+					JOptionPane.showMessageDialog(null, a.getMessage());
+				}
+
+				dtm_table_doctor.removeRow(doctors.size()-1);
+				doctors.clear();
+				load_doctor_data();
+				load_table_doctor();
 				table_doctor.invalidate();
+
+				txt_id.setText("");
+				txt_name.setText("");
+				txt_age.setText("");
+				txt_address.setText("");
+				txt_phone.setText("");
+				bg_gender.clearSelection();
+				combo_specialization.setSelectedItem("");
 			}
 		}else if(e.getSource().equals(btn_clear)) {
 			dtm_table_doctor.setRowCount(0);
@@ -418,6 +476,20 @@ public class RegisterDoctorForm extends JFrame implements ActionListener{
 				}
 				String specialization = combo_specialization.getSelectedItem().toString();
 
+				//set datanya
+				doctors.get(selectedUpdate).setId(id);
+				doctors.get(selectedUpdate).setName(name);
+				doctors.get(selectedUpdate).setAge(age);
+				doctors.get(selectedUpdate).setAddress(address);
+				doctors.get(selectedUpdate).setPhoneNumber(phoneNumber);
+				if(doctors.get(selectedUpdate).getGender() == "Male"){
+					doctors.get(selectedUpdate).setGender("Male");
+				}else if(doctors.get(selectedUpdate).getGender() == "Female"){
+					doctors.get(selectedUpdate).setGender("Female");
+				}
+				doctors.get(selectedUpdate).setGender(gender);
+				doctors.get(selectedUpdate).setSpecialization(specialization);
+
 				dtm_table_doctor.setValueAt(id, selectedUpdate, 0);
 				dtm_table_doctor.setValueAt(name, selectedUpdate, 1);
 				dtm_table_doctor.setValueAt(age, selectedUpdate, 2);
@@ -426,22 +498,17 @@ public class RegisterDoctorForm extends JFrame implements ActionListener{
 				dtm_table_doctor.setValueAt(gender, selectedUpdate, 5);
 				dtm_table_doctor.setValueAt(specialization, selectedUpdate, 6);
 
-				//set datanya
-				doctors.get(selectedUpdate).setId(id);
-				doctors.get(selectedUpdate).setName(name);
-				doctors.get(selectedUpdate).setAge(age);
-				doctors.get(selectedUpdate).setAddress(address);
-				doctors.get(selectedUpdate).setPhoneNumber(phoneNumber);
-				doctors.get(selectedUpdate).setGender(gender);
-				doctors.get(selectedUpdate).setSpecialization(specialization);
-
 				//write file
-				File file = new File("src/database/datadoctor.txt");
 				try{
+					File file = new File("src/database/datadoctor.txt");
 					FileWriter writer = new FileWriter(file, true);
-					writer.write(id+"#"+name+"#"+age+"#"+address+"#"+phoneNumber+"#"+gender+"#"+specialization+"\n");
-					doctors.add(new Doctor(id, name, age, address, phoneNumber, gender, specialization));
+					
+					for(Doctor d : doctors){
+						String line = d.getId()+"#"+d.getName()+"#"+d.getAge()+"#"+d.getAddress()+"#"+d.getPhoneNumber()+"#"+d.getGender()+"#"+d.getSpecialization()+"\n";
+						writer.write(line);
+					}
 					writer.close();
+					JOptionPane.showMessageDialog(null, "Data has been updated!");
 				}catch (IOException a){
 					System.out.println("File not found!");
 				}
@@ -453,10 +520,8 @@ public class RegisterDoctorForm extends JFrame implements ActionListener{
 				txt_address.setText("");
 				txt_phone.setText("");
 				bg_gender.clearSelection();
-				combo_specialization.setSelectedItem("General");
+				combo_specialization.setSelectedItem("");
 			}
 		}
-		
 	}
-
 }

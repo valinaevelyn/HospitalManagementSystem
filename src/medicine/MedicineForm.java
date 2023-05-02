@@ -323,12 +323,9 @@ public class MedicineForm extends JFrame implements ActionListener{
 				System.out.println("File Not Found!");
 			}
 		}
-		
 		else if(obj.equals(btn_delete)) {
 			int selectedRow = table_medicine.getSelectedRow();
 			if(selectedRow != -1) {
-//				dtm_table_patient.removeRow(selectedRow);
-//				patients.remove(selectedRow);
 			    File file = new File("src/database/medicine.txt");
 			    ArrayList<Medicine> tempMedicines = new ArrayList<Medicine>();
 
@@ -352,9 +349,8 @@ public class MedicineForm extends JFrame implements ActionListener{
 			            stock = Integer.parseInt(raw[4]);
 			            type = raw[5];
 			            
-
 			            if (!currId.equals(id)) {
-			                tempMedicines.add(new Medicine(id, name, function, price, stock, type));
+			                tempMedicines.add(new Medicine(currId, name, function, price, stock, type));
 			            }
 			        }
 			    } catch (FileNotFoundException a) {
@@ -376,13 +372,20 @@ public class MedicineForm extends JFrame implements ActionListener{
 			    }
 
 			    // Refresh the data in the ArrayList and the JTable
+				dtm_table_medicine.removeRow(medicines.size()-1);
 			    medicines.clear();
 			    load_medicine_data();
 			    load_table_medicine();
 				table_medicine.invalidate();
+
+				txt_id.setText("");
+				txt_name.setText("");
+				txt_function.setText("");
+				txt_price.setText("");
+				txt_stock.setText("");
+				combo_type.setSelectedItem("");
 		}
-		
-		else if(obj.equals(btn_update)) {
+	}else if(obj.equals(btn_update)) {
 			int selectedUpdate = table_medicine.getSelectedRow();
 			if(selectedUpdate >= 0){
 				String id = txt_id.getText();
@@ -418,6 +421,4 @@ public class MedicineForm extends JFrame implements ActionListener{
 			}
 		}
 	}
-
-}
 }

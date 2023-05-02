@@ -206,27 +206,27 @@ public class BillForm extends JFrame implements ActionListener{
 		init_component();
 		load_bill_data();
 		load_table_bill();
-	}
 
-//		table_bill.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
-//			
-//			@Override
-//			public void valueChanged(ListSelectionEvent e) {
-//				int row = table_bill.getSelectedRow();
-//
-//				String id = table_bill.getValueAt(row,  0).toString();
-//				txt_id.setText(id);
-//				
-//				String date_start = table_bill.getValueAt(row, 1).toString();
-//				txt_date_start.setText(date_start);
-//				
-//				String date_end = table_bill.getValueAt(row, 2).toString();
-//				txt_date_end.setText(date_end);
-//				
-//				String proof = table_bill.getValueAt(row, 3).toString();
-//				txt_proof.setText(proof);
-//			}
-//		});
+		table_bill.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
+			
+			@Override
+			public void valueChanged(ListSelectionEvent e) {
+				int row = table_bill.getSelectedRow();
+
+				String id = table_bill.getValueAt(row,  0).toString();
+				txt_id.setText(id);
+				
+				String date_start = table_bill.getValueAt(row, 1).toString();
+				txt_date_start.setText(date_start);
+				
+				String date_end = table_bill.getValueAt(row, 2).toString();
+				txt_date_end.setText(date_end);
+				
+				String proof = table_bill.getValueAt(row, 3).toString();
+				txt_proof.setText(proof);
+			}
+		});
+	}
 	
 
 	public static void main(String[] args) {
@@ -321,11 +321,16 @@ public class BillForm extends JFrame implements ActionListener{
 				} catch (IOException a) {
 					JOptionPane.showMessageDialog(null, a.getMessage());
 				}
+				dtm_table_bill.removeRow(bills.size()-1);
 				bills.clear();
 				load_bill_data();
 				load_table_bill();
 				table_bill.invalidate();
-				
+
+				txt_id.setText("");
+				txt_date_start.setText("");
+				txt_date_end.setText("");
+				txt_proof.setText("");	
 			}
 		}else if(obj.equals(btn_clear)){
 			dtm_table_bill.setRowCount(0);
@@ -361,9 +366,12 @@ public class BillForm extends JFrame implements ActionListener{
 				File file = new File("src/database/bill.txt");
 				try{
 					FileWriter writer = new FileWriter(file, true);
-					writer.write(id+"#"+date_start+"#"+date_end+"#"+proof+"\n");
-					bills.add(new Bill(id, date_start, date_end, proof));
+					for(Bill bill: bills) {
+						String billData = bill.getId() + "#" + bill.getDate_start() + "#" + bill.getDate_end() + "#" + bill.getProof();
+						writer.write(billData + "\n");
+					}
 					writer.close();
+					JOptionPane.showMessageDialog(null, "Data has been updated!");
 				}catch (IOException a){
 					System.out.println("File not found!");
 				}
