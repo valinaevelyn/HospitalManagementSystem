@@ -20,7 +20,7 @@ M234#Imboost Force#Obat Flu#16000.0#60#Capsul
 M567#Gaster#Obat Maag#19000.0#40#Bubuk
 M890#Medicol Advance#Obat Nyeri Kepala#8000.0#150#Capsul
 M456#Konimex#Obat Sakit Kepala#12000.0#50#Syrup
-M012#Bai Feng Wan#Obat Asam Urat#17000.0#30#Capsul
+M019#Bai Feng Wan#Obat Asam Urat#17000.0#30#Capsul
 M345#Asam Mefenamat#Obat Sakit Gigi#15000.0#90#Capsul
 M678#Rhinos SR#Obat Flu#11000.0#80#Capsul
 M903#Ventolin#Obat Asma#19000.0#40#Syrup

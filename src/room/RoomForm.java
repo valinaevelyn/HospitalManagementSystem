@@ -360,6 +360,20 @@ public class RoomForm extends JFrame implements ActionListener{
 				dtm_table_room.setValueAt(combo_type.getSelectedItem(), selectedUpdate, 1);
 				dtm_table_room.setValueAt(duration, selectedUpdate, 2);
 				dtm_table_room.setValueAt(charge, selectedUpdate, 3);
+
+				try{
+					File file = new File("src/database/dataroom.txt");
+					FileWriter writer = new FileWriter(file);
+					
+					for(Room r : rooms){
+						String line = r.getNumber() + "#" + r.getType() + "#" + r.getDuration() + "#" + r.getCharge() +"\n";
+						writer.write(line);
+					}
+					writer.close();
+					JOptionPane.showMessageDialog(null, "Data has been updated!");
+				}catch (IOException a){
+					System.out.println("File not found!");
+				}
 				
 				txt_number.setText("");
 				combo_type.setSelectedItem("");

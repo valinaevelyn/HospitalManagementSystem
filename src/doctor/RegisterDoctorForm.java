@@ -360,6 +360,38 @@ public class RegisterDoctorForm extends JFrame implements ActionListener{
 			}else {
 				check *=1;
 			}
+
+			if(phoneNumber.length() == 12) {
+				check *= 1;
+			}else {
+				JOptionPane.showMessageDialog(null, "Phone Number must 12 characters");
+				check *= 0;
+				return;
+			}
+			
+			if(address.length() > 0) {
+				check *= 1;
+			}else {
+				JOptionPane.showMessageDialog(null, "Address must be filled");
+				check *= 0;
+				return;
+			}
+			
+			if(radio_female.isSelected() || radio_male.isSelected()) {
+				check *= 1;
+			}else {
+				JOptionPane.showMessageDialog(null, "Gender must be choosen");
+				check *= 0;
+				return;
+			}
+
+			if(specialization.length() > 0) {
+				check *= 1;
+			}else {
+				JOptionPane.showMessageDialog(null, "Specialization must be filled");
+				check *= 0;
+				return;
+			}
 			
 			//STORE DATA DI TABEL
 			Object[] row = {id, name, age, address, phoneNumber, gender, specialization};

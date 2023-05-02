@@ -238,13 +238,13 @@ public class RegisterForm extends JFrame implements ActionListener{
 			File file = new File("src/database/user.txt");
             try{
                 FileWriter writer = new FileWriter(file, true);
-                writer.write(username+"#"+position+"#"+password+"#"+name);
+                writer.write(username+"#"+position+"#"+password+"#"+name+"\n");
                 users.add(new User(username, position, password, name));
                 writer.close();
             } catch (IOException a){
 				System.out.println("File not found!");
 			}
-
+			dispose();
 			JOptionPane.showMessageDialog(null, "User Registered Succcessfully!");
 		} else{
 			JOptionPane.showMessageDialog(null, "Password and Confirmed Password must match!");
