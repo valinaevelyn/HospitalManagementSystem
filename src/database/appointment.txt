@@ -31,3 +31,4 @@ AP887#Patient 3#Sakit Kepala, Demam#22 May 2023#16:40#Doctor 9
 AP421#Patient 7#Lemas#26 May 2023#09:30#Doctor 5
 AP596#Patient 4#Lemas#05 June 2023#10:00#Doctor 10
 AP235#Patient 3#Sakit Gigi#30 October 2023#12:20#Doctor 5
+AP999#Patient 1#Mual#12 January 2024#22:22#Doctor 6

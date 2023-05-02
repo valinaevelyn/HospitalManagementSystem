@@ -341,7 +341,7 @@ public class RegisterDoctorForm extends JFrame implements ActionListener{
 			String specialization = combo_specialization.getSelectedItem().toString();
 			
 			//VALIDATION
-			String id_validation = "P+[0-9]+[0-9]+[0-9]+[0-9]+[0-9]+[0-9]+";
+			String id_validation = "D+[0-9]+[0-9]+[0-9]+[0-9]+[0-9]+[0-9]+";
 			if(id.matches(id_validation)) {
 				check *=1;
 			}else {
