@@ -54,7 +54,7 @@ public class CancelAppointment extends JFrame implements ActionListener{
     private JPanel panel_space_south1 = new JPanel();
     private JPanel panel_space_south2 = new JPanel();
     private JButton btn_save = new JButton("SAVE CHANGES");
-    private JButton btn_cancel = new JButton("CANCEL");
+    private JButton btn_cancel = new JButton("CANCEL APPOINTMENT");
 
     private static int index;
 
