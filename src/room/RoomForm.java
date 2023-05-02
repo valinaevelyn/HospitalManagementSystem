@@ -247,13 +247,14 @@ public class RoomForm extends JFrame implements ActionListener{
 			Double charge = Double.parseDouble(txt_charge.getText());
 			
 			//VALIDATION
-			String number_validation = "[0-9]+[0-9]+[0-9]+";
+			String number_validation = "[0-9]+[0-9]+[0-9]";
 
 			if(number.matches(number_validation)) {
 				check *=1;
 			}else {
 				JOptionPane.showMessageDialog(null, "Number must be true!");
 				check *=0;
+				return;
 			}
 
 			//STORE DATA DI TABEL

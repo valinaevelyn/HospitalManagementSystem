@@ -242,6 +242,7 @@ public class PatientForm extends JFrame implements ActionListener{
 		Object obj = e.getSource();
 		
 		if(obj.equals(btn_submit)) {
+			int check = 1;
 			String id = txt_id.getText();
 			String name = txt_name.getText();
 			int age = Integer.parseInt(txt_age.getText());
@@ -256,6 +257,57 @@ public class PatientForm extends JFrame implements ActionListener{
 			}
 			
 			String blood = combo_blood.getSelectedItem().toString();
+			
+			// VALIDATION
+			String id_validation = "P+[0-9]+[0-9]+[0-9]";
+			
+			if(id.matches(id_validation)) {
+				check *= 1;
+			}else {
+				JOptionPane.showMessageDialog(null, "ID must format [PXXX]");
+				check *= 0;
+				return;
+			}
+			
+			if(name.length() > 0) {
+				check *= 1;
+			}else {
+				JOptionPane.showMessageDialog(null, "Name must be filled");
+				check *= 0;
+				return;
+			}
+			
+			if(age > 0) {
+				check *= 1;
+			}else {
+				JOptionPane.showMessageDialog(null, "Age must more than 0");
+				check *= 0;
+				return;
+			}
+			
+			if(phoneNumber.length() == 12) {
+				check *= 1;
+			}else {
+				JOptionPane.showMessageDialog(null, "Phone Number must 12 characters");
+				check *= 0;
+				return;
+			}
+			
+			if(address.length() > 0) {
+				check *= 1;
+			}else {
+				JOptionPane.showMessageDialog(null, "Address must be filled");
+				check *= 0;
+				return;
+			}
+			
+			if(radio_female.isSelected() || radio_male.isSelected()) {
+				check *= 1;
+			}else {
+				JOptionPane.showMessageDialog(null, "Gender must be choosen");
+				check *= 0;
+				return;
+			}
 			
 			Object[] row = {id, name, age, address, phoneNumber, gender, blood};
 			dtm_table_patient.addRow(row);
