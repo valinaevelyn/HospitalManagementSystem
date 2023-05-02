@@ -24,7 +24,6 @@ import javax.swing.JProgressBar;
 import javax.swing.JTextField;
 
 import profile.User;
-import progressbar.ProgressBar;
 import profile.Account;
 import appointment.DoctorAppointment;
 import appointment.ViewAppointment;
@@ -39,8 +38,6 @@ public class LoginForm extends JFrame implements ActionListener, WindowListener{
     private Account account;
     private ViewAppointment viewAppointment;
     private BuyMedicineForm buyMedicineForm;
-    private ProgressBar progressBar;
-    private JProgressBar jpb = new JProgressBar();
     private DoctorAppointment doctorAppointment;
     private CancelAppointment cancelAppointment;
     private AppointmentForm appointmentForm;

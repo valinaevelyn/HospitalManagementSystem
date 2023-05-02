@@ -168,10 +168,6 @@ public class DoctorAppointment extends JFrame implements ActionListener, WindowL
         load_table_appointment();
 		appointments.clear();
     }
-    
-    public static void main(String[] args) {
-        new DoctorAppointment();
-    }
 
     @Override
     public void actionPerformed(ActionEvent e) {

@@ -233,9 +233,9 @@ public class PatientForm extends JFrame implements ActionListener{
 		load_table_patient();
 	}
 	
-	public static void main(String[] args) {
-		new PatientForm();
-	}
+	// public static void main(String[] args) {
+	// 	new PatientForm();
+	// }
 
 	@Override
 	public void actionPerformed(ActionEvent e) {

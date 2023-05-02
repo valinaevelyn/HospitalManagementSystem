@@ -316,10 +316,6 @@ public class RegisterDoctorForm extends JFrame implements ActionListener{
 		load_table_doctor();
 		changeValueDoctor();
 	}
-	
-	public static void main(String[] args) {
-		new RegisterDoctorForm();
-	}
 
 	@Override
 	public void actionPerformed(ActionEvent e) {

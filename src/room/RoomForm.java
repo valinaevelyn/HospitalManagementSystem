@@ -231,9 +231,9 @@ public class RoomForm extends JFrame implements ActionListener{
 		});
 	}
 
-	public static void main(String[] args) {
-		new RoomForm();
-	}
+	// public static void main(String[] args) {
+	// 	new RoomForm();
+	// }
 
 	@Override
 	public void actionPerformed(ActionEvent e) {

@@ -98,10 +98,6 @@ public class Guide extends JFrame implements ActionListener{
 		initComponent();
 	}
 	
-	public static void main(String[] args) {
-		new Guide();
-	}
-	
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		Object obj = e.getSource();

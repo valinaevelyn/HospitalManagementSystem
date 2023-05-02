@@ -173,10 +173,6 @@ public class ViewAppointment extends JFrame implements ActionListener, WindowLis
 		appointments.clear();
     }
     
-    public static void main(String[] args) {
-        new ViewAppointment();
-    }
-
     @Override
     public void actionPerformed(ActionEvent e) {
         // TODO Auto-generated method stub

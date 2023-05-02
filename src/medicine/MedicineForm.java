@@ -239,10 +239,6 @@ public class MedicineForm extends JFrame implements ActionListener{
 		});
 	}
 	
-	public static void main(String[] args) {
-		new MedicineForm();
-	}
-	
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		Object obj = e.getSource();

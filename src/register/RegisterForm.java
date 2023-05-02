@@ -153,10 +153,10 @@ public class RegisterForm extends JFrame implements ActionListener{
 		load_user_data();
 	}
 
-	public static void main(String[] args) {
-		// TODO Auto-generated method stub
-		new RegisterForm();
-	}
+	// public static void main(String[] args) {
+	// 	// TODO Auto-generated method stub
+	// 	new RegisterForm();
+	// }
 
 	@Override
 	public void actionPerformed(ActionEvent e) {

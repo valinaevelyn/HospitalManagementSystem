@@ -216,10 +216,6 @@ public class CancelAppointment extends JFrame implements ActionListener{
         appointments.clear();
     }
     
-    public static void main(String[] args) {
-        new CancelAppointment();
-    }
-
     @Override
     public void actionPerformed(ActionEvent e) {
         // TODO Auto-generated method stub

@@ -120,9 +120,9 @@ public class ViewMedicine extends JFrame implements ActionListener{
 		load_table_medicine();
 	}
 	
-	public static void main(String[] args) {
-		new ViewMedicine();
-	}
+	// public static void main(String[] args) {
+	// 	new ViewMedicine();
+	// }
 	
 	@Override
 	public void actionPerformed(ActionEvent e) {

@@ -137,9 +137,9 @@ public class ViewRoom extends JFrame implements ActionListener{
 		load_table_room();
 	}
 
-	public static void main(String[] args) {
-		new ViewRoom();
-	}
+	// public static void main(String[] args) {
+	// 	new ViewRoom();
+	// }
 
 	@Override
 	public void actionPerformed(ActionEvent e) {

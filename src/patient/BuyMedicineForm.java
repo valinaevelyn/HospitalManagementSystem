@@ -256,9 +256,9 @@ public class BuyMedicineForm extends JFrame implements ActionListener{
 		});
 	}
 
-	public static void main(String[] args) {
-		new BuyMedicineForm();
-	}
+	// public static void main(String[] args) {
+	// 	new BuyMedicineForm();
+	// }
 
 	@Override
 	public void actionPerformed(ActionEvent e) {

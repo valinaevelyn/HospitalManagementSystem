@@ -1,26 +1,19 @@
 package pharmacist;
 import java.awt.BorderLayout;
-import java.awt.Color;
 import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.io.PrintWriter;
-import java.io.Writer;
 import java.util.ArrayList;
 import java.util.Scanner;
 
 import javax.swing.ButtonGroup;
 import javax.swing.JButton;
-import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -283,9 +276,9 @@ public class PharmacistForm extends JFrame implements ActionListener{
 		changeValuePharmacist();
 	}
 
-	public static void main(String[] args) {
-		new PharmacistForm();
-	}
+	// public static void main(String[] args) {
+	// 	new PharmacistForm();
+	// }
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
@@ -327,6 +320,31 @@ public class PharmacistForm extends JFrame implements ActionListener{
 			}else {
 				check *=1;
 			}
+
+			if(phoneNumber.length() == 12) {
+				check *= 1;
+			}else {
+				JOptionPane.showMessageDialog(null, "Phone Number must 12 characters");
+				check *= 0;
+				return;
+			}
+			
+			if(address.length() > 0) {
+				check *= 1;
+			}else {
+				JOptionPane.showMessageDialog(null, "Address must be filled");
+				check *= 0;
+				return;
+			}
+
+			if(radio_female.isSelected() || radio_male.isSelected()) {
+				check *= 1;
+			}else {
+				JOptionPane.showMessageDialog(null, "Gender must be choosen");
+				check *= 0;
+				return;
+			}
+
 			if(experience < 1) {
 				JOptionPane.showMessageDialog(null, "Must be more than 1 year experience");
 				check *=0;
@@ -408,7 +426,7 @@ public class PharmacistForm extends JFrame implements ActionListener{
 					JOptionPane.showMessageDialog(null, a.getMessage());
 				}
 
-				dtm_table_pharmacist.removeRow(pharmacists.size()-1);
+				dtm_table_pharmacist.removeRow(tempPharmacists.size()-1);
 				pharmacists.clear();
 				load_pharmacist_data();
 				load_table_pharmacist();

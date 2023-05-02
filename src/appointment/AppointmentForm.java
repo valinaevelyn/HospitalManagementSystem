@@ -1,7 +1,6 @@
 package appointment;
 
 import java.awt.BorderLayout;
-import progressbar.ProgressBar;
 
 import java.awt.FlowLayout;
 import java.awt.Font;
@@ -18,8 +17,6 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.Scanner;
 import java.text.SimpleDateFormat;
-import java.time.LocalDate;
-import java.text.DateFormat;
 import java.text.ParseException;
 
 import javax.swing.JButton;
@@ -28,7 +25,6 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import javax.swing.JProgressBar;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextArea;
@@ -36,13 +32,10 @@ import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 
 import doctor.Doctor;
-import patient.Patient;
-import progressbar.ProgressBar;
 import profile.User;
 
 public class AppointmentForm extends JFrame implements ActionListener{	
     private Font font_title = new Font(Font.SANS_SERIF, Font.BOLD, 24);
-    private ProgressBar progressBar;
     private JDesktopPane jdPane = new JDesktopPane();
 
     // Header
@@ -317,10 +310,6 @@ public class AppointmentForm extends JFrame implements ActionListener{
         appointments.clear();
     }
     
-    public static void main(String[] args) {
-        new AppointmentForm();
-    }
-
     @Override
     public void actionPerformed(ActionEvent e) {
         Object obj = e.getSource();

@@ -229,10 +229,6 @@ public class BillForm extends JFrame implements ActionListener{
 	}
 	
 
-	public static void main(String[] args) {
-		new BillForm();
-	}
-
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		Object obj = e.getSource();

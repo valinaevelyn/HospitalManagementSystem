@@ -129,9 +129,9 @@ public class PrescriptionForm extends JFrame implements ActionListener{
         init_components();
     }
 
-    public static void main(String[] args) {
-        new PrescriptionForm();
-    }
+    // public static void main(String[] args) {
+    //     new PrescriptionForm();
+    // }
 
     @Override
     public void actionPerformed(ActionEvent e) {

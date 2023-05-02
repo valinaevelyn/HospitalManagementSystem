@@ -179,9 +179,9 @@ public class PaymentForm extends JFrame implements ActionListener{
 		});
 	}
 	
-	public static void main(String[] args) {
-		new PaymentForm();
-	}
+	// public static void main(String[] args) {
+	// 	new PaymentForm();
+	// }
 
 	@Override
 	public void actionPerformed(ActionEvent e) {

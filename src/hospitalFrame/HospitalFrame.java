@@ -19,6 +19,8 @@ import appointment.CancelAppointment;
 import profile.Account;
 import Payment.PaymentForm;
 import appointment.DoctorAppointment;
+import pharmacist.PharmacistForm;
+import pharmacist.ViewPharmacist;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -67,9 +69,11 @@ public class HospitalFrame extends JFrame implements ActionListener, WindowListe
     private JMenuItem menuItemRegister1 = new JMenuItem("Patient");
     private JMenuItem menuItemRegister2 = new JMenuItem("Doctor");
     private JMenuItem menuItemRegister3 = new JMenuItem("Room");
+    private JMenuItem menuItemRegister4 = new JMenuItem("Pharmacist");
     private JMenuItem menuItemView1 = new JMenuItem("Patient");
     private JMenuItem menuItemView2 = new JMenuItem("Doctor");
     private JMenuItem menuItemView3 = new JMenuItem("Room");
+    private JMenuItem menuItemView4 = new JMenuItem("Pharmacist");
     
     // Log Out and Profile
     private JMenu menuLogOut = new JMenu("Log Out");
@@ -94,6 +98,8 @@ public class HospitalFrame extends JFrame implements ActionListener, WindowListe
     private Account account;
     private PaymentForm paymentForm;
     private DoctorAppointment doctorAppointment;
+    private PharmacistForm pharmacistForm;
+    private ViewPharmacist viewPharmacist;
     private JDesktopPane jdPane = new JDesktopPane();
 
     public HospitalFrame(){
@@ -158,6 +164,8 @@ public class HospitalFrame extends JFrame implements ActionListener, WindowListe
         menuRegister.add(menuItemRegister2);
         menuRegister.add(new JSeparator());
         menuRegister.add(menuItemRegister3);
+        menuRegister.add(new JSeparator());
+        menuRegister.add(menuItemRegister4);
         menuRegister.setVisible(false);
         add(jdPane);
 
@@ -167,6 +175,8 @@ public class HospitalFrame extends JFrame implements ActionListener, WindowListe
         menuData.add(menuItemView2);
         menuData.add(new JSeparator());
         menuData.add(menuItemView3);
+        menuData.add(new JSeparator());
+        menuData.add(menuItemView4);
         menuData.setVisible(false);
         add(jdPane);
 
@@ -177,9 +187,11 @@ public class HospitalFrame extends JFrame implements ActionListener, WindowListe
         menuItemRegister1.addActionListener(this);
         menuItemRegister2.addActionListener(this);
         menuItemRegister3.addActionListener(this);
+        menuItemRegister4.addActionListener(this);
         menuItemView1.addActionListener(this);
         menuItemView2.addActionListener(this);
         menuItemView3.addActionListener(this);
+        menuItemView4.addActionListener(this);
         menuPayment.addMouseListener(this);
         
         // Log Out Profile
@@ -197,9 +209,6 @@ public class HospitalFrame extends JFrame implements ActionListener, WindowListe
         setVisible(true);
     }
 
-    public static void main(String[] args) {
-        new HospitalFrame();
-    }
 
     public void doReceptionist(){
         menuRegister.setVisible(true);
@@ -233,6 +242,10 @@ public class HospitalFrame extends JFrame implements ActionListener, WindowListe
     public void doLandingPage(){
         menuFile.setVisible(false);
         menuOption.setVisible(false);
+    }
+
+    public static void main(String[] args) {
+        new HospitalFrame();
     }
 
     @Override
@@ -293,6 +306,12 @@ public class HospitalFrame extends JFrame implements ActionListener, WindowListe
             dispose();
         }
 
+        if(e.getSource().equals(menuItemRegister4)){
+            pharmacistForm = new PharmacistForm();
+            jdPane.add(pharmacistForm);
+            dispose();
+        }
+
         if(e.getSource().equals(menuItemView1)){
             viewPatient = new ViewPatient();
             jdPane.add(viewPatient);
@@ -308,6 +327,12 @@ public class HospitalFrame extends JFrame implements ActionListener, WindowListe
         if(e.getSource().equals(menuItemView3)){
             viewRoom = new ViewRoom();
             jdPane.add(viewRoom);
+            dispose();
+        }
+        
+        if(e.getSource().equals(menuItemView4)){
+            viewPharmacist = new ViewPharmacist();
+            jdPane.add(viewPharmacist);
             dispose();
         }
     }

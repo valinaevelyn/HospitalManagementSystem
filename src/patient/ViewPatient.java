@@ -125,9 +125,9 @@ public class ViewPatient extends JFrame implements ActionListener{
 		load_table_patient();
 	}
 	
-	public static void main(String[] args) {
-		new ViewPatient();
-	}
+	// public static void main(String[] args) {
+	// 	new ViewPatient();
+	// }
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
