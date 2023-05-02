@@ -3,3 +3,4 @@ Patient 3#300000#Health Assessment#Belum Dibayar
 Patient 1#1530000#Panadol Cold & Flu#Belum Dibayar
 Patient 3#2600000#Panadol Extra#Belum Dibayar
 Patient 1#320000#Imboost Force#Sudah Dibayar
+Patient 1#1300000#Panadol Extra#Belum Dibayar

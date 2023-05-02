@@ -6,7 +6,7 @@ M890#Promag#Obat Maag#15000.0#50#Bubuk
 M456#Paracetamol Plus#Obat Nyeri Haid#12000.0#80#Capsul
 M012#Decolgen Forte#Obat Flu#10000.0#120#Syrup
 M345#Mylanta#Obat Maag#17000.0#40#Bubuk
-M678#Panadol Extra#Obat Demam Tinggi#13000.0#200#Syrup
+M678#Panadol Extra#Obat Demam Tinggi#13000.0#100#Syrup
 M901#Codipront#Obat Batuk#12000.0#90#Syrup
 M234#Neozep Forte#Obat Flu#9500.0#80#Capsul
 M567#Loperamide#Obat Diare#8000.0#50#Capsul

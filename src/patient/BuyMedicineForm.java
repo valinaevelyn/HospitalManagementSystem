@@ -279,11 +279,14 @@ public class BuyMedicineForm extends JFrame implements ActionListener{
 				check *= 1;
 			}
 
+			int medicineIndex = 0;
 			check = 0;
 			for(Medicine m: medicines){
 				if(name.equals(m.getName())){
 					check = 1;
+					break;
 				} 
+				medicineIndex++;
 			}
 			
 			if(check == 0){
@@ -322,6 +325,23 @@ public class BuyMedicineForm extends JFrame implements ActionListener{
 				check = 0;
 				txt_quantity.setText("");
                 return;
+			}
+
+			medicines.get(medicineIndex).setStock(max_quan-qtyCheck);
+			dtm_table_medicine.setValueAt(max_quan-qtyCheck, medicineIndex, 4);
+
+			try{
+				File file = new File("src/database/medicine.txt");
+				FileWriter writer = new FileWriter(file);
+				
+				for(Medicine m : medicines){
+					String line = m.getId() + "#" + m.getName() + "#" + m.getFunction() + "#" + m.getPrice() + "#" + m.getStock() + "#" + m.getType() +"\n";
+					writer.write(line);
+				}
+				writer.close();
+				// JOptionPane.showMessageDialog(null, "Data has been updated!");
+			}catch (IOException a){
+				System.out.println("File not found!");
 			}
 
 			int price2 = (int) price;
