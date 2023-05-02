@@ -257,33 +257,37 @@ public class MedicineForm extends JFrame implements ActionListener{
 			String type = combo_type.getSelectedItem().toString();
 
 			//VALIDATION
-			String id_validation = "M+[0-9]+[0-9]+[0-9]+";
+			String id_validation = "M+[0-9]+[0-9]+[0-9]";
 			if(id.matches(id_validation)){
 				check *=1;
 			}else{
 				JOptionPane.showMessageDialog(null, "ID must start with 'M'");
 				check *=0;
+				return;
 			}
 
-			if(name.length()<10){
+			if(name.length()>10){
+				check *=1;
+			}else{
 				check *=0;
 				JOptionPane.showMessageDialog(null, "Name must be more than 10 characters");
-			}else{
-				check *=1;
+				return;
 			}
 
-			if(price < 500){
+			if(price >= 500){
+				check *=1;
+			}else{
 				check *=0;
 				JOptionPane.showMessageDialog(null, "Price must be more than 500.00!");
-			}else{
-				check *=1;
+				return;
 			}
 
-			if(stock < 0){
+			if(stock >= 0){
+				check *=1;
+			}else{
 				check *=0;
 				JOptionPane.showMessageDialog(null, "Stock must be more than 0");
-			}else{
-				check *=1;
+				return;
 			}
 			
 			//STORE DATA DI DALAM TABEL
@@ -329,7 +333,7 @@ public class MedicineForm extends JFrame implements ActionListener{
 			    File file = new File("src/database/medicine.txt");
 			    ArrayList<Medicine> tempMedicines = new ArrayList<Medicine>();
 
-			    try {
+				try {
 			        Scanner scan = new Scanner(file);
 			        String[] raw;
 			        String currId;
@@ -362,8 +366,8 @@ public class MedicineForm extends JFrame implements ActionListener{
 			        FileWriter writer = new FileWriter(file);
 
 			        for (Medicine m : tempMedicines) {
-			            String medicineData = m.getId() + "#" + m.getName() + "#" + m.getFunction() + "#" + m.getPrice() + "#" + m.getStock() + "#" + m.getType();
-			            writer.write(medicineData + "\n");
+			            String medicineData = m.getId() + "#" + m.getName() + "#" + m.getFunction() + "#" + m.getPrice() + "#" + m.getStock() + "#" + m.getType() + "\n";
+			            writer.write(medicineData);
 			        }
 
 			        writer.close();
@@ -372,7 +376,7 @@ public class MedicineForm extends JFrame implements ActionListener{
 			    }
 
 			    // Refresh the data in the ArrayList and the JTable
-				dtm_table_medicine.removeRow(medicines.size()-1);
+				dtm_table_medicine.removeRow(tempMedicines.size()-1);
 			    medicines.clear();
 			    load_medicine_data();
 			    load_table_medicine();
@@ -384,8 +388,8 @@ public class MedicineForm extends JFrame implements ActionListener{
 				txt_price.setText("");
 				txt_stock.setText("");
 				combo_type.setSelectedItem("");
-		}
-	}else if(obj.equals(btn_update)) {
+			}
+		}else if(obj.equals(btn_update)) {
 			int selectedUpdate = table_medicine.getSelectedRow();
 			if(selectedUpdate >= 0){
 				String id = txt_id.getText();
@@ -410,7 +414,19 @@ public class MedicineForm extends JFrame implements ActionListener{
 				medicines.get(selectedUpdate).setType(type);
 
 				//write file
-
+				try{
+					File file = new File("src/database/medicine.txt");
+					FileWriter writer = new FileWriter(file);
+					
+					for (Medicine m : medicines) {
+			            String medicineData = m.getId() + "#" + m.getName() + "#" + m.getFunction() + "#" + m.getPrice() + "#" + m.getStock() + "#" + m.getType() + "\n";
+			            writer.write(medicineData);
+			        }
+					writer.close();
+					JOptionPane.showMessageDialog(null, "Data has been updated!");
+				}catch (IOException a){
+					System.out.println("File not found!");
+				}
 				//biar kehapus
 				txt_id.setText("");
 				txt_name.setText("");

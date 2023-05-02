@@ -15,7 +15,7 @@ M456#Inzana Forte#Obat Flu#9000.0#60#Capsul
 M012#Dulcolax#Obat Konstipasi#15000.0#50#Syrup
 M345#Vitacimin#Obat Asam Lambung#12000.0#200#Syrup
 M678#Panadol Cold & Flu#Obat Flu#17000.0#100#Capsul
-M901#Oskadon#Obat Nyeri#13000.0#80#Capsul
+M902#Oskadon#Obat Nyeri#13000.0#80#Capsul
 M234#Imboost Force#Obat Flu#16000.0#60#Capsul
 M567#Gaster#Obat Maag#19000.0#40#Bubuk
 M890#Medicol Advance#Obat Nyeri Kepala#8000.0#150#Capsul
@@ -23,6 +23,6 @@ M456#Konimex#Obat Sakit Kepala#12000.0#50#Syrup
 M012#Bai Feng Wan#Obat Asam Urat#17000.0#30#Capsul
 M345#Asam Mefenamat#Obat Sakit Gigi#15000.0#90#Capsul
 M678#Rhinos SR#Obat Flu#11000.0#80#Capsul
-M901#Ventolin#Obat Asma#19000.0#40#Syrup
+M903#Ventolin#Obat Asma#19000.0#40#Syrup
 M234#Kalmeco#Obat Mual#8000.0#120#Syrup
 M999#Mertigo Pro#Obat Vertigo#50000.0#1200#Capsul

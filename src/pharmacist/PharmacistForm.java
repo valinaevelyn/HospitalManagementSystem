@@ -483,9 +483,9 @@ public class PharmacistForm extends JFrame implements ActionListener{
 					}
 					writer.close();
 					JOptionPane.showMessageDialog(null, "Data has been updated!");
-					}catch (IOException a){
+				}catch (IOException a){
 					System.out.println("File not found!");
-					}
+				}
 
 				//biar kehapus
 				txt_id.setText("");

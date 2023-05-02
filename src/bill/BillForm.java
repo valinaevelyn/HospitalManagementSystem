@@ -321,7 +321,7 @@ public class BillForm extends JFrame implements ActionListener{
 				} catch (IOException a) {
 					JOptionPane.showMessageDialog(null, a.getMessage());
 				}
-				dtm_table_bill.removeRow(bills.size()-1);
+				dtm_table_bill.removeRow(tempBills.size()-1);
 				bills.clear();
 				load_bill_data();
 				load_table_bill();
@@ -365,7 +365,7 @@ public class BillForm extends JFrame implements ActionListener{
 				//write file
 				File file = new File("src/database/bill.txt");
 				try{
-					FileWriter writer = new FileWriter(file, true);
+					FileWriter writer = new FileWriter(file);
 					for(Bill bill: bills) {
 						String billData = bill.getId() + "#" + bill.getDate_start() + "#" + bill.getDate_end() + "#" + bill.getProof();
 						writer.write(billData + "\n");
