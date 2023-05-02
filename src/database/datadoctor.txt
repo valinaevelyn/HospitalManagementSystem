@@ -20,4 +20,3 @@ D123462#Doctor 8#26#Jalan Cijulang#081254321098#Male#Neurology
 D123463#Doctor 9#25#Jalan Cililin#081243210987#Female#Ophthalmology
 D123465#Doctor 11#23#Jalan Cipanas#081221098765#Female#Orthopedic
 D123434#Doctor 12#40#Jalan Raya#082831828#Female#General
-D122#Doctor 25#1####General
