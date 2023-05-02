@@ -234,8 +234,6 @@ public class CancelAppointment extends JFrame implements ActionListener{
         if(obj.equals(btn_cancel)){
             int selectedRow = table_appointment.getSelectedRow();
 			if(selectedRow != -1) {
-				// dtm_table_appointment.removeRow(selectedRow);
-				// appointments.remove(selectedRow);
                 File file = new File("src/database/appointment.txt");
                 ArrayList<Appointment> tempApt = new ArrayList<Appointment>();
 

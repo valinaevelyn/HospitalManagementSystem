@@ -428,15 +428,15 @@ public class RegisterDoctorForm extends JFrame implements ActionListener{
 					FileWriter writer = new FileWriter(file);
 
 					for(Doctor d : tempDoctors){
-						String line = d.getId()+"#"+d.getName()+"#"+d.getAge()+"#"+d.getAddress()+"#"+d.getPhoneNumber()+"#"+d.getGender()+"#"+d.getSpecialization()+"\n";
-						writer.write(line);
+						String line = d.getId()+"#"+d.getName()+"#"+d.getAge()+"#"+d.getAddress()+"#"+d.getPhoneNumber()+"#"+d.getGender()+"#"+d.getSpecialization();
+						writer.write(line + "\n");
 					}
 					writer.close();
 				}catch(IOException a){
 					JOptionPane.showMessageDialog(null, a.getMessage());
 				}
 
-				dtm_table_doctor.removeRow(doctors.size()-1);
+				dtm_table_doctor.removeRow(tempDoctors.size()-1);
 				doctors.clear();
 				load_doctor_data();
 				load_table_doctor();
@@ -501,7 +501,7 @@ public class RegisterDoctorForm extends JFrame implements ActionListener{
 				//write file
 				try{
 					File file = new File("src/database/datadoctor.txt");
-					FileWriter writer = new FileWriter(file, true);
+					FileWriter writer = new FileWriter(file);
 					
 					for(Doctor d : doctors){
 						String line = d.getId()+"#"+d.getName()+"#"+d.getAge()+"#"+d.getAddress()+"#"+d.getPhoneNumber()+"#"+d.getGender()+"#"+d.getSpecialization()+"\n";
