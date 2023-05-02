@@ -141,13 +141,10 @@ public class Account extends JFrame implements ActionListener{
 		add(panel_left, "West");
 		add(panel_right, "East");
 		
-		panel_center_kanan.setLayout(new GridLayout(4, 2));
+		panel_center_kanan.setLayout(new GridLayout(3, 2));
 		panel_center_kanan.add(lbl_name);
 		panel_center_kanan.add(lbl_isi_name);
 		lbl_isi_name.setFont(new Font("Arial", Font.PLAIN, 12));
-		panel_center_kanan.add(lbl_email);
-		panel_center_kanan.add(lbl_isi_email);
-		lbl_isi_email.setFont(new Font("Arial", Font.PLAIN, 12));
 		panel_center_kanan.add(lbl_username);
 		panel_center_kanan.add(lbl_isi_username);
 		lbl_isi_username.setFont(new Font("Arial", Font.PLAIN, 12));
