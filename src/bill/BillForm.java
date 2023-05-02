@@ -314,8 +314,8 @@ public class BillForm extends JFrame implements ActionListener{
 				try {
 					FileWriter writer = new FileWriter(file);
 					for(Bill bill: tempBills) {
-						String billData = bill.getId() + "#" + bill.getDate_start() + "#" + bill.getDate_end() + "#" + bill.getProof();
-						writer.write(billData + "\n");
+						String billData = bill.getId() + "#" + bill.getDate_start() + "#" + bill.getDate_end() + "#" + bill.getProof()  + "\n";
+						writer.write(billData);
 					}
 					writer.close();
 				} catch (IOException a) {
