@@ -42,3 +42,4 @@ pharmacist_08#Pharmacist#pharmacist08#Pharmacist 8
 pharmacist_09#Pharmacist#pharmacist09#Pharmacist 9
 pharmacist_10#Pharmacist#pharmacist10#Pharmacist 10
 pharmacist_11#Pharmacist#pharmacist11#Pharmacist 11
+patient_12#Patient#patient12#Patient 12
