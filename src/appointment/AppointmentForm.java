@@ -550,12 +550,15 @@ public class AppointmentForm extends JFrame implements ActionListener{
 
             JOptionPane.showMessageDialog(null, "Appointment has been created successfully!");
         } else if(e.getSource().equals(btn_clear)) {
-			txt_id.setText("");
-            txt_name.setText("");
-            txt_complaint.setText("");
-            txt_date.setText("");
-            txt_time.setText("");
-            txt_doctorName.setText("");
+            int response = JOptionPane.showConfirmDialog(null, "Are you sure you want to clear?", "Select an option", JOptionPane.YES_NO_OPTION);
+            if(response == JOptionPane.YES_OPTION){
+                txt_id.setText("");
+                txt_name.setText("");
+                txt_complaint.setText("");
+                txt_date.setText("");
+                txt_time.setText("");
+                txt_doctorName.setText("");
+            }
 		} else if(e.getSource().equals(btn_exit)){
             dispose();
         }

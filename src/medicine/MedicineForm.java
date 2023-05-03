@@ -310,18 +310,30 @@ public class MedicineForm extends JFrame implements ActionListener{
 			txt_price.setText("");
 			txt_stock.setText("");
 			combo_type.setSelectedItem("");
+			JOptionPane.showMessageDialog(null, "Medicine has been added successfully!");
+
 		}
 		
 		else if(obj.equals(btn_clear)) {
-			dtm_table_medicine.setRowCount(0);
-			try {
-				FileWriter writer = new FileWriter("src/database/medicine.txt");
-				writer.write("");
-				writer.close();
-				System.out.println("File cleared succesfully!");
-			}catch(IOException a){
-				System.out.println("File Not Found!");
-			}
+			// dtm_table_medicine.setRowCount(0);
+			// try {
+			// 	FileWriter writer = new FileWriter("src/database/medicine.txt");
+			// 	writer.write("");
+			// 	writer.close();
+			// 	System.out.println("File cleared succesfully!");
+			// }catch(IOException a){
+			// 	System.out.println("File Not Found!");
+			// }
+
+			int response = JOptionPane.showConfirmDialog(null, "Are you sure you want to clear?", "Select an option", JOptionPane.YES_NO_OPTION);
+            if(response == JOptionPane.YES_OPTION){
+				txt_id.setText("");
+				txt_name.setText("");
+				txt_function.setText("");
+				txt_price.setText("");
+				txt_stock.setText("");
+				combo_type.setSelectedItem("");
+            }
 		}
 		else if(obj.equals(btn_delete)) {
 			int selectedRow = table_medicine.getSelectedRow();
@@ -384,6 +396,7 @@ public class MedicineForm extends JFrame implements ActionListener{
 				txt_price.setText("");
 				txt_stock.setText("");
 				combo_type.setSelectedItem("");
+                JOptionPane.showMessageDialog(null, "Medicine has been deleted successfully!");
 			}
 		}else if(obj.equals(btn_update)) {
 			int selectedUpdate = table_medicine.getSelectedRow();

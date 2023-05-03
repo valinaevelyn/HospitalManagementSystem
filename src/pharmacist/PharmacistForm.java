@@ -1,19 +1,26 @@
 package pharmacist;
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.PrintWriter;
+import java.io.Writer;
 import java.util.ArrayList;
 import java.util.Scanner;
 
 import javax.swing.ButtonGroup;
 import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -286,7 +293,7 @@ public class PharmacistForm extends JFrame implements ActionListener{
 			int check = 1;
 			String id = txt_id.getText();
 			String name = txt_name.getText();
-			int age = Integer.parseInt(txt_age.getText());
+			String ageTemp = txt_age.getText();
 			String address = txt_address.getText();
 			String phoneNumber = txt_phone.getText();
 			String gender = "";
@@ -296,60 +303,70 @@ public class PharmacistForm extends JFrame implements ActionListener{
 			}else if(radio_female.isSelected()) {
 				gender = "Female";
 			}
-			
-			int experience = Integer.parseInt(txt_experience.getText());
 
+			String experienceTemp = txt_experience.getText();
 			
 			//VALIDATION
 			String id_validation = "P+[0-9]+[0-9]+[0-9]+[0-9]+[0-9]+[0-9]+";
-			if(id.matches(id_validation)) {
-				check *=1;
-			}else {
-				JOptionPane.showMessageDialog(null, "ID must be true!");
-				check *=0;
-			}
-			if(name.equals("")) {
+			if(!id.matches(id_validation)){
+				JOptionPane.showMessageDialog(null, "ID must be DXXXXXX!");
+				check*=0;
+				txt_id.setText("");
+				return;
+			}else if(id.length()!= 7){
+				JOptionPane.showMessageDialog(null, "ID must be DXXXXXX!");
+				check*=0;
+				txt_id.setText("");
+				return;
+			}else if(name.length()<=0){
 				JOptionPane.showMessageDialog(null, "Name must be filled!");
-				check *=0;
-			}else {
-				check *=1;
+				txt_name.setText("");
+				check*=0;
+				return;
 			}
-			if(age < 20) {
+			int age = Integer.parseInt(txt_age.getText());
+			if(ageTemp.equals("")){
+				JOptionPane.showMessageDialog(null, "Age field must be filled!");
+				txt_age.setText("");
+				check*=0;
+				return;
+			}
+			if(age < 20){
 				JOptionPane.showMessageDialog(null, "Age must be more than 20 years old!");
-				check *=0;
-			}else {
-				check *=1;
-			}
-
-			if(phoneNumber.length() == 12) {
-				check *= 1;
-			}else {
-				JOptionPane.showMessageDialog(null, "Phone Number must 12 characters");
-				check *= 0;
+				txt_age.setText("");
+				check*=0;
 				return;
 			}
-			
-			if(address.length() > 0) {
-				check *= 1;
-			}else {
+			else if(address.length()<=0){
 				JOptionPane.showMessageDialog(null, "Address must be filled");
-				check *= 0;
+				check*=0;
+				txt_address.setText("");
 				return;
-			}
-
-			if(radio_female.isSelected() || radio_male.isSelected()) {
-				check *= 1;
-			}else {
+			}else if(phoneNumber.length()!=12){
+					JOptionPane.showMessageDialog(null, "Phone Number must 12 characters");
+					check*=0;
+					txt_phone.setText("");
+					return;
+			}else if(!radio_female.isSelected() && !radio_male.isSelected()){
 				JOptionPane.showMessageDialog(null, "Gender must be choosen");
-				check *= 0;
+				check*=0;
+				bg_gender.clearSelection();
 				return;
 			}
-
-			if(experience < 1) {
-				JOptionPane.showMessageDialog(null, "Must be more than 1 year experience");
-				check *=0;
-			}else {
-				check *=1;
+			int experience = Integer.parseInt(txt_experience.getText());
+			if(experienceTemp.equals("")){
+				JOptionPane.showMessageDialog(null, "Experience field must be filled!");
+				txt_experience.setText("");
+				check*=0;
+				return;
+			}
+			if(experience < 1){
+				JOptionPane.showMessageDialog(null, "Experience must be more than 1 years old!");
+				txt_experience.setText("");
+				check*=0;
+				return;
+			}else{
+				check*=1;
 			}
 			
 			//STORE DATA DI TABEL
@@ -426,7 +443,7 @@ public class PharmacistForm extends JFrame implements ActionListener{
 					JOptionPane.showMessageDialog(null, a.getMessage());
 				}
 
-				dtm_table_pharmacist.removeRow(tempPharmacists.size()-1);
+				dtm_table_pharmacist.removeRow(pharmacists.size()-1);
 				pharmacists.clear();
 				load_pharmacist_data();
 				load_table_pharmacist();

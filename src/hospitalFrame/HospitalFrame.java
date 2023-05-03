@@ -21,6 +21,7 @@ import Payment.PaymentForm;
 import appointment.DoctorAppointment;
 import pharmacist.PharmacistForm;
 import pharmacist.ViewPharmacist;
+import Payment.PaymentDoneBayar;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -66,6 +67,7 @@ public class HospitalFrame extends JFrame implements ActionListener, WindowListe
     private JMenu menuRegister = new JMenu("Register");
     private JMenu menuData = new JMenu("View Data");
     private JMenu menuPayment = new JMenu("Payment");
+    private JMenu menuPayment1 = new JMenu("View Payment");
     private JMenuItem menuItemRegister1 = new JMenuItem("Patient");
     private JMenuItem menuItemRegister2 = new JMenuItem("Doctor");
     private JMenuItem menuItemRegister3 = new JMenuItem("Room");
@@ -80,6 +82,7 @@ public class HospitalFrame extends JFrame implements ActionListener, WindowListe
     private JMenu menuProfile = new JMenu("Profile");
 
     private LoginForm loginForm;
+    private PaymentDoneBayar paymentDoneBayar;
     private AppointmentForm makeAppointmentForm;
     private RegisterForm registerForm;
     private RoomForm roomForm;
@@ -182,6 +185,8 @@ public class HospitalFrame extends JFrame implements ActionListener, WindowListe
 
         menuBar.add(menuPayment);
         menuPayment.setVisible(false);
+        menuBar.add(menuPayment1);
+        menuPayment1.setVisible(false);
         add(jdPane);
 
         menuItemRegister1.addActionListener(this);
@@ -193,6 +198,7 @@ public class HospitalFrame extends JFrame implements ActionListener, WindowListe
         menuItemView3.addActionListener(this);
         menuItemView4.addActionListener(this);
         menuPayment.addMouseListener(this);
+        menuPayment1.addMouseListener(this);
         
         // Log Out Profile
         menuBar.add(menuLogOut);
@@ -214,6 +220,7 @@ public class HospitalFrame extends JFrame implements ActionListener, WindowListe
         menuRegister.setVisible(true);
         menuData.setVisible(true);
         menuPayment.setVisible(true);
+        menuPayment1.setVisible(true);
         menuLogOut.setVisible(true);
         menuProfile.setVisible(true);
     }
@@ -425,6 +432,12 @@ public class HospitalFrame extends JFrame implements ActionListener, WindowListe
         if(e.getSource().equals(menuPayment)){
             paymentForm = new PaymentForm(); 
             jdPane.add(paymentForm);
+            dispose();
+        }
+        
+        if(e.getSource().equals(menuPayment1)){
+            paymentDoneBayar = new PaymentDoneBayar(); 
+            jdPane.add(paymentDoneBayar);
             dispose();
         }
         

@@ -70,6 +70,7 @@ public class PatientForm extends JFrame implements ActionListener{
 	private JTextField txt_phonenum = new JTextField();
 	private JRadioButton radio_male = new JRadioButton("Male");
 	private JRadioButton radio_female = new JRadioButton("Female");
+	private ButtonGroup bg_gender;
 	private JComboBox<String> combo_blood = new JComboBox<>();
 	
 	private JPanel panel_southFrame = new JPanel();
@@ -186,7 +187,7 @@ public class PatientForm extends JFrame implements ActionListener{
 		panel_center_kanan.add(lbl_gender);
 		JPanel panel_gender = new JPanel();
 		panel_gender.setLayout(new GridLayout(2,1));
-		ButtonGroup bg_gender = new ButtonGroup();
+		bg_gender = new ButtonGroup();
 		bg_gender.add(radio_male);
 		bg_gender.add(radio_female);
 		panel_gender.add(radio_male);
@@ -245,7 +246,7 @@ public class PatientForm extends JFrame implements ActionListener{
 			int check = 1;
 			String id = txt_id.getText();
 			String name = txt_name.getText();
-			int age = Integer.parseInt(txt_age.getText());
+			String ageTemp = txt_age.getText();
 			String address = txt_address.getText();
 			String phoneNumber = txt_phonenum.getText();
 			String gender = "";
@@ -261,54 +262,59 @@ public class PatientForm extends JFrame implements ActionListener{
 			// VALIDATION
 			String id_validation = "P+[0-9]+[0-9]+[0-9]";
 			
-			if(id.matches(id_validation)) {
-				check *= 1;
-			}else {
-				JOptionPane.showMessageDialog(null, "ID must format [PXXX]");
-				check *= 0;
+			if(!id.matches(id_validation)){
+				JOptionPane.showMessageDialog(null, "ID must be PXXX!");
+				check*=0;
+				txt_id.setText("");
+				return;
+			}else if(id.length()!= 4){
+				JOptionPane.showMessageDialog(null, "ID must be PXXX!");
+				check*=0;
+				txt_id.setText("");
+				return;
+			}else if(name.length()<=0){
+				JOptionPane.showMessageDialog(null, "Name must be filled!");
+				txt_name.setText("");
+				check*=0;
 				return;
 			}
-			
-			if(name.length() > 0) {
-				check *= 1;
-			}else {
-				JOptionPane.showMessageDialog(null, "Name must be filled");
-				check *= 0;
+			int age = Integer.parseInt(txt_age.getText());
+			if(ageTemp.equals("")){
+				JOptionPane.showMessageDialog(null, "Age field must be filled!");
+				txt_name.setText("");
+				check*=0;
 				return;
 			}
-			
-			if(age > 0) {
-				check *= 1;
-			}else {
-				JOptionPane.showMessageDialog(null, "Age must more than 0");
-				check *= 0;
+			if(age < 0){
+				JOptionPane.showMessageDialog(null, "Age must be more than 0 years old!");
+				txt_age.setText("");
+				check*=0;
 				return;
 			}
-			
-			if(phoneNumber.length() == 12) {
-				check *= 1;
-			}else {
-				JOptionPane.showMessageDialog(null, "Phone Number must 12 characters");
-				check *= 0;
-				return;
-			}
-			
-			if(address.length() > 0) {
-				check *= 1;
-			}else {
+			else if(address.length()<=0){
 				JOptionPane.showMessageDialog(null, "Address must be filled");
-				check *= 0;
+				check*=0;
+				txt_address.setText("");
 				return;
-			}
-			
-			if(radio_female.isSelected() || radio_male.isSelected()) {
-				check *= 1;
-			}else {
+			}else if(phoneNumber.length()!=12){
+					JOptionPane.showMessageDialog(null, "Phone Number must 12 characters");
+					check*=0;
+					txt_phonenum.setText("");
+					return;
+			}else if(!radio_female.isSelected() && !radio_male.isSelected()){
 				JOptionPane.showMessageDialog(null, "Gender must be choosen");
-				check *= 0;
+				check*=0;
+				bg_gender.clearSelection();
 				return;
+			}else{
+				check*=1;
 			}
 			
+			txt_id.setText("");
+			txt_name.setText("");
+			txt_age.setText("");
+			txt_address.setText("");
+			txt_phonenum.setText("");
 			Object[] row = {id, name, age, address, phoneNumber, gender, blood};
 			dtm_table_patient.addRow(row);
 			patients.add(new Patient(id, name, age, address, phoneNumber, gender, blood));
@@ -316,7 +322,14 @@ public class PatientForm extends JFrame implements ActionListener{
 		}
 		
 		else if(obj.equals(btn_clear)) {
-			dtm_table_patient.setRowCount(0);
+			int response = JOptionPane.showConfirmDialog(null, "Are you sure you want to clear?", "Select an option", JOptionPane.YES_NO_OPTION);
+            if(response == JOptionPane.YES_OPTION){
+				txt_id.setText("");
+				txt_name.setText("");
+				txt_age.setText("");
+				txt_address.setText("");
+				txt_phonenum.setText("");
+            }
 		}
 		
 		else if (obj.equals(btn_delete)) {

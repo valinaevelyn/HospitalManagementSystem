@@ -11,8 +11,11 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.lang.foreign.Addressable;
+import java.util.Date;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Scanner;
 
 import javax.swing.JButton;
@@ -78,7 +81,10 @@ public class BillForm extends JFrame implements ActionListener{
 	private JButton btn_update = new JButton("Update");
 	
 	private ArrayList<Bill> bills = new ArrayList<Bill>();
-
+	// Date & Time
+    SimpleDateFormat dateFormat = new SimpleDateFormat("dd MMMM yyyy");
+    SimpleDateFormat dateFormat2 = new SimpleDateFormat("dd MMMM yyyy");
+	
 	public void load_bill_data() {
 		File file = new File("src/database/bill.txt");
 		try{
@@ -227,6 +233,10 @@ public class BillForm extends JFrame implements ActionListener{
 			}
 		});
 	}
+
+	// public static void main(String[] args) {
+	// 	new BillForm();
+	// }
 	
 
 	@Override
@@ -234,6 +244,7 @@ public class BillForm extends JFrame implements ActionListener{
 		Object obj = e.getSource();
 		
 		if(obj.equals(btn_submit)) {
+			Date dateChecker = null;
 			int check = 1;
 			String id = txt_id.getText();
 			String date_start = txt_date_start.getText();
@@ -244,10 +255,122 @@ public class BillForm extends JFrame implements ActionListener{
 			String id_validation = "B+[0-9]+[0-9]+[0-9]+[0-9]+[0-9]+[0-9]";
 			if(id.matches(id_validation)) {
 				check *=1;
-				JOptionPane.showMessageDialog(null, "Bill has generated!");
 			}else {
-				JOptionPane.showMessageDialog(null, "ID must be true!");
+				JOptionPane.showMessageDialog(null, "ID format must be ''BXXXXXX'' (XXXXXX = 6 digit numbers)");
 				check *=0;
+				return;
+			}
+
+			if(id.length() == 7) check *= 1;
+            else{
+                JOptionPane.showMessageDialog(null, "ID format must be ''BXXXXXX'' (XXXXXX = 6 digit numbers)");
+                check *= 0;
+                return;
+            } 
+
+			dateFormat.setLenient(false);
+			try{
+				Date datechecker2 = dateFormat.parse(date_start);
+			} catch (ParseException ee) {
+				JOptionPane.showMessageDialog(null, "Invalid start date format!");
+                check *= 0;
+                txt_date_start.setText("");
+                return;
+            }
+			
+			dateFormat.setLenient(false);
+			try{
+				Date datechecker2 = dateFormat.parse(date_end);
+			} catch (ParseException ee) {
+				JOptionPane.showMessageDialog(null, "Invalid end date format!");
+                check *= 0;
+                txt_date_end.setText("");
+                return;
+            }
+			
+			try {
+                dateChecker = dateFormat.parse(date_start);
+                Calendar cal = Calendar.getInstance();
+                cal.setTime(dateChecker);
+                int year = cal.get(Calendar.YEAR);
+                int month = cal.get(Calendar.MONTH);
+                int day = cal.get(Calendar.DAY_OF_MONTH);
+            
+                if (year < 1900 || year > 2100 || month < 0 || month > 11 || day < 1 || day > 31) {
+                    JOptionPane.showMessageDialog(null, "Invalid date start format, please use dd MMMM yyyy format. (ex : 1 April 1900)");
+                    check *= 0;
+                    txt_date_start.setText("");
+                    return;
+                }
+                check *= 1;
+            } catch (ParseException ee) {
+                JOptionPane.showMessageDialog(null, "Invalid date start format, please use dd MMMM yyyy format. (ex : 1 April 1900)");
+                check *= 0;
+                txt_date_start.setText("");
+                return;
+            }
+			
+			try {
+                dateChecker = dateFormat.parse(date_end);
+                Calendar cal = Calendar.getInstance();
+                cal.setTime(dateChecker);
+                int year = cal.get(Calendar.YEAR);
+                int month = cal.get(Calendar.MONTH);
+                int day = cal.get(Calendar.DAY_OF_MONTH);
+            
+                if (year < 1900 || year > 2100 || month < 0 || month > 11 || day < 1 || day > 31) {
+                    JOptionPane.showMessageDialog(null, "Invalid date end format, please use dd MMMM yyyy format. (ex : 1 April 1900)");
+                    check *= 0;
+                    txt_date_end.setText("");
+                    return;
+                }
+            
+                check *= 1;
+            } catch (ParseException ee) {
+                JOptionPane.showMessageDialog(null, "Invalid date end format, please use dd MMMM yyyy format. (ex : 1 April 1900)");
+                check *= 0;
+                txt_date_end.setText("");
+                return;
+            }
+
+			Date userInputDate = null;
+            try {
+                userInputDate = dateFormat.parse(date_start);
+            } catch (ParseException e1) {
+                // TODO Auto-generated catch block
+                e1.printStackTrace();
+            }
+
+			Date userInputDate1 = null;
+            try {
+                userInputDate1 = dateFormat.parse(date_end);
+            } catch (ParseException e1) {
+                // TODO Auto-generated catch block
+                e1.printStackTrace();
+            }
+
+			if(userInputDate != null && userInputDate1 != null){
+				if(userInputDate1.before(userInputDate)){
+					JOptionPane.showMessageDialog(null, "End Date has to be after Start Date!");
+                    check *= 0;
+					txt_date_end.setText("");
+                    return;
+				}
+			} else {
+                System.out.println("Invalid date input");
+                txt_date_start.setText("");
+                txt_date_end.setText("");
+                check *= 0;
+                return;
+            }
+
+			if(proof.equals("")){
+				JOptionPane.showMessageDialog(null, "Proof field can not be empty!");
+                txt_proof.setText("");
+				check *=0;
+                return;
+			} else{
+				check *= 1;
 			}
 
 			//STORE DATA DI TABLE
@@ -273,7 +396,7 @@ public class BillForm extends JFrame implements ActionListener{
 			txt_date_start.setText("");
 			txt_date_end.setText("");
 			txt_proof.setText("");
-
+			JOptionPane.showMessageDialog(null, "Bill has been submited!");
 		}else if(obj.equals(btn_delete)){
 			int selectedRow = table_bill.getSelectedRow();
 			if(selectedRow != -1) {
@@ -327,17 +450,16 @@ public class BillForm extends JFrame implements ActionListener{
 				txt_date_start.setText("");
 				txt_date_end.setText("");
 				txt_proof.setText("");	
+				JOptionPane.showMessageDialog(null, "Bill has been deleted!");
 			}
 		}else if(obj.equals(btn_clear)){
-			dtm_table_bill.setRowCount(0);
-			try {
-				FileWriter writer = new FileWriter("src/database/bill.txt");
-				writer.write("");
-				writer.close();
-				System.out.println("File cleared succesfully!");
-			}catch(IOException a){
-				System.out.println("File Not Found!");
-			}
+			int response = JOptionPane.showConfirmDialog(null, "Are you sure you want to clear text fields?", "Select an option", JOptionPane.YES_NO_OPTION);
+            if(response == JOptionPane.YES_OPTION){
+				txt_id.setText("");
+				txt_date_start.setText("");
+				txt_date_end.setText("");
+				txt_proof.setText("");
+            }
 		}else if(obj.equals(btn_update)){
 			int selectedUpdate = table_bill.getSelectedRow();
 			if(selectedUpdate >= 0){
@@ -377,6 +499,7 @@ public class BillForm extends JFrame implements ActionListener{
 				txt_date_start.setText("");
 				txt_date_end.setText("");
 				txt_proof.setText("");
+				JOptionPane.showMessageDialog(null, "Bill has been updated!");
 			}
 		}
 	}

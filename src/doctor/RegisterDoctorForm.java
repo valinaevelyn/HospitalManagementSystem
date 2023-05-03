@@ -316,6 +316,10 @@ public class RegisterDoctorForm extends JFrame implements ActionListener{
 		load_table_doctor();
 		changeValueDoctor();
 	}
+	
+	// public static void main(String[] args) {
+	// 	new RegisterDoctorForm();
+	// }
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
@@ -323,7 +327,8 @@ public class RegisterDoctorForm extends JFrame implements ActionListener{
 			int check = 1;
 			String id = txt_id.getText();
 			String name = txt_name.getText();
-			int age = Integer.parseInt(txt_age.getText());
+			
+			String ageTemp = txt_age.getText();
 			String address = txt_address.getText();
 			String phoneNumber = txt_phone.getText();
 			String gender = "";
@@ -337,69 +342,72 @@ public class RegisterDoctorForm extends JFrame implements ActionListener{
 			String specialization = combo_specialization.getSelectedItem().toString();
 			
 			//VALIDATION
-			String id_validation = "D+[0-9]+[0-9]+[0-9]+[0-9]+[0-9]+[0-9]+";
-			if(id.matches(id_validation)) {
-				check *=1;
-			}else {
-				JOptionPane.showMessageDialog(null, "ID must be true!");
-				check *=0;
-			}
-			if(name.equals("")) {
+			String id_validation = "D+[0-9]+[0-9]+[0-9]+[0-9]+[0-9]+[0-9]";
+			
+			
+			if(!id.matches(id_validation)){
+				JOptionPane.showMessageDialog(null, "ID must be DXXXXXX!");
+				check*=0;
+				txt_id.setText("");
+				return;
+			}else if(id.length()!= 7){
+				JOptionPane.showMessageDialog(null, "ID must be DXXXXXX!");
+				check*=0;
+				txt_id.setText("");
+				return;
+			}else if(name.length()<=0){
 				JOptionPane.showMessageDialog(null, "Name must be filled!");
-				check *=0;
-			}else {
-				check *=1;
+				txt_name.setText("");
+				check*=0;
+				return;
 			}
-			if(age < 20) {
+			int age = Integer.parseInt(txt_age.getText());
+			if(ageTemp.equals("")){
+				JOptionPane.showMessageDialog(null, "Age field must be filled!");
+				txt_age.setText("");
+				check*=0;
+				return;
+			}
+			if(age < 20){
 				JOptionPane.showMessageDialog(null, "Age must be more than 20 years old!");
-				check *=0;
-			}else {
-				check *=1;
-			}
-
-			if(phoneNumber.length() == 12) {
-				check *= 1;
-			}else {
-				JOptionPane.showMessageDialog(null, "Phone Number must 12 characters");
-				check *= 0;
+				txt_age.setText("");
+				check*=0;
 				return;
 			}
-			
-			if(address.length() > 0) {
-				check *= 1;
-			}else {
+			else if(address.length()<=0){
 				JOptionPane.showMessageDialog(null, "Address must be filled");
-				check *= 0;
+				check*=0;
+				txt_address.setText("");
 				return;
-			}
-			
-			if(radio_female.isSelected() || radio_male.isSelected()) {
-				check *= 1;
-			}else {
+			}else if(phoneNumber.length()!=12){
+				JOptionPane.showMessageDialog(null, "Phone Number must 12 characters");
+				check*=0;
+				txt_phone.setText("");
+				return;
+			}else if(!radio_female.isSelected() && !radio_male.isSelected()){
 				JOptionPane.showMessageDialog(null, "Gender must be choosen");
-				check *= 0;
+				check*=0;
+				bg_gender.clearSelection();
 				return;
+			}else if(specialization.length()<=0){
+				JOptionPane.showMessageDialog(null, "Specialization must be filled");
+				combo_specialization.setSelectedItem("");
+				check*=0;
+				return;
+			}else{
+				check*=1;
 			}
 
-			if(specialization.length() > 0) {
-				check *= 1;
-			}else {
-				JOptionPane.showMessageDialog(null, "Specialization must be filled");
-				check *= 0;
-				return;
-			}
 			
-			//STORE DATA DI TABEL
 			Object[] row = {id, name, age, address, phoneNumber, gender, specialization};
-			
-			if(check == 1) {
+			if(check==1){
 				dtm_table_doctor.addRow(row);
 				doctors.add(new Doctor(id, name, age, address, phoneNumber, gender, specialization));
-				table_doctor.invalidate();	
+				table_doctor.invalidate();
 			}
 			
 			File file = new File("src/database/datadoctor.txt");
-       		try{
+			try{
 				FileWriter writer = new FileWriter(file, true);
 				writer.write(id+"#"+name+"#"+age+"#"+address+"#"+phoneNumber+"#"+gender+"#"+specialization+"\n");
 				doctors.add(new Doctor(id, name, age, address, phoneNumber, gender, specialization));
@@ -407,7 +415,9 @@ public class RegisterDoctorForm extends JFrame implements ActionListener{
         	}catch (IOException a){
 				System.out.println("File not found!");
 			}
-
+			
+			JOptionPane.showMessageDialog(null, "Data has been submitted!");
+			
 			txt_id.setText("");
 			txt_name.setText("");
 			txt_age.setText("");
@@ -479,15 +489,16 @@ public class RegisterDoctorForm extends JFrame implements ActionListener{
 				combo_specialization.setSelectedItem("");
 			}
 		}else if(e.getSource().equals(btn_clear)) {
-			dtm_table_doctor.setRowCount(0);
-			try {
-				FileWriter writer = new FileWriter("src/database/datadoctor.txt");
-				writer.write("");
-				writer.close();
-				System.out.println("File cleared succesfully!");
-			}catch(IOException a){
-				System.out.println("File Not Found!");
-			}
+			int response = JOptionPane.showConfirmDialog(null, "Are you sure you want to clear?", "Select an option", JOptionPane.YES_NO_OPTION);
+            if(response == JOptionPane.YES_OPTION){
+				txt_id.setText("");
+				txt_name.setText("");
+				txt_age.setText("");
+				txt_address.setText("");
+				txt_phone.setText("");
+				bg_gender.clearSelection();
+				combo_specialization.setSelectedItem("");
+            }
 		}else if(e.getSource().equals(btn_update)){
 			int selectedUpdate = table_doctor.getSelectedRow();
 			if(selectedUpdate >= 0){

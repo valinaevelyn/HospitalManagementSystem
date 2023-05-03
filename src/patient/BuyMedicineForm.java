@@ -267,9 +267,10 @@ public class BuyMedicineForm extends JFrame implements ActionListener{
 			int check = 1;
 			String name = txt_name.getText();
 			String quantity = txt_quantity.getText();
-			double price = Double.parseDouble(txt_price.getText());
-			int max_quan = Integer.parseInt(txt_max_quan.getText());
-			int qtyCheck = Integer.parseInt(quantity);
+			String priceTemp = txt_price.getText();
+			// double price = Double.parseDouble(txt_price.getText());
+			// int max_quan = Integer.parseInt(txt_max_quan.getText());
+			// int qtyCheck = Integer.parseInt(quantity);
 
 			if(name.equals("")){
 				JOptionPane.showMessageDialog(null, "Name field can not be empty!");
@@ -310,6 +311,12 @@ public class BuyMedicineForm extends JFrame implements ActionListener{
 				check = 1;
 			}
 
+			if(priceTemp.equals("")){
+				JOptionPane.showMessageDialog(null, "Price field can not be empty");
+				check = 0;
+				return;
+			}
+
 			for (int i = 0; i < quantity.length(); i++) {
 				if (!Character.isDigit(quantity.charAt(i))) {
 					JOptionPane.showMessageDialog(null, "Quantity field must be field with numbers only!");
@@ -320,6 +327,10 @@ public class BuyMedicineForm extends JFrame implements ActionListener{
 				}
 			}
 
+			
+			double price = Double.parseDouble(txt_price.getText());
+			int max_quan = Integer.parseInt(txt_max_quan.getText());
+			int qtyCheck = Integer.parseInt(quantity);
 			if(qtyCheck > max_quan){
 				JOptionPane.showMessageDialog(null, "Quantity must be less than Maximal Quantity!");
 				check = 0;
@@ -329,6 +340,8 @@ public class BuyMedicineForm extends JFrame implements ActionListener{
 
 			medicines.get(medicineIndex).setStock(max_quan-qtyCheck);
 			dtm_table_medicine.setValueAt(max_quan-qtyCheck, medicineIndex, 4);
+			int price2 = (int) price;
+			int total = qtyCheck * price2;
 
 			try{
 				File file = new File("src/database/medicine.txt");
@@ -344,8 +357,6 @@ public class BuyMedicineForm extends JFrame implements ActionListener{
 				System.out.println("File not found!");
 			}
 
-			int price2 = (int) price;
-			int total = qtyCheck * price2;
 			JOptionPane.showMessageDialog(null, "Your total is Rp" + total +  ". Please report to receptionist to continue payment.");
 
 			File file = new File("src/database/payment.txt");

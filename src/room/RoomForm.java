@@ -243,20 +243,33 @@ public class RoomForm extends JFrame implements ActionListener{
 			int check = 1;
 			String number = txt_number.getText();
 			String type = combo_type.getSelectedItem().toString();
-			Integer duration = Integer.parseInt(txt_duration.getText());
-			Double charge = Double.parseDouble(txt_charge.getText());
+			String durationTemp = txt_duration.getText();
+			String chargeTemp = txt_charge.getText();
 			
 			//VALIDATION
 			String number_validation = "[0-9]+[0-9]+[0-9]";
-
-			if(number.matches(number_validation)) {
-				check *=1;
-			}else {
-				JOptionPane.showMessageDialog(null, "Number must be true!");
-				check *=0;
+			
+			if(!number.matches(number_validation)) {
+				JOptionPane.showMessageDialog(null, "Number must be XXX");
+				check*=0;
+				txt_number.setText("");
+				return;
+			}else if(durationTemp.equals("")){
+				JOptionPane.showMessageDialog(null, "Duration field must be filled!");
+				txt_duration.setText("");
+				check*=0;
+				return;	
+			}else if(chargeTemp.equals("")){
+				JOptionPane.showMessageDialog(null, "Charge field must be filled!");
+				txt_charge.setText("");
+				check*=0;
 				return;
 			}
-
+				
+	
+			Double charge = Double.parseDouble(txt_charge.getText());
+			int duration = Integer.parseInt(txt_duration.getText());
+			
 			//STORE DATA DI TABEL
 			Object[] row = {number, type, duration, charge};
 
@@ -334,15 +347,13 @@ public class RoomForm extends JFrame implements ActionListener{
 				txt_charge.setText("");
 			}
 		}else if(obj.equals(btn_clear)){
-			dtm_table_room.setRowCount(0);
-			try {
-				FileWriter writer = new FileWriter("src/database/dataroom.txt");
-				writer.write("");
-				writer.close();
-				System.out.println("File cleared succesfully!");
-			}catch(IOException a){
-				System.out.println("File Not Found!");
-			}
+			int response = JOptionPane.showConfirmDialog(null, "Are you sure you want to clear?", "Select an option", JOptionPane.YES_NO_OPTION);
+            if(response == JOptionPane.YES_OPTION){
+				txt_number.setText("");
+				combo_type.setSelectedItem("");
+				txt_duration.setText("");
+				txt_charge.setText("");
+            }
 		}else if(obj.equals(btn_update)){
 			int selectedUpdate = table_room.getSelectedRow();
 			if(selectedUpdate >= 0){
