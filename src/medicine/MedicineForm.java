@@ -248,41 +248,59 @@ public class MedicineForm extends JFrame implements ActionListener{
 			String id = txt_id.getText();
 			String name = txt_name.getText();
 			String function = txt_function.getText();
-			double price = Double.parseDouble(txt_price.getText());
-			int stock = Integer.parseInt(txt_stock.getText());
+			String priceTemp = txt_price.getText();
+			// double price = Double.parseDouble(txt_price.getText());
+			String stockTemp = txt_stock.getText();
+			// int stock = Integer.parseInt(txt_stock.getText());
 			String type = combo_type.getSelectedItem().toString();
 
 			//VALIDATION
 			String id_validation = "M+[0-9]+[0-9]+[0-9]";
-			if(id.matches(id_validation)){
-				check *=1;
-			}else{
-				JOptionPane.showMessageDialog(null, "ID must start with 'M'");
+			if(!id.matches(id_validation)){
+				JOptionPane.showMessageDialog(null, "ID must be start with M and followed by 3 numbers");
 				check *=0;
+				txt_id.setText("");
 				return;
-			}
-
-			if(name.length()>10){
-				check *=1;
-			}else{
-				check *=0;
+			}else if(name.length()<10){
 				JOptionPane.showMessageDialog(null, "Name must be more than 10 characters");
+				check *=0;
+				txt_name.setText("");
+				return;
+			}else if(function.length()<10){
+				JOptionPane.showMessageDialog(null, "Function must be more than 10 characters");
+				txt_function.setText("");
+				check *=0;
 				return;
 			}
 
-			if(price >= 500){
-				check *=1;
-			}else{
+			double price = Double.parseDouble(txt_price.getText());
+			if(priceTemp.equals("")){
+				JOptionPane.showMessageDialog(null, "Price must be filled!");
+				txt_price.setText("");
 				check *=0;
+				return;
+			}
+
+			if(price < 500){
 				JOptionPane.showMessageDialog(null, "Price must be more than 500.00!");
+				txt_price.setText("");
+				check *=0;
+				return;
+			}
+			
+			int stock = Integer.parseInt(txt_stock.getText());
+
+			if(stockTemp.equals("")){
+				JOptionPane.showMessageDialog(null, "Stock must be filled!");
+				txt_stock.setText("");
+				check *=0;
 				return;
 			}
 
-			if(stock >= 0){
-				check *=1;
-			}else{
+			if(stock < 1){
+				JOptionPane.showMessageDialog(null, "Stock must be more than 0!");
+				txt_stock.setText("");
 				check *=0;
-				JOptionPane.showMessageDialog(null, "Stock must be more than 0");
 				return;
 			}
 			
